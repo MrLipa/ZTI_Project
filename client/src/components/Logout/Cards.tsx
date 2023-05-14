@@ -1,6 +1,13 @@
 import Card from "react-bootstrap/Card";
 
-  
+interface Flight {
+  image: string;
+  from: string;
+  to: string;
+  date: string;
+  price: number;
+}
+
 const products = [
 {
     id: 1,
@@ -83,8 +90,11 @@ const products = [
     date: "2023-05-15",
 },
 ];
+interface ProductCardProps {
+  flight: Flight;
+}
 
-const ProductCard = ({ flight }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ flight }) => {
     return (
         <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src={flight.image} />

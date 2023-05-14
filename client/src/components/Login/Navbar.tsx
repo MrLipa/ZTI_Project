@@ -9,7 +9,17 @@ import Flags from "country-flag-icons/react/3x2";
 import { AppContext } from './Layout';
 
 function NavigationBar() {
-  const { sidebar, changeSidebar, theme, changeTheme, language, changeLanguage} = useContext(AppContext);
+  const context = useContext(AppContext);
+
+  // Możesz dodać domyślne wartości, jeżeli kontekst jest undefined
+  const { 
+    sidebar = false, 
+    changeSidebar = () => {}, 
+    theme = 'light', 
+    changeTheme = () => {}, 
+    language = <Flags.PL style={{ width: '25px', height: '25px' }} />,
+    changeLanguage = (lang: React.ReactNode) => {} 
+  } = context || {};
 
   const flagStyles = { width: '25px', height: '25px' };
   const polandFlag = <Flags.PL style={flagStyles} />;

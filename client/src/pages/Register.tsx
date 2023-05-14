@@ -56,11 +56,11 @@ const Register = () => {
         setValidMatch(pwd === matchPwd);
     }, [pwd, matchPwd])
 
-    const handleRegister = async (e) => {
+    const handleRegister = async (e: any) => {
         e.preventDefault();
     }
 
-    const handleCodeAuthentication = async (e) => {
+    const handleCodeAuthentication = async (e: any) => {
         e.preventDefault()
     }
     return (

@@ -11,7 +11,7 @@ const NavigationBar = () => {
 
   const [selectedFlag, setSelectedFlag] = useState(polandFlag);
 
-  const handleFlagChange = (flag) => {
+  const handleFlagChange = (flag: any) => {
     setSelectedFlag(flag);
   };
   

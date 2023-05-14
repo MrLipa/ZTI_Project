@@ -1,0 +1,55 @@
+Pomysł na projekt z wykorzystaniem Springa oraz Neo4j oraz Reacta można zrealizować w postaci serwisu internetowego umożliwiającego użytkownikom planowanie podróży lotniczych.
+
+Funkcjonalności dla użytkownika niezalogowanego:
+
+Przeglądanie dostępnych lotów pomiędzy wybranymi miastami, wyświetlanie informacji o cenie, czasie lotu i dostępnych miejscach
+Rejestracja w serwisie, umożliwiająca późniejsze korzystanie z bardziej zaawansowanych funkcjonalności
+Logowanie do serwisu
+Funkcjonalności dla użytkownika zalogowanego:
+
+Wyszukiwanie lotów pomiędzy wybranymi miastami z możliwością filtrowania wyników według kryteriów takich jak: cena, godzina wylotu czy długość przesiadki
+Rezerwacja miejsc na wybrane loty oraz dokonywanie płatności
+Przeglądanie historii rezerwacji oraz zarządzanie nimi (m.in. zmiana daty lotu, anulowanie rezerwacji)
+Przeglądanie informacji o swoim koncie oraz możliwość zmiany hasła
+Przeglądanie informacji o lotniskach (m.in. informacje o odprawie, informacje o punktach gastronomicznych i sklepach na lotnisku)
+Wyświetlanie informacji o statusie lotów oraz opóźnieniach
+Możliwość kontaktu z obsługą klienta
+
+niezalogowany przegladanie lotów proste bez bajerów najkrótszych ścieżkach itp wraz z cenami i przewodnikiem
+zalogowany przeglądanie zawansowane i rezerwacja lotu
+jak ma wyglądać baza danych grafowa w któej mam użytkownika jego rezerwacje lotniska połączenia miedzy nnimi i wolne miejsca
+
+Warto wspomnieć
+
+node -v
+prettier
+settings format on save
+vite przyśpiesza i zmniejsza bundle
+npm create vite@latest | npm create vite@4.1.0l
+cd react-app
+npm install | npm i wszystkie third party potrzebne biblioteki
+npm run dev
+OPIS CO TO JEST REACT VITE ORAZ POSZCZEGÓLNE FOLDERY NODE MODULES SRC PUBLIC ORAZ PLIKI APP INDEX PACKAGE.JSON DEVDEPENDENCIES TSCONFIG.JSON VITE.TS
+folder components powinno być funkcyjne są popularniejsze od klasowych
+PascalCasing
+czym sie różni ts od tsx
+JSX opowiedz
+APP.tsx opowiedz o kodzie
+opowiedz że vite hmr hot module replacement odświerzył
+nawiasy {} dajemy tam js kod oraz stwórz jaką stałą
+Powiedz o Virtualnym DOmie dependencies react dom opowiedz o main.tsx
+npm i bootstrap@latest | npm i bootstrap@5.2.3 opowiedz o package.json usuń css import 'bootstrap/dist/css/bootstrap.css'
+format document with prettier
+wrap with 
+for each element shoud have key
+jak działa &&
+różnica let a const
+typescript ostrzega nas że brakuje nam argumentu
+różnica miedzy props a state że jest immutable
+es7+ wtyczka
+children
+react developer tools sorce code
+npm i react-bootstrap
+powiedz o routering że book\:id ma to samo book\new
+
+npm i @tanstack/react-query paginacja lazy loading zarządzanie stanami cachowanie danych

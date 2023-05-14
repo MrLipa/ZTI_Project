@@ -1,10 +1,19 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, ReactNode } from 'react';
 import Navbar from './Navbar';
 import Footer from '../Footer';
 import { Outlet } from 'react-router-dom';
 import Flags from 'country-flag-icons/react/3x2';
 
-export const AppContext = createContext();
+interface ContextType {
+    sidebar: boolean;
+    changeSidebar: () => void;
+    theme: string;
+    changeTheme: () => void;
+    language: ReactNode;
+    changeLanguage: (selectedLanguage: ReactNode) => void;
+}
+
+export const AppContext = createContext<ContextType | undefined>(undefined);
 
 function Layout() {
   const [sidebar, setSidebar] = useState(false);
@@ -17,7 +26,7 @@ function Layout() {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-  const changeLanguage = (selectedLanguage) => {
+  const changeLanguage = (selectedLanguage: any) => {
     setLanguage(selectedLanguage);
   };
 
