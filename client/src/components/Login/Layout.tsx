@@ -1,46 +1,30 @@
-import React, { useState, createContext, ReactNode } from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Footer from '../Footer';
 import { Outlet } from 'react-router-dom';
-import Flags from 'country-flag-icons/react/3x2';
 
-interface ContextType {
-    sidebar: boolean;
-    changeSidebar: () => void;
-    theme: string;
-    changeTheme: () => void;
-    language: ReactNode;
-    changeLanguage: (selectedLanguage: ReactNode) => void;
+interface SidebarContextProps {
+  sidebar: boolean;
+  toggleSidebar: () => void;
 }
 
-export const AppContext = createContext<ContextType | undefined>(undefined);
+export const SidebarContext = React.createContext<SidebarContextProps>({
+  sidebar: false,
+  toggleSidebar: () => {}
+});
 
 function Layout() {
   const [sidebar, setSidebar] = useState(false);
-  const [theme, setTheme] = useState('light');
-  const [language, setLanguage] = useState(<Flags.PL style={{ width: '25px', height: '25px' }} />);
 
-  const changeSidebar = () => setSidebar(!sidebar);
+  const toggleSidebar = () => setSidebar(!sidebar);
 
-  const changeTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
-
-  const changeLanguage = (selectedLanguage: any) => {
-    setLanguage(selectedLanguage);
-  };
-
-  const appContextValue = {
+  const contextValue: SidebarContextProps = {
     sidebar,
-    changeSidebar,
-    theme,
-    changeTheme,
-    language,
-    changeLanguage,
+    toggleSidebar
   };
   
   return (
-    <AppContext.Provider value={appContextValue}>
+    <SidebarContext.Provider value={contextValue}>
       <div className="App d-flex flex-column min-vh-100">
         <Navbar />
         <div style={{ marginLeft: sidebar ? '260px' : '0px', transition: `margin-left 350ms` }}>
@@ -50,7 +34,7 @@ function Layout() {
           <Footer />
         </div>
       </div>
-    </AppContext.Provider>
+    </SidebarContext.Provider>
   );
 }
 

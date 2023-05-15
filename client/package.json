@@ -13,10 +13,16 @@
     "bootstrap-icons": "^1.10.5",
     "country-flag-icons": "^1.5.7",
     "fortawesome": "^0.0.1-security",
+    "i18next": "^22.4.15",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-backend": "^2.2.0",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
+    "react-i18next": "^12.2.2",
     "react-icons": "^4.8.0",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.11.1"
   },
   "devDependencies": {

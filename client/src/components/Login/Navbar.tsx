@@ -2,35 +2,39 @@ import React, { useContext } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
-import { Navbar, Nav, Container, NavDropdown, Form, Button, FormControl } from 'react-bootstrap';
-import { FaSun } from 'react-icons/fa';
-import { useState } from 'react';
+import { Navbar, Nav, NavDropdown, Form, Button, FormControl } from 'react-bootstrap';
+import { FaSun, FaMoon } from 'react-icons/fa';
 import Flags from "country-flag-icons/react/3x2";
-import { AppContext } from './Layout';
+import { SidebarContext } from './Layout';
+import { ThemeContext } from './../ThemeContext';
+import { LanguageContext } from './../LanguageContext';
+
+interface FlagProps {
+  style: React.CSSProperties;
+}
+
+interface FlagsType {
+  [key: string]: React.ReactElement<FlagProps>;
+}
 
 function NavigationBar() {
-  const context = useContext(AppContext);
-
-  // Możesz dodać domyślne wartości, jeżeli kontekst jest undefined
-  const { 
-    sidebar = false, 
-    changeSidebar = () => {}, 
-    theme = 'light', 
-    changeTheme = () => {}, 
-    language = <Flags.PL style={{ width: '25px', height: '25px' }} />,
-    changeLanguage = (lang: React.ReactNode) => {} 
-  } = context || {};
+  const { sidebar, toggleSidebar } = useContext(SidebarContext);
+  const { language, toggleLanguage } = useContext(LanguageContext);
+  const { darkTheme, toggleTheme } = useContext(ThemeContext);
 
   const flagStyles = { width: '25px', height: '25px' };
-  const polandFlag = <Flags.PL style={flagStyles} />;
-  const ukFlag = <Flags.GB style={flagStyles} />;
-  const germanyFlag = <Flags.DE style={flagStyles} />;
+
+  const flags: FlagsType = {
+    "pl": <Flags.PL style={flagStyles} />,
+    "gb": <Flags.GB style={flagStyles} />,
+    "de": <Flags.DE style={flagStyles} />,
+  };
 
   return (
     <>
       <Navbar className='navbar justify-content-between'>
         <div>
-          <FaIcons.FaBars onClick={changeSidebar} className="mx-3 fs-4 text-white"/>
+          <FaIcons.FaBars onClick={ toggleSidebar } className="mx-3 fs-4 text-white"/>
         </div>
         <Form className="search-bar-container d-flex align-items-center">
           <FormControl type="text" placeholder="Search"  style={{marginLeft:'300px', width:'700px'}}/>
@@ -38,13 +42,17 @@ function NavigationBar() {
         </Form>
         <div className="d-flex align-items-center">
           <Nav>
-            <NavDropdown className="transparent-dropdown" title={language}>
-              <NavDropdown.Item style={{width:'70px'}} onClick={() => changeLanguage(polandFlag)}>{polandFlag} 🇵🇱</NavDropdown.Item>
-              <NavDropdown.Item  style={{width:'70px'}} onClick={() => changeLanguage(ukFlag)}>{ukFlag} 🇬🇧</NavDropdown.Item>
-              <NavDropdown.Item  style={{width:'70px'}} onClick={() => changeLanguage(germanyFlag)}>{germanyFlag} 🇩🇪</NavDropdown.Item>
+            <NavDropdown className="transparent-dropdown" title={flags[language]}>
+              <NavDropdown.Item style={{width:'70px'}} onClick={() => toggleLanguage("pl")}>{flags["pl"]} 🇵🇱</NavDropdown.Item>
+              <NavDropdown.Item style={{width:'70px'}} onClick={() => toggleLanguage("gb")}>{flags["gb"]} 🇬🇧</NavDropdown.Item>
+              <NavDropdown.Item style={{width:'70px'}} onClick={() => toggleLanguage("de")}>{flags["de"]} 🇩🇪</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <FaSun className="sun-icon mx-4" />
+          {darkTheme ? (
+            <FaMoon className="moon-icon mx-4" onClick={toggleTheme} />
+          ) : (
+            <FaSun className="sun-icon mx-4" onClick={toggleTheme} />
+          )}
         </div>
       </Navbar>
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
@@ -68,7 +76,7 @@ function NavigationBar() {
 
           <li className='list-unstyled mx-4 my-5 py-5'>
             <FaIcons.FaArrowLeft
-              onClick={changeSidebar}
+              onClick={ toggleSidebar }
               className="text-white fs-4"
             />
           </li>
