@@ -2,7 +2,7 @@ import {
   Container,
 } from "react-bootstrap";
 import backgroundImage from "../images/1.jpg";
-import Cards from "../components/Logout/Cards";
+import FlightCards from "../components/Logout/FlightCards";
 import Navbar from "../components/Logout/Navbar";
 import Footer from "../components/Footer";
 
@@ -16,7 +16,7 @@ return (
             Ut quis libero non lorem auctor malesuada non vitae augue. Sed convallis luctus erat dapibus pulvinar. Sed blandit justo orci, eget facilisis urna tincidunt rutrum. Vivamus ac egestas sem, quis auctor felis. In hac habitasse platea dictumst. Suspendisse potenti. Proin ut molestie eros. Nam ornare aliquam elementum. In tellus diam, sollicitudin a aliquet at, tincidunt nec sapien. Praesent eget nisi at nulla finibus finibus. Aliquam erat volutpat. Pellentesque rutrum lobortis congue. Duis luctus tincidunt rhoncus.
           </Container>
       </div>
-      <Cards/>
+      <FlightCards/>
       <Footer />
   </>
 )

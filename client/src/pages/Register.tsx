@@ -2,7 +2,7 @@ import {
   Container,
 } from "react-bootstrap";
 import backgroundImage from "../images/1.jpg";
-import Cards from "../components/Logout/Cards";
+import FlightCards from "../components/Logout/FlightCards";
 import Navbar from "../components/Logout/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
@@ -191,7 +191,7 @@ const Register = () => {
                     </p>
                 </Container>
             </div>
-            <Cards/>
+            <FlightCards/>
             <Footer />
         </>
     )

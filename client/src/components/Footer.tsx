@@ -1,16 +1,18 @@
 import { Container } from 'react-bootstrap';
 import { FaFacebookF,FaTwitter,FaYoutube,FaGooglePlus } from "react-icons/fa";
+import { useTranslation } from 'react-i18next'
 
 const Footer = () => {
-
+  const { t } = useTranslation()
+  
   return (
     <footer className="bg-dark text-light py-3">
       <div className="container">
         <div className="row">
           <div className="col-md-5">
-            <h5>Traveever</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum imperdiet tellus ex, tincidunt euismod eros aliquet non. Sed sed lectus nec lectus dictum scelerisque. Nulla congue venenatis mi, venenatis viverra ligula sodales et. Nam condimentum varius efficitur.</p>
-            <h5>Szkaradek Tomasz</h5>
+            <h5>{t('Air Book')}</h5>
+            <p>{t('Footer_Introduce')}</p>
+            <h5>Student Debil</h5>
             <Container className="my-4">
               <FaFacebookF style={{ marginRight: "20px", width: "32px",height: "32px"}}/>
               <FaTwitter style={{ marginRight: "20px", width: "32px",height: "32px"}} />
@@ -19,16 +21,16 @@ const Footer = () => {
             </Container>
           </div>
           <div className="col-md-3">
-            <h5>Contact</h5>
+            <h5>{t('Footer_Contact')}</h5>
             <ul className="list-unstyled">
-              <li><strong>Name:</strong> John Doe</li>
-              <li><strong>Email:</strong> john.doe@example.com</li>
-              <li><strong>Phone:</strong> +1-555-1234</li>
+              <li><strong>{t('Footer_Name')}</strong> Student Debil</li>
+              <li><strong>{t('Footer_Email')}</strong> student.debil@example.com</li>
+              <li><strong>{t('Footer_Phone')}</strong> +48 213 742 069</li>
             </ul>
           </div>
           <div className="col-md-4">
-            <h5>Newsletter</h5>
-            <p>Subscribe to our newsletter to get the latest news and updates.</p>
+            <h5>{t('Footer_Newsletter')}</h5>
+            <p>{t('Footer_Subscribe')}</p>
           </div>
         </div>
       </div>

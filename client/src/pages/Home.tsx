@@ -7,7 +7,7 @@ import {
   import backgroundImage from "../images/1.jpg";
   import { InputGroup } from "react-bootstrap";
   import { FaMapMarkerAlt, FaSearch } from "react-icons/fa";
-  import Cards from "../components/Logout/Cards";
+  import FlightCards from "../components/Logout/FlightCards";
   import Navbar from "../components/Logout/Navbar";
   import Footer from "../components/Footer";
 
@@ -54,7 +54,7 @@ const Home = () => {
                 </InputGroup>
             </Container>
         </div>
-        <Cards/>
+        <FlightCards/>
         <Footer />
     </>
   )

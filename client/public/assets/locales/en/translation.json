@@ -1,0 +1,20 @@
+{
+    "FlightCard_Date": "Date",
+    "FlightCard_Price": "Price",
+    "FlightCard_Currency": "PLN",
+
+    "Navbar_Brand": "Air Book",
+    "Navbar_Home": "Home",
+    "Navbar_Help": "Help",
+    "Navbar_Login": "Login",
+    "Navbar_Register": "Register",
+
+    "Footer_Brand": "Air Book",
+    "Footer_Introduce": "AirBook is a web platform that allows customers to easily book flight tickets, browse flight information, and plan their travels. The main goal of AirBook is to provide users with a convenient and intuitive way to book flights and deliver comprehensive flight information.",
+    "Footer_Contact": "Contact",
+    "Footer_Name": "Name:",
+    "Footer_Email": "Email:",
+    "Footer_Phone": "Phone:",
+    "Footer_Newsletter": "Newsletter",
+    "Footer_Subscribe": "Subscribe to our newsletter to get the latest news and updates."
+}

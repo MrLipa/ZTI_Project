@@ -26,7 +26,7 @@ function NavigationBar() {
 
   const flags: FlagsType = {
     "pl": <Flags.PL style={flagStyles} />,
-    "gb": <Flags.GB style={flagStyles} />,
+    "en": <Flags.GB style={flagStyles} />,
     "de": <Flags.DE style={flagStyles} />,
   };
 
@@ -44,7 +44,7 @@ function NavigationBar() {
           <Nav>
             <NavDropdown className="transparent-dropdown" title={flags[language]}>
               <NavDropdown.Item style={{width:'70px'}} onClick={() => toggleLanguage("pl")}>{flags["pl"]} 🇵🇱</NavDropdown.Item>
-              <NavDropdown.Item style={{width:'70px'}} onClick={() => toggleLanguage("gb")}>{flags["gb"]} 🇬🇧</NavDropdown.Item>
+              <NavDropdown.Item style={{width:'70px'}} onClick={() => toggleLanguage("en")}>{flags["en"]} 🇬🇧</NavDropdown.Item>
               <NavDropdown.Item style={{width:'70px'}} onClick={() => toggleLanguage("de")}>{flags["de"]} 🇩🇪</NavDropdown.Item>
             </NavDropdown>
           </Nav>

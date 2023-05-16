@@ -1,0 +1,20 @@
+{
+    "FlightCard_Date": "Datum",
+    "FlightCard_Price": "Preis",
+    "FlightCard_Currency": "PLN",
+
+    "Navbar_Brand": "Air Book",
+    "Navbar_Home": "Startseite",
+    "Navbar_Help": "Hilfe",
+    "Navbar_Login": "Anmelden",
+    "Navbar_Register": "Registrieren",
+
+    "Footer_Brand": "Air Book",
+    "Footer_Introduce": "AirBuchen ist eine Webplattform, die es Kunden ermöglicht, Flugtickets einfach zu buchen, Fluginformationen zu durchsuchen und ihre Reisen zu planen. Das Hauptziel von AirBuchen ist es, den Benutzern eine bequeme und intuitive Möglichkeit zur Flugbuchung zu bieten und umfassende Fluginformationen bereitzustellen.",
+    "Footer_Contact": "Kontakt",
+    "Footer_Name": "Name:",
+    "Footer_Email": "E-Mail:",
+    "Footer_Phone": "Telefon:",
+    "Footer_Newsletter": "Newsletter",
+    "Footer_Subscribe": "Abonnieren Sie unseren Newsletter, um die neuesten Nachrichten und Updates zu erhalten."
+}

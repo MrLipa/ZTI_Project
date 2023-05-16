@@ -1,5 +1,5 @@
 import backgroundImage from "../images/1.jpg";
-import Cards from "../components/Logout/Cards";
+import FlightCards from "../components/Logout/FlightCards";
 import Navbar from "../components/Logout/Navbar";
 import Footer from "../components/Footer";
 import React, { useState } from 'react';
@@ -63,7 +63,7 @@ const Login = () => {
               </p>
             </Container>
         </div>
-        <Cards/>
+        <FlightCards/>
         <Footer />
     </>
   )

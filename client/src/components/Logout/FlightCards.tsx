@@ -1,4 +1,5 @@
 import Card from "react-bootstrap/Card";
+import { useTranslation } from 'react-i18next'
 
 interface Flight {
   image: string;
@@ -24,7 +25,7 @@ const products = [
     city: "Rome",
     country: "Italy",
     price: 149.99,
-    image: "https://picsum.photos/id/1074/300/200",
+    image: "https://res.klook.com/image/upload/Mobile/City/afmqgg5h0jl9wnr1dfmf.jpg",
     from: "Rome",
     to: "Italy",
     date: "2023-05-15",
@@ -34,7 +35,7 @@ const products = [
     city: "Tokyo",
     country: "Japan",
     price: 199.99,
-    image: "https://picsum.photos/id/1021/300/200",
+    image: "https://lp-cms-production.imgix.net/2021-03/500pxRF_77415821.jpg?auto=format&w=1440&h=810&fit=crop&q=75",
     from: "Tokyo",
     to: "Japan",
     date: "2023-05-15",
@@ -90,44 +91,46 @@ const products = [
     date: "2023-05-15",
 },
 ];
-interface ProductCardProps {
+
+interface FlightCardProps {
   flight: Flight;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ flight }) => {
-    return (
-        <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={flight.image} />
-            <Card.Body>
-                <Card.Title style={{ color: "blue" }}>
-                {flight.from} - {flight.to}
-                </Card.Title>
-                <Card.Text style={{ fontSize: "0.8rem" }}>
-                Data: {flight.date}
-                </Card.Text>
-                <Card.Text style={{ color: "red", textAlign: "right" }}>
-                Cena: {flight.price} PLN
-                </Card.Text>
-            </Card.Body>
-        </Card>
-    );
+const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
+  const { t } = useTranslation()
+  return (
+      <Card style={{ width: "18rem" }}>
+          <Card.Img variant="top" src={flight.image} style={{ width: "18rem", height: "200px" }} />
+          <Card.Body>
+              <Card.Title style={{ color: "blue" }}>
+              {flight.from} - {flight.to}
+              </Card.Title>
+              <Card.Text style={{ fontSize: "0.8rem" }}>
+              {t('FlightCard_Date')} {flight.date}
+              </Card.Text>
+              <Card.Text style={{ color: "red", textAlign: "right" }}>
+              {t('FlightCard_Price')} {flight.price} {t('FlightCard_Currency')}
+              </Card.Text>
+          </Card.Body>
+      </Card>
+  );
 };
 
 
-const Cards = () => {
+const FlightCards = () => {
   return (
     <section className="py-5">
-    <div className="container">
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-        {products.map((product) => (
-          <div className="col" key={product.id}>
-            <ProductCard flight={product} />
-          </div>
-        ))}
+      <div className="container">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+          {products.map((product) => (
+            <div className="col" key={product.id}>
+              <FlightCard flight={product} />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
   )
 }
 
-export default Cards
+export default FlightCards

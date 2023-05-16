@@ -4,6 +4,7 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 import Flags from "country-flag-icons/react/3x2";
 import { ThemeContext } from './../ThemeContext';
 import { LanguageContext } from './../LanguageContext';
+import { useTranslation } from 'react-i18next'
 
 interface FlagProps {
   style: React.CSSProperties;
@@ -25,22 +26,24 @@ const NavigationBar: React.FC = () => {
     "de": <Flags.DE style={flagStyles} />,
   };
 
+  const { t } = useTranslation()
+
   return (
     <Navbar bg="transparent" variant="light" expand="md" style={{ marginLeft: '7vw', marginRight: '7vw', paddingTop: '7vh' }}>
-      <Navbar.Brand href="#" className="brand-name" style={{ fontSize: '40px' }}>Travelever</Navbar.Brand>
+      <Navbar.Brand href="#" className="brand-name" style={{ fontSize: '40px' }}>{t('Navbar_Brand')}</Navbar.Brand>
       <Navbar.Toggle aria-controls="navbar-nav" />
       <Navbar.Collapse id="navbar-nav" className="justify-content-between">
         <Nav className="mx-auto" style={{ fontSize: '25px' }}>
-          <Nav.Link href="/" className='mx-4'>Home</Nav.Link>
-          <Nav.Link href="/help" className='mx-4'>Help</Nav.Link>
-          <Nav.Link href="/login" className='mx-4'>Login</Nav.Link>
-          <Nav.Link href="/register" className='mx-4'>Register</Nav.Link>
+          <Nav.Link href="/" className='mx-4'>{t('Navbar_Home')}</Nav.Link>
+          <Nav.Link href="/help" className='mx-4'>{t('Navbar_Help')}</Nav.Link>
+          <Nav.Link href="/login" className='mx-4'>{t('Navbar_Login')}</Nav.Link>
+          <Nav.Link href="/register" className='mx-4'>{t('Navbar_Register')}</Nav.Link>
         </Nav>
         <Nav>
           <NavDropdown className="transparent-dropdown" title={flags[language]}>
-            <NavDropdown.Item style={{ width: '70px' }} onClick={() => toggleLanguage("pl")}>{flags["pl"]} 🇵🇱</NavDropdown.Item>
-            <NavDropdown.Item style={{ width: '70px' }} onClick={() => toggleLanguage("gb")}>{flags["gb"]} 🇬🇧</NavDropdown.Item>
-            <NavDropdown.Item style={{ width: '70px' }} onClick={() => toggleLanguage("de")}>{flags["de"]} 🇩🇪</NavDropdown.Item>
+            <NavDropdown.Item style={{ width: '55px' }} onClick={() => toggleLanguage("pl")}>{flags["pl"]}</NavDropdown.Item>
+            <NavDropdown.Item style={{ width: '55px' }} onClick={() => toggleLanguage("gb")}>{flags["gb"]}</NavDropdown.Item>
+            <NavDropdown.Item style={{ width: '55px' }} onClick={() => toggleLanguage("de")}>{flags["de"]}</NavDropdown.Item>
           </NavDropdown>
         </Nav>
         {darkTheme ? (
