@@ -2,21 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        // stage('Checkout') {
+        //     steps {
+        //         git 'https://github.com/MrLipa/ZTI_Project.git'
+        //     }
+        // }
+
+        stage('Build Docker image') {
             steps {
-                git 'URL_DO_TWOJEGO_REPOZYTORIUM'
+                dir('client') {
+                    sh 'docker build -t react-image .'
+                }
             }
         }
 
-        stage('Build Docker images') {
+        stage('Run Docker container') {
             steps {
-                sh 'docker-compose build'
-            }
-        }
-
-        stage('Deploy Docker containers') {
-            steps {
-                sh 'docker-compose up -d'
+                sh 'docker run -d -p 3000:3000 --name react-app --env CHOKIDAR_USEPOLLING=true --env WATCHPACK_POLLING=true react-image'
             }
         }
     }
