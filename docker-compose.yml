@@ -54,9 +54,8 @@ services:
     user: root
     ports:
       - 8080:8080
-      - 50000:50000
     environment:
-      - JENKINS_OPTS=--prefix=/jenkins
+      # - JENKINS_OPTS=--prefix=/jenkins
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     restart: always
     privileged: true
