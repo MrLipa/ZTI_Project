@@ -2,36 +2,36 @@ version: '3.1'
 
 services:
 
-  database:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-    volumes:
-      - ./config/model/database.sql:/docker-entrypoint-initdb.d/database.sql
-    ports:
-      - "5432:5432"
-    privileged: true
+  # database:
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: postgres
+  #   volumes:
+  #     - ./config/model/database.sql:/docker-entrypoint-initdb.d/database.sql
+  #   ports:
+  #     - "5432:5432"
+  #   privileged: true
 
-  pdadmin:
-    image: dpage/pgadmin4
-    restart: always
-    ports:
-      - "81:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: example@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: example
-      PGADMIN_SERVER_MODE: 'True'
-      PGADMIN_SERVER_JSON_FILE: /pgadmin4/servers.json
-    volumes:
-      - ./config/servers.json:/pgadmin4/servers.json
-    depends_on:
-      - database
-    links:
-      - database
-    privileged: true
+  # pdadmin:
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   ports:
+  #     - "81:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: example@gmail.com
+  #     PGADMIN_DEFAULT_PASSWORD: example
+  #     PGADMIN_SERVER_MODE: 'True'
+  #     PGADMIN_SERVER_JSON_FILE: /pgadmin4/servers.json
+  #   volumes:
+  #     - ./config/servers.json:/pgadmin4/servers.json
+  #   depends_on:
+  #     - database
+  #   links:
+  #     - database
+  #   privileged: true
 
   backend:
     build:
@@ -41,8 +41,6 @@ services:
       - '3000:3000'
     volumes:
       - ./backend:/app
-    depends_on:
-      - database
 
   frontend:
     build:
@@ -56,17 +54,17 @@ services:
     depends_on:
       - backend
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    user: root
-    ports:
-      - 8080:8080
-      - 50000:50000
-    environment:
-      - JENKINS_OPTS=--prefix=/jenkins
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
-    restart: always
-    privileged: true
+  # jenkins:
+  #   image: jenkins/jenkins:lts
+  #   user: root
+  #   ports:
+  #     - 8080:8080
+  #     - 50000:50000
+  #   environment:
+  #     - JENKINS_OPTS=--prefix=/jenkins
+  #     - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+  #   restart: always
+  #   privileged: true
 
 volumes:
   postgres:
