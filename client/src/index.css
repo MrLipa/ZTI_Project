@@ -40,6 +40,15 @@ html, body, #root, .App {
   left: 0;
   transition: 350ms;
 }
+.carousel-control-prev{
+  filter: invert(100%);
+  transform: translateX(-165px);
+}
+.carousel-control-next{
+  filter: invert(100%);
+  transform: translateX(150px);
+}
+
 /* 
 --------------------Register--------------------
 */

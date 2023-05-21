@@ -1,14 +1,23 @@
 {
+    "Home_Title": "Podróżuj z maksymalnym komfortem",
+    "Home_Description": "Znajdź najlepsze oferty podróży i zarezerwuj wymarzony wyjazd.",
+    "Home_Placeholder_From": "Z",
+    "Home_Placeholder_To": "Do",
+    "Home_Class_Economy": "Klasa ekonomiczna",
+    "Home_Class_Premium": "Klasa premium",
+    "Home_Class_Business": "Klasa biznesowa",
+    "Home_Search": "Szukaj",
+  
     "FlightCard_Date": "Data",
     "FlightCard_Price": "Cena",
     "FlightCard_Currency": "PLN",
-
+  
     "Navbar_Brand": "Air Book",
     "Navbar_Home": "Strona główna",
     "Navbar_Help": "Pomoc",
     "Navbar_Login": "Zaloguj się",
     "Navbar_Register": "Zarejestruj się",
-
+  
     "Footer_Brand": "Air Book",
     "Footer_Introduce": "AirBook to platforma internetowa, która umożliwia klientom łatwe rezerwowanie biletów lotniczych, przeglądanie informacji o lotach oraz planowanie podróży. Głównym celem AirBook jest zapewnienie użytkownikom wygodnego i intuicyjnego sposobu rezerwacji lotów oraz dostarczanie wyczerpujących informacji o lotach.",
     "Footer_Contact": "Kontakt",
@@ -17,4 +26,5 @@
     "Footer_Phone": "Telefon:",
     "Footer_Newsletter": "Newsletter",
     "Footer_Subscribe": "Zapisz się do naszego biuletynu, aby otrzymywać najnowsze wiadomości i aktualizacje."
-}
+  }
+  

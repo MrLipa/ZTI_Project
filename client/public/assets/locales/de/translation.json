@@ -1,4 +1,13 @@
 {
+    "Home_Title": "Reisen Sie mit maximalem Komfort",
+    "Home_Description": "Finden Sie die besten Reiseangebote und buchen Sie Ihren Traumurlaub.",
+    "Home_Placeholder_From": "Von",
+    "Home_Placeholder_To": "Nach",
+    "Home_Class_Economy": "Economy-Klasse",
+    "Home_Class_Premium": "Premium-Klasse",
+    "Home_Class_Business": "Business-Klasse",
+    "Home_Search": "Suchen",
+
     "FlightCard_Date": "Datum",
     "FlightCard_Price": "Preis",
     "FlightCard_Currency": "PLN",

@@ -1,40 +1,19 @@
 {
 	"info": {
 		"_postman_id": "2bbd74b8-5a94-4e6d-9f58-f7195f0b68d5",
-		"name": "Book-Rating",
+		"name": "Air-Book",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "/api/hello-world",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/br_backend-1.0-SNAPSHOT/api/hello-world",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"br_backend-1.0-SNAPSHOT",
-						"api",
-						"hello-world"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/api/book",
+			"name": "http://localhost:3000/user",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc01vZGVyYXRvciI6dHJ1ZSwiaXNzIjoiQm9vayBSYXRpbmciLCJsb2dpbiI6ImFkbWluIiwiZXhwIjoxNjgyMjYzMDk3fQ.eOFCy8vrWTGxaZWG-MI6VCoJTMTLn5p5lGAdniUwp48",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
 							"type": "string"
 						}
 					]
@@ -42,30 +21,58 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/br_backend-1.0-SNAPSHOT/api/book",
+					"raw": "http://localhost:3000/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
-						"br_backend-1.0-SNAPSHOT",
-						"api",
-						"book"
+						"user"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "/api/book",
+			"name": "http://localhost:3000/user/",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc01vZGVyYXRvciI6dHJ1ZSwiaXNzIjoiQm9vayBSYXRpbmciLCJsb2dpbiI6ImFkbWluIiwiZXhwIjoxNjgyMjYyMDkyfQ.JqudfVG5ud5xYOZ-nHLvCFm3BSSTCnEmFumwFIuu62c",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user/johndoe@example.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"johndoe@example.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
 							"type": "string"
 						}
 					]
@@ -74,7 +81,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"isbn\": \"213742069\",\r\n    \"author\": \"Example Author\",\r\n    \"title\": \"Example Book\",\r\n    \"year\": 2022,\r\n    \"publisher\": \"Example Publisher\",\r\n    \"domain\": \"Example Domain\"\r\n}",
+					"raw": "{\r\n  \"firstName\": \"111\",\r\n  \"lastName\": \"111\",\r\n  \"email\": \"111@example.com\",\r\n  \"password\": \"111\",\r\n  \"image\": \"111\",\r\n  \"flightIds\": [1, 2, 3]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -82,29 +89,37 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/br_backend-1.0-SNAPSHOT/api/book",
+					"raw": "http://localhost:3000/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
-						"br_backend-1.0-SNAPSHOT",
-						"api",
-						"book"
+						"user"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "/api/auth/login",
+			"name": "http://localhost:3000/user",
 			"request": {
-				"method": "POST",
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"login\": \"admin\",\r\n  \"password\": \"admin\"\r\n}",
+					"raw": "{\r\n  \"firstName\": \"222\",\r\n  \"lastName\": \"222\",\r\n  \"email\": \"111@example.com\",\r\n  \"password\": \"222\",\r\n  \"image\": \"222\",\r\n  \"flightIds\": [2, 4]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -112,16 +127,361 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/br_backend-1.0-SNAPSHOT/api/auth/login",
+					"raw": "http://localhost:3000/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
-						"br_backend-1.0-SNAPSHOT",
-						"api",
-						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/user/johndoe@example.com",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/111@example.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"111@example.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/user/flights_history/johndoe@example.com",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user/flights_history/johndoe@example.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"flights_history",
+						"johndoe@example.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/user/made_reservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"johndoe@example.com\",\r\n    \"flightId\": 47\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/made_reservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"made_reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/user/cancel_reservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"johndoe@example.com\",\r\n    \"flightId\": 47\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/cancel_reservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"cancel_reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/flight",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/flight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/flight/flights_from",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idAirport\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/flight/flights_to",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flight",
+						"flights_to"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/flight/flights_to",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idAirport\": 24\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/flight/flights_to",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flight",
+						"flights_to"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/flight/flights_by_ids",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightIds\": [47]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/flight/flights_by_ids",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flight",
+						"flights_by_ids"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/flight",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightId\": 47,\r\n    \"freeSeats\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/flight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"flight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"user\",\r\n  \"lastName\": \"user\",\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
 						"login"
 					]
 				}
@@ -129,40 +489,30 @@
 			"response": []
 		},
 		{
-			"name": "/api/auth/refresh",
+			"name": "http://localhost:3000/refresh",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc01vZGVyYXRvciI6ZmFsc2UsImlzcyI6IkJvb2sgUmF0aW5nIiwibG9naW4iOiJhZG1pbiIsImV4cCI6MTY4MjI4MjM5OH0.fhm6rCJtweDbUP0pxxTpPgeqf0ihF92M23ATIKUMsqo",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc01vZGVyYXRvciI6dHJ1ZSwiaXNzIjoiQm9vayBSYXRpbmciLCJsb2dpbiI6ImFkbWluIiwiZXhwIjoxNjgyMzQ5OTExfQ.Kgs58oJqtcFFE5kk4T3jPWWRnwcpgjsYQRncrEJwdB0",
+					"raw": "",
 					"options": {
 						"raw": {
-							"language": "text"
+							"language": "json"
 						}
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/br_backend-1.0-SNAPSHOT/api/auth/refresh",
+					"raw": "http://localhost:3000/refresh",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
-						"br_backend-1.0-SNAPSHOT",
-						"api",
-						"auth",
 						"refresh"
 					]
 				}
@@ -170,35 +520,36 @@
 			"response": []
 		},
 		{
-			"name": "/api/auth/logout",
+			"name": "http://localhost:3000/logout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc01vZGVyYXRvciI6dHJ1ZSwiaXNzIjoiQm9vayBSYXRpbmciLCJsb2dpbiI6ImFkbWluIiwiZXhwIjoxNjgyMjYzMjE0fQ.c58c-tJV-BhgwLpnmTq10IrZimNCP_LGCySJPC9lISU",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE2ODQ2Nzc1ODAsImV4cCI6MTY4NDc2Mzk4MH0.f7GnWl7egrrd0ZcjJM53LdnYWFUgg59LIlmhv4XUa0A",
+						"type": "default"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc01vZGVyYXRvciI6dHJ1ZSwiaXNzIjoiQm9vayBSYXRpbmciLCJsb2dpbiI6ImFkbWluIiwiZXhwIjoxNjgyMzQ5NTE0fQ.FTcmAvv-OUQwL_HaNyWnQZisxrlZ2wXjksa9EZ8ajcs"
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/br_backend-1.0-SNAPSHOT/api/auth/logout",
+					"raw": "http://localhost:3000/logout",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "3000",
 					"path": [
-						"br_backend-1.0-SNAPSHOT",
-						"api",
-						"auth",
 						"logout"
 					]
 				}

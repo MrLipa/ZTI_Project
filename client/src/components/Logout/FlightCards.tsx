@@ -1,23 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useTranslation } from 'react-i18next';
-import { flights } from './../Data';
-import { Link } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 
 interface Flight {
   id: number;
-  city_from: string;
-  country_from: string;
-  city_to: string;
-  country_to: string;
+  originCountry: string;
+  originCity: string;
+  destinationCountry: string;
+  destinationCity: string;
+  image: string;
   price: number;
   date: string;
   duration: string;
   airline: string;
   class: string;
-  free_seats: number;
-  image: string;
+  freeSeats: number;
 }
 
 interface FlightCardProps {
@@ -27,26 +25,41 @@ interface FlightCardProps {
 const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
   const { t } = useTranslation();
   return (
-    <Link to={`/connection/${flight.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={flight.image} style={{ width: '18rem', height: '200px' }} />
-        <Card.Body>
-          <Card.Title style={{ color: 'blue' }}>
-            {flight.city_from} - {flight.city_to}
-          </Card.Title>
-          <Card.Text style={{ fontSize: '0.8rem' }}>
-            {t('FlightCard_Date')} {flight.date}
-          </Card.Text>
-          <Card.Text style={{ color: 'red', textAlign: 'right' }}>
-            {t('FlightCard_Price')} {flight.price} {t('FlightCard_Currency')}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </Link>
+    <Card style={{ width: '18rem' }}>
+      <Card.Img variant="top" src={flight.image} style={{ width: '18rem', height: '200px' }} />
+      <Card.Body>
+        <Card.Title style={{ color: 'blue' }}>
+          {flight.originCity} - {flight.destinationCity}
+        </Card.Title>
+        <Card.Text style={{ fontSize: '0.8rem' }}>
+          {t('FlightCard_Date')} {flight.date}
+        </Card.Text>
+        <Card.Text style={{ color: 'red', textAlign: 'right' }}>
+          {t('FlightCard_Price')} {flight.price} {t('FlightCard_Currency')}
+        </Card.Text>
+      </Card.Body>
+    </Card>
   );
 };
 
 const FlightCards = () => {
+  const [flights, setFlights] = useState<Flight[]>([]);
+
+  useEffect(() => {
+    const fetchFlights = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/flight');
+        const data = await response.json();
+        setFlights(data);
+        console.log(flights)
+      } catch (error) {
+        console.error('Error fetching flights:', error);
+      }
+    };
+
+    fetchFlights();
+  }, []);
+
   const flightChunks = flights.reduce<Flight[][]>(
     (result, flight, index) => {
       const chunkIndex = Math.floor(index / 8);

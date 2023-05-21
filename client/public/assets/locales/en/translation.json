@@ -1,4 +1,13 @@
 {
+    "Home_Title": "Travel with Maximum Comfort",
+    "Home_Description": "Find the best deals on travel and book your dream getaway.",
+    "Home_Placeholder_From": "From",
+    "Home_Placeholder_To": "To",
+    "Home_Class_Economy": "Economy Class",
+    "Home_Class_Premium": "Premium Class",
+    "Home_Class_Business": "Business Class",
+    "Home_Search": "Search",
+    
     "FlightCard_Date": "Date",
     "FlightCard_Price": "Price",
     "FlightCard_Currency": "PLN",
