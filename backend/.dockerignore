@@ -3,5 +3,4 @@
 .dockerignore
 docker-compose.yml
 README.md
-backend/node_modules
-client/node_modules
+node_modules
