@@ -1,2 +1,0 @@
-20230521	14:15:42	01ba52e0-9c3f-4ad5-8a48-b633dd5c2782	Error: ENOENT: no such file or directory, stat 'D:\Folder\Studia\VIII Semestr\Zaawansowane technologie internetowe\Projekt\backend\client\build\index.html'
-20230521	14:16:06	25b3e210-e661-437a-adc8-10255cfb6984	Error: ENOENT: no such file or directory, stat 'D:\Folder\Studia\VIII Semestr\Zaawansowane technologie internetowe\Projekt\backend\client\build\index.html'

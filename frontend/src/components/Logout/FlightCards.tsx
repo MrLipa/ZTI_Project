@@ -48,7 +48,7 @@ const FlightCards = () => {
   useEffect(() => {
     const fetchFlights = async () => {
       try {
-        const response = await fetch('http://localhost:3000/flight');
+        const response = await fetch('https://zti-project.onrender.com/flight');
         const data = await response.json();
         setFlights(data);
         console.log(flights)
