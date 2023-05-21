@@ -48,7 +48,11 @@ const FlightCards = () => {
   useEffect(() => {
     const fetchFlights = async () => {
       try {
-        const response = await fetch('https://zti-project.onrender.com/flight');
+        const response = await fetch('https://zti-project.onrender.com/flight', {
+          headers: {
+            'Origin': 'https://zti-airbook.netlify.app'
+          }
+        });
         const data = await response.json();
         setFlights(data);
         console.log(flights)
