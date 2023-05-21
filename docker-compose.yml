@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     volumes:
-      - ./setup/model/database.sql:/docker-entrypoint-initdb.d/database.sql
+      - ./config/model/database.sql:/docker-entrypoint-initdb.d/database.sql
     ports:
       - "5432:5432"
     privileged: true
@@ -26,7 +26,7 @@ services:
       PGADMIN_SERVER_MODE: 'True'
       PGADMIN_SERVER_JSON_FILE: /pgadmin4/servers.json
     volumes:
-      - ./setup/servers.json:/pgadmin4/servers.json
+      - ./config/servers.json:/pgadmin4/servers.json
     depends_on:
       - database
     links:
@@ -56,18 +56,18 @@ services:
     depends_on:
       - backend
 
-  # jenkins:
-  #   image: jenkins/jenkins:lts
-  #   user: root
-  #   ports:
-  #     - 8080:8080
-  #     - 50000:50000
-  #   environment:
-  #     - JENKINS_OPTS=--prefix=/jenkins
-  #     - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
-  #   restart: always
-  #   privileged: true
+  jenkins:
+    image: jenkins/jenkins:lts
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    environment:
+      - JENKINS_OPTS=--prefix=/jenkins
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    restart: always
+    privileged: true
 
-# volumes:
-#   postgres:
-#   jenkins_home:
+volumes:
+  postgres:
+  jenkins_home:
