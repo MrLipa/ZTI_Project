@@ -251,3 +251,15 @@
 20230522	15:39:23	b9f8815a-35db-4f7d-95ca-5065c490501a	OPTIONS	http://localhost:5173	/flight
 20230522	15:39:23	a88fc48e-409a-4497-bbf4-fd9ce822f45c	GET	http://localhost:5173	/flight
 20230522	15:39:24	8d764a71-a7b0-4117-9ffe-e8af5e700f8c	GET	http://localhost:5173	/flight
+20230522	15:54:05	adf6bcda-4673-4777-895e-d48d80b32dd9	OPTIONS	https://zti-airbook.netlify.app	/flight
+20230522	15:54:05	0904e863-337a-40ea-8e2c-ee7df338999d	GET	https://zti-airbook.netlify.app	/flight
+20230522	15:54:06	f825aa69-263c-405a-adf7-7279394fd43d	OPTIONS	https://zti-airbook.netlify.app	/flight
+20230522	15:54:06	52f7a410-ddde-4649-9577-efc22f5919ba	GET	https://zti-airbook.netlify.app	/flight
+20230522	15:54:12	92dfcf2c-f096-4901-9d80-fb9d8b80db4b	OPTIONS	https://zti-airbook.netlify.app	/flight
+20230522	15:54:12	97b0dc1d-3d40-4536-8faa-1e3bebefa0cc	GET	https://zti-airbook.netlify.app	/flight
+20230522	17:20:41	54cbb1d7-c157-4213-9d57-b5db73f77953	OPTIONS	https://zti-airbook.netlify.app	/flight
+20230522	17:20:41	8b2fec53-a9ac-470b-a81c-0f2dac6c22da	GET	https://zti-airbook.netlify.app	/flight
+20230522	17:21:34	da5feaf0-056b-4352-9ced-2febd5835851	OPTIONS	https://zti-airbook.netlify.app	/flight
+20230522	17:21:34	dcef959a-cedc-4a12-8077-0cc772e7efaa	GET	https://zti-airbook.netlify.app	/flight
+20230522	17:24:34	49249557-8c21-425f-ac25-bde96a5a76aa	OPTIONS	https://zti-airbook.netlify.app	/flight
+20230522	17:24:34	4e6568e9-3766-40dc-88d5-9e7ddea22561	GET	https://zti-airbook.netlify.app	/flight
