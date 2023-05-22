@@ -97,7 +97,7 @@ const getFlightsByIds = async (req, res) => {
 
 const getAllFlights = async (req, res) => {
     try {
-        const result = await session.run(`MATCH (a:Airport)-[r:Flight]-(b:Airport) RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`);
+        const result = await session.run(`MATCH (a:Airport)-[r:Flight]->(b:Airport) RETURN ID(r) AS id, a.country AS originCountry, a.city AS originCity, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`);
 
         const flights = result.records.map((record) => ({
             id: record.get('id').low,

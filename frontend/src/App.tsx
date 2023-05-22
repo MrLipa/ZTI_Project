@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Help from "./pages/Help";
 import Home from "./pages/Home";
@@ -6,11 +5,11 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Connection from "./pages/Connection";
 import Layout from "./components/Login/Layout";
-import ThemeProvider from './components/ThemeContext';
-import LanguageProvider from './components/LanguageContext'
-import { QueryClientProvider, QueryClient } from 'react-query';
+import ThemeProvider from "./context/ThemeContext";
+import LanguageProvider from "./context/LanguageContext";
+import { QueryClientProvider, QueryClient } from "react-query";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   return (

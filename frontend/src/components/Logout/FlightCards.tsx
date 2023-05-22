@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useTranslation } from 'react-i18next';
 import Carousel from 'react-bootstrap/Carousel';
+import { useFlightQuery } from './../../api/ApiHooks'
+import shuffleArray from './../../functions/Shuffle'
 
 interface Flight {
   id: number;
@@ -44,23 +46,13 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
 
 const FlightCards = () => {
   const [flights, setFlights] = useState<Flight[]>([]);
+  const { isLoading, error, data } = useFlightQuery();
 
   useEffect(() => {
-    const fetchFlights = async () => {
-      try {
-        const response = await fetch('https://zti-project.onrender.com/flight', {
-          mode: 'no-cors'
-        });
-        const data = await response.json();
-        setFlights(data);
-        console.log(flights)
-      } catch (error) {
-        console.error('Error fetching flights:', error);
-      }
-    };
-
-    fetchFlights();
-  }, []);
+    if (data) {
+      setFlights(shuffleArray(data));
+    }
+  }, [data]);
 
   const flightChunks = flights.reduce<Flight[][]>(
     (result, flight, index) => {
