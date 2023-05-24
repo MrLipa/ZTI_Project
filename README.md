@@ -5,6 +5,12 @@
 - Node
 - Docker
 
+jenkins z gotowymi pluginami oraz konto admin admin
+branch name
+git url credentials
+budowanie commad komendy kopoiowania export display
+akcje po zadaniu zachowaj artefakty pliki do zarychwizowania report, junit, screenhots, flv, log
+
 ## Project structure 📁
 The project consists of the following containers:
 
