@@ -1,0 +1,105 @@
+version: '3.1'
+
+services:
+
+  # database:
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: postgres
+  #   volumes:
+  #     - ./config/model/database.sql:/docker-entrypoint-initdb.d/database.sql
+  #   ports:
+  #     - "5432:5432"
+  #   privileged: true
+
+  # pdadmin:
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   ports:
+  #     - "81:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: example@gmail.com
+  #     PGADMIN_DEFAULT_PASSWORD: example
+  #     PGADMIN_SERVER_MODE: 'True'
+  #     PGADMIN_SERVER_JSON_FILE: /pgadmin4/servers.json
+  #   volumes:
+  #     - ./config/servers.json:/pgadmin4/servers.json
+  #   depends_on:
+  #     - database
+  #   links:
+  #     - database
+  #   privileged: true
+
+  # backend:
+  #   build:
+  #     context: ./../backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '3000:3000'
+  #   volumes:
+  #     - ./../backend:/app
+  #   networks: 
+  #     - app-network
+
+  # frontend:
+  #   build:
+  #     context: ./../frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5173:5173"
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
+  #     - WATCHPACK_POLLING=true
+  #   depends_on:
+  #     - backend
+  #   networks: 
+  #     - app-network
+
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # user: root
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    # environment:
+    #   - JENKINS_OPTS=--prefix=/jenkins
+    #   - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    ports:
+      - 8080:8080
+    # privileged: true
+    # networks: 
+    #   - app-network
+    # depends_on:
+    #   - backend
+    #   - frontend
+
+  # jenkins:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   user: root
+  #   ports:
+  #     - 8080:8080
+  #   # environment:
+  #   #   - JENKINS_OPTS=--prefix=/jenkins
+  #   #   - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   restart: always
+  #   privileged: true
+  #   networks: 
+  #     - app-network
+  #   depends_on:
+  #     - backend
+  #     - frontend
+
+volumes:
+  postgres:
+  jenkins_home:
+
+networks:
+  app-network:

@@ -34,6 +34,11 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     return {
       plugins: [react()],
       base: "/",
+      test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: ['./src/setupTests.ts'],
+      },
     };
   }
   else {
