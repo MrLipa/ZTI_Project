@@ -46,14 +46,14 @@ pipeline {
         //     }
         // }
 
-        // stage('Backend: Run Tests') {
-        //     steps {
-        //         script {
-        //             sh 'docker cp backend projekt-backend-1:/backend' 
-        //             sh 'docker exec projekt-backend-1 sh -c \'mv /backend /app/test && cd /app/test && npm install && npm run test\''
-        //         }
-        //     }
-        // }
+        stage('Backend: Run Tests') {
+            steps {
+                script {
+                    sh 'docker cp backend projekt-backend-1:/backend' 
+                    sh 'docker exec projekt-backend-1 sh -c \'mv /backend /app/test && cd /app/test && npm install && npm run test\''
+                }
+            }
+        }
 
         // stage('Frontend: Run Tests') {
         //     steps {

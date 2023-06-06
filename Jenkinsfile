@@ -41,5 +41,12 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                script {
+                    sh 'docker cp backend projekt-backend-1:/usr/src/app' 
+                }
+            }
+        }
     }
 }
