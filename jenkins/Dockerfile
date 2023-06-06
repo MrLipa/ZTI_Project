@@ -2,6 +2,6 @@ FROM node:latest
 
 WORKDIR /usr/src/app
 
-COPY . ./
+COPY ./backend ./backend
 
 EXPOSE 3000
