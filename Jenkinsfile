@@ -1,6 +1,12 @@
 pipeline {
     agent none
 
+    triggers {
+        cron('H H/12 * * *')
+        changeset "**/master"
+        // scm('*/1 * * * *') // Trigger dla każdego commita
+    }
+
     stages {
         stage('Clone repository') {
             agent any
@@ -9,7 +15,7 @@ pipeline {
             }
         }
         
-        stage('Backend: Build and Test') {
+        stage('Test backend') {
             agent {
                 dockerfile {
                     filename 'backend.Dockerfile'
@@ -18,14 +24,12 @@ pipeline {
             }
             steps {
                 script {
-                    sh 'node --version'
-                    sh 'ls'
                     sh 'cd backend && npm install'
                     sh 'cd backend && npm run test'
                 }
             }
         }
-        stage('Frontend: Build and Test') {
+        stage('Test frontend') {
             agent {
                 dockerfile {
                     filename 'frontend.Dockerfile'
@@ -34,8 +38,6 @@ pipeline {
             }
             steps {
                 script {
-                    sh 'node --version'
-                    sh 'ls'
                     sh 'cd frontend && npm install'
                     sh 'cd frontend && npm run test'
                 }
