@@ -7,14 +7,73 @@ pipeline {
                 git 'https://github.com/MrLipa/ZTI_Project.git'
             }
         }
-
-        stage('Backend: Update and Run Tests') {
+        stage('Backend: Build and Test') {
             steps {
                 script {
-                    sh 'docker cp . backend:/app'
-                    sh 'docker exec backend npm run test'
+                    docker.build("my-app:latest", "./backend")
+                    sh 'docker run -v $PWD/backend:/app -w /app my-app:latest npm install && npm test'
                 }
             }
         }
+        // stage('Build Docker image') {
+        //     steps {
+        //         script {
+        //             docker.build("my-app:latest", "./backend")
+        //         }
+        //     }
+        // }
+
+        // stage('Backend: Run Tests') {
+        //     steps {
+        //         script {
+        //             docker.image("my-app:latest").inside {
+        //                 sh 'npm install'
+        //                 sh 'npm run test'
+        //             }
+        //         }
+        //     }
+        // }
+        
+        // stage('Backend: Run Tests') {
+        //     agent {
+        //         dockerfile true
+        //     }
+        //     steps {
+        //         script {
+        //             sh 'docker cp backend projekt-backend-1:/backend' 
+        //             sh 'docker exec projekt-backend-1 sh -c \'mv /backend /app/test && cd /app/test && npm install && npm run test\''
+        //         }
+        //     }
+        // }
+
+        // stage('Backend: Run Tests') {
+        //     steps {
+        //         script {
+        //             sh 'docker cp backend projekt-backend-1:/backend' 
+        //             sh 'docker exec projekt-backend-1 sh -c \'mv /backend /app/test && cd /app/test && npm install && npm run test\''
+        //         }
+        //     }
+        // }
+
+        // stage('Frontend: Run Tests') {
+        //     steps {
+        //         script {
+        //             sh 'docker cp ./frontend/. projekt-frontend-1:/app/test'
+        //             sh 'docker exec projekt-frontend-1 npm run test'
+        //         }
+        //     }
+        // }
+
+        // stage('Deploy') {
+        //     steps {
+        //         script {
+        //             sh 'docker cp ./backend/. projekt-backend-1:/app'
+        //             sh 'docker exec projekt-backend-1 npm run test'
+
+        //             sh 'docker cp ./frontend/. projekt-frontend-1:/app'
+        //             sh 'docker exec projekt-frontend-1 npm run test'
+        //         }
+        //     }
+        // }
     }
 }

@@ -7,11 +7,12 @@ pipeline {
                 git 'https://github.com/MrLipa/ZTI_Project.git'
             }
         }
-        stage('Backend: Build and Test') {
+
+        stage('Backend: Update and Run Tests') {
             steps {
                 script {
-                    docker.build("my-app:latest", "./backend")
-                    sh 'docker run -v $PWD/backend:/app -w /app my-app:latest npm run test'
+                    sh 'docker cp . backend:/app'
+                    sh 'docker exec backend npm run test'
                 }
             }
         }

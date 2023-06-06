@@ -5,6 +5,9 @@
 - Node
 - Docker
 
+ogarnać eslite oraz prittier 
+ogarnąć agenty jenkinsa
+ogarnąc odpalanie co dzień oraz po każdym koicie
 jenkins z gotowymi pluginami oraz konto admin admin
 branch name
 git url credentials
