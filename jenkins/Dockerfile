@@ -1,5 +1,7 @@
 FROM node:latest
+
 WORKDIR /usr/src/app
-COPY . ./
+
+COPY ./backend/ ./
 
 EXPOSE 3000
