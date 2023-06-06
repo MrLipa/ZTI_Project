@@ -1,17 +1,43 @@
 pipeline {
-    agent any
+    agent none
 
     stages {
         stage('Clone repository') {
+            agent any
             steps {
                 git 'https://github.com/MrLipa/ZTI_Project.git'
             }
         }
+        
         stage('Backend: Build and Test') {
+            agent {
+                dockerfile {
+                    filename 'backend.Dockerfile'
+                    dir 'jenkins'
+                }
+            }
             steps {
                 script {
-                    docker.build("my-app:latest", "./backend")
-                    sh 'docker run -v $PWD/backend:/app -w /app my-app:latest npm run test'
+                    sh 'node --version'
+                    sh 'ls'
+                    sh 'cd backend && npm install'
+                    sh 'cd backend && npm run test'
+                }
+            }
+        }
+        stage('Frontend: Build and Test') {
+            agent {
+                dockerfile {
+                    filename 'frontend.Dockerfile'
+                    dir 'jenkins'
+                }
+            }
+            steps {
+                script {
+                    sh 'node --version'
+                    sh 'ls'
+                    sh 'cd frontend && npm install'
+                    sh 'cd frontend && npm run test'
                 }
             }
         }
