@@ -13,7 +13,7 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'backend.Dockerfile'
-                    dir 'jenkins'
+                    dir 'config'
                 }
             }
             steps {
@@ -29,7 +29,7 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'frontend.Dockerfile'
-                    dir 'jenkins'
+                    dir 'config'
                 }
             }
             steps {
@@ -42,9 +42,14 @@ pipeline {
             }
         }
         stage('Deploy') {
+            agent any
             steps {
                 script {
-                    sh 'docker cp backend projekt-backend-1:/usr/src/app' 
+                    sh 'docker cp backend/. projekt-backend-1:/usr/src/app'
+                    sh 'docker exec projekt-backend-1 npm install'
+
+                    sh 'docker cp frontend/. projekt-frontend-1:/usr/src/app'
+                    sh 'docker exec projekt-frontend-1 npm install'
                 }
             }
         }

@@ -28,8 +28,8 @@ services:
 
   jenkins:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: config
+      dockerfile: jenkins.Dockerfile
     user: root
     volumes:
       - jenkins_home:/var/jenkins_home
@@ -40,9 +40,9 @@ services:
     privileged: true
     networks: 
       - app-network
-    # depends_on:
-    #   - backend
-    #   - frontend
+    depends_on:
+      - backend
+      - frontend
 
 volumes:
   jenkins_home:
