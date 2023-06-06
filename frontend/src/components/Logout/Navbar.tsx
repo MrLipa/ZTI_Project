@@ -40,7 +40,7 @@ const NavigationBar: React.FC = () => {
         className="brand-name"
         style={{ fontSize: "40px" }}
       >
-        1111
+        222
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbar-nav" />
       <Navbar.Collapse id="navbar-nav" className="justify-content-between">
