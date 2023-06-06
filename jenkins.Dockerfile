@@ -1,7 +1,5 @@
 FROM node:latest
-
 WORKDIR /usr/src/app
-
-COPY ./Air-Book.postman_collection.json ./
+RUN cd /backend && npm install
 
 EXPOSE 3000
