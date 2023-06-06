@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script {
                     sh 'cd frontend && npm install && npm run build'
-                    sh 'docker cp frontend/dist projekt-frontend-1:/usr/share/nginx/html'
+                    sh 'docker cp frontend/dist/. projekt-frontend-1:/usr/share/nginx/html'
                     sh 'docker cp frontend/nginx.conf projekt-frontend-1:/etc/nginx/conf.d/default.conf'
                 }
             }
