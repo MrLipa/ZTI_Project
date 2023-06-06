@@ -1,6 +1,5 @@
 FROM node:latest
 WORKDIR /usr/src/app
-COPY ./backend/package*.json ./backend/
-RUN npm install
-COPY ./backend ./
+COPY . ./
+
 EXPOSE 3000
