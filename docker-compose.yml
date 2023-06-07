@@ -37,6 +37,7 @@ services:
       - /usr/bin/docker:/usr/bin/docker
     ports:
       - 8080:8080
+      - 5901:5901
     privileged: true
     networks: 
       - app-network
