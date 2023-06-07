@@ -2,7 +2,6 @@ FROM jenkins/jenkins:lts
 
 COPY vnc_config.sh /var/jenkins_home/vnc_config.sh
 COPY requirements.txt /var/jenkins_home/requirements.txt
-COPY chromedriver.exe /var/jenkins_home/chromedriver.exe
 
 USER root
 

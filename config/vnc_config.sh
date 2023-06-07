@@ -14,6 +14,7 @@ chmod 600 ~/.vnc/passwd
 USER=admin vncserver :1 -auth /root/.Xauthority -geometry 1024x768 -depth 24 -rfbwait 120000 -rfbauth /root/.vnc/passwd -fp /usr/share/fonts/X11/misc/,/usr/share/fonts/X11/Type1/,/usr/share/fonts/X11/75dpi/,/usr/share/fonts/X11/100dpi/ -co /etc/X11/rgb
 export DISPLAY=:1
 xhost +
+# rm -f /tmp/.X1-lock && rm -f /tmp/.X11-unix/X1
 # ps aux | grep Xtightvnc
 
 
