@@ -3,12 +3,17 @@ FROM jenkins/jenkins:lts
 COPY vnc_config.sh /var/jenkins_home/vnc_config.sh
 COPY requirements.txt /var/jenkins_home/requirements.txt
 
-USER root
+ENV DISPLAY=:1
 
-RUN chmod +x /var/jenkins_home/vnc_config.sh && /var/jenkins_home/vnc_config.sh
 
-USER jenkins
 
+
+# USER root
+
+# COPY vnc_config.sh /var/jenkins_home/vnc_config.sh
+# RUN chmod +x /var/jenkins_home/vnc_config.sh && /bin/sh -c ". /var/jenkins_home/vnc_config.sh"
+
+# USER jenkins
 # USER root
 # RUN chmod +x /var/jenkins_home/vnc_config.sh
 # USER jenkins

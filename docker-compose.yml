@@ -31,6 +31,9 @@ services:
       context: config
       dockerfile: jenkins.Dockerfile
     user: root
+    command: >
+      bash -c ". /var/jenkins_home/vnc_config.sh &&
+               exec java -jar /usr/share/jenkins/jenkins.war"
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock

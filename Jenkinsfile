@@ -3,8 +3,6 @@ pipeline {
 
     triggers {
         cron('H H/12 * * *')
-        changeset "**/master"
-        // scm('*/1 * * * *') // Trigger dla każdego commita
     }
 
     stages {
@@ -40,6 +38,14 @@ pipeline {
                 script {
                     sh 'cd frontend && npm install'
                     sh 'cd frontend && npm run test'
+                }
+            }
+        }
+        stage('Integration tests') {
+            agent any
+            steps {
+                script {
+                    sh 'cd tests && pytest test.py'
                 }
             }
         }
