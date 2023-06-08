@@ -13,58 +13,72 @@ pipeline {
             }
         }
         
-        stage('Test backend') {
-            agent {
-                dockerfile {
-                    filename 'backend.Dockerfile'
-                    dir 'config'
-                }
-            }
-            steps {
-                script {
-                    sh 'cd backend && npm install'
-                    sh 'cd backend && npm run test'
-                }
-            }
-        }
-        stage('Test frontend') {
-            agent {
-                dockerfile {
-                    filename 'frontend.Dockerfile'
-                    dir 'config'
-                }
-            }
-            steps {
-                script {
-                    sh 'cd frontend && npm install'
-                    sh 'cd frontend && npm run test'
-                }
-            }
-        }
-        stage('Integration tests') {
-            agent any
-            steps {
-                script {
-                    sh 'cd tests && pytest test.py'
-                }
-            }
-        }
-        stage('Deploy backend') {
-            agent any
-            steps {
-                script {
-                    sh 'docker cp backend/. projekt-backend-1:/usr/src/app'
-                    sh 'docker exec projekt-backend-1 npm install'
-                }
-            }
-        }
-        stage('Deploy frontend') {
+        stage('Install Dependencies') {
             agent {
                 docker { image 'node:latest' }
             }
             steps {
                 script {
-                    sh 'cd frontend && npm install && npm run build'
+                    sh 'cd backend && npm install'
+                    stash includes: 'backend/node_modules/**', name: 'backend-node-modules'
+                    sh 'cd frontend && npm install'
+                    stash includes: 'frontend/node_modules/**', name: 'frontend-node-modules'
+                }
+            }
+        }
+        
+        stage('Unit Tests Backend') {
+            agent {
+                docker { image 'node:latest' }
+            }
+            steps {
+                script {
+                    unstash 'backend-node-modules'
+                    sh 'cd backend && npm run test'
+                }
+            }
+        }
+
+        stage('Unit Tests Frontend') {
+            agent {
+                docker { image 'node:latest' }
+            }
+            steps {
+                script {
+                    unstash 'frontend-node-modules'
+                    sh 'cd frontend && npm run test'
+                }
+            }
+        }
+
+        
+        stage('Integration Tests') {
+            agent {
+                docker { image 'node:latest' }
+            }
+            steps {
+                script {
+                    unstash 'backend-node-modules'
+                    unstash 'frontend-node-modules'
+                    sh 'cd backend && npm run start &'
+                    sh 'cd frontend && npm run dev &'
+                    sh 'cd tests && pytest test.py'
+                }
+            }
+        }
+
+        
+        stage('Deploy backend and frontend') {
+            agent {
+                docker { image 'node:latest' }
+            }
+            steps {
+                script {
+                    sh 'docker cp backend/. projekt-backend-1:/usr/src/app'
+                    sh 'docker exec projekt-backend-1 npm install'
+                    
+                    unstash 'frontend-node-modules'
+                    sh 'cd frontend && npm run build'
                     sh 'docker cp frontend/dist/. projekt-frontend-1:/usr/share/nginx/html'
                     sh 'docker cp frontend/nginx.conf projekt-frontend-1:/etc/nginx/conf.d/default.conf'
                 }
