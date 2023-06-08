@@ -14,9 +14,10 @@ pipeline {
         }
         
         stage('Install Dependencies') {
-            agent {
-                docker { image 'node:latest' }
-            }
+            // agent {
+            //     docker { image 'node:latest' }
+            // }
+            agent any
             steps {
                 script {
                     sh 'cd backend && npm install'
@@ -28,9 +29,10 @@ pipeline {
         }
         
         stage('Unit Tests Backend') {
-            agent {
-                docker { image 'node:latest' }
-            }
+            // agent {
+            //     docker { image 'node:latest' }
+            // }
+            agent any
             steps {
                 script {
                     unstash 'backend-node-modules'
@@ -40,9 +42,10 @@ pipeline {
         }
 
         stage('Unit Tests Frontend') {
-            agent {
-                docker { image 'node:latest' }
-            }
+            // agent {
+            //     docker { image 'node:latest' }
+            // }
+            agent any
             steps {
                 script {
                     unstash 'frontend-node-modules'
@@ -53,9 +56,7 @@ pipeline {
 
         
         stage('Integration Tests') {
-            agent {
-                docker { image 'node:latest' }
-            }
+            agent any
             steps {
                 script {
                     unstash 'backend-node-modules'
@@ -69,9 +70,10 @@ pipeline {
 
         
         stage('Deploy backend and frontend') {
-            agent {
-                docker { image 'node:latest' }
-            }
+            // agent {
+            //     docker { image 'node:latest' }
+            // }
+            agent any
             steps {
                 script {
                     sh 'docker cp backend/. projekt-backend-1:/usr/src/app'

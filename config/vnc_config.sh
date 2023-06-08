@@ -2,10 +2,12 @@
 
 
 apt-get update -y
-apt-get install nano -y
-apt-get install x11-apps -y
+# apt-get install nano -y
+# apt-get install x11-apps -y
 apt-get install tightvncserver -y
 apt-get install wget -y
+curl -sL https://deb.nodesource.com/setup_current.x | bash -
+apt-get install -y nodejs
 
 
 # Setup VNC server
