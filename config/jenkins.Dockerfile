@@ -1,6 +1,6 @@
 FROM jenkins/jenkins:lts
 
-COPY vnc_config.sh /var/jenkins_home/vnc_config.sh
+COPY jenkins_config.sh /var/jenkins_home/jenkins_config.sh
 COPY requirements.txt /var/jenkins_home/requirements.txt
 
 ENV DISPLAY=:1

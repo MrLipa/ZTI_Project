@@ -30,6 +30,12 @@ pipeline {
         
         stage('Unit Tests Backend') {
             // agent {
+            //     dockerfile {
+            //         filename 'backend.Dockerfile'
+            //         dir 'config/other'
+            //     }
+            // }
+            // agent {
             //     docker { image 'node:latest' }
             // }
             agent any
@@ -42,6 +48,12 @@ pipeline {
         }
 
         stage('Unit Tests Frontend') {
+            // agent {
+            //     dockerfile {
+            //         filename 'frontend.Dockerfile'
+            //         dir 'config/other'
+            //     }
+            // }
             // agent {
             //     docker { image 'node:latest' }
             // }
@@ -63,7 +75,7 @@ pipeline {
                     unstash 'frontend-node-modules'
                     sh 'cd backend && npm run start &'
                     sh 'cd frontend && npm run dev &'
-                    sh 'cd tests && pytest test.py'
+                    sh 'cd integration_tests && pytest test.py'
                 }
             }
         }
