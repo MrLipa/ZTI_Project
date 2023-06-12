@@ -1,4 +1,63 @@
-body {
+.p-overlaypanel-content{
+  padding: 0px!important;
+}
+ul.sidebar-menu {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+li.sidebar-item {
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+.custom-sidebar{
+  width: 250px!important;
+}
+.sidebar-link {
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.sidebar-link:hover {
+  transform: scale(1.2);
+  color: #007bff; /* Change the color to blue on hover */
+}
+.navbar {
+  height: 90px;
+}
+/* styles.css */
+.pi {
+  transition: transform 0.2s; /* Animation */
+}
+
+.pi:hover {
+  transform: scale(1.2);
+  color: #007bff; /* Change the color to blue on hover */
+}
+svg {
+  transition: transform 0.2s; /* Animation */
+}
+
+svg:hover {
+  transform: scale(1.2);
+  color: #007bff; /* Change the color to blue on hover */
+}
+.p-avatar {
+  transition: transform 0.2s; /* Animation */
+}
+
+.p-avatar:hover {
+  transform: scale(1.2);
+  color: #007bff; /* Change the color to blue on hover */
+}
+
+/* body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
   letter-spacing: 1px;
@@ -22,7 +81,6 @@ html, body, #root, .App {
 .navbar {
   background-color: #2C84F7;
   height: 90px;
-  display: flex;
 }
 
 .nav-menu {
@@ -161,4 +219,4 @@ html, body, #root, .App {
   cursor: pointer;
   margin-top: 20px;
   margin-bottom: 20px;
-}
+} */

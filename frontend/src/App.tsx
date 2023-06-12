@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Help from "./pages/Help";
-import Home from "./pages/Home";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Connection from "./pages/Connection";
-import Layout from "./components/Login/Layout";
+import Profile from "./pages/Profile";
+import SearchFlights from "./pages/SearchFlights";
+import Settings from "./pages/Settings";
+import Flight from "./pages/Flight";
+import Layout from "./pages/Layout";
 import ThemeProvider from "./context/ThemeContext";
 import LanguageProvider from "./context/LanguageContext";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -18,12 +18,14 @@ function App() {
         <LanguageProvider>
           <QueryClientProvider client={queryClient}>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="register" element={<Register />} />
-              <Route path="login" element={<Login />} />
-              <Route path="help" element={<Help />} />
               <Route path="/" element={<Layout />}>
-                <Route path="connection" element={<Connection />} />
+                <Route path="home" element={<Help />} />
+                <Route path="logout" element={<Help />} />
+                <Route path="help" element={<Help />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="search-flights" element={<SearchFlights />} />
+                <Route path="flight/:id" element={<Flight />} />
+                <Route path="settings" element={<Settings />} />
               </Route>
             </Routes>
           </QueryClientProvider>

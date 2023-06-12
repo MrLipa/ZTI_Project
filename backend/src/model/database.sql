@@ -15,7 +15,12 @@ CREATE TABLE zti_project.user (
   lastName VARCHAR(255),
   email VARCHAR(255),
   password VARCHAR(255),
+  role VARCHAR(255),
+  discription VARCHAR(255),
+  phone VARCHAR(255),
+  address VARCHAR(255),
   image BYTEA,
+  notification VARCHAR(255),
   flightIds INTEGER[]
 );
 

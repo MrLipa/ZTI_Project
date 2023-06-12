@@ -5,6 +5,27 @@
 - Node
 - Docker
 
+Tokyo Pekin data klasa cena
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 apt-get update
 apt-get install x11-apps
 apt-get install tightvncserver

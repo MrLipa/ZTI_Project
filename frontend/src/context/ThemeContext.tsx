@@ -4,21 +4,48 @@ import useLocalStorage from '../hooks/useLocalStorage'
 interface Props {
   children: React.ReactNode;
 }
-
-export const ThemeContext = React.createContext({
-  darkTheme: true,
-  toggleTheme: () => {}
+const themes = [
+  {
+    backgroundColor: "#e9ecf2",
+    navbarColor: ["#2C84F7", "#bbcdf6"],
+    fontColor: "#000000",
+  },
+  {
+    backgroundColor: "#00040b",
+    navbarColor: ["#084da1", "#010f26"],
+    fontColor: "#ffffff",
+  },
+];
+type ThemeContextType = {
+  theme: number;
+  currentTheme: {
+    backgroundColor: string;
+    navbarColor: string[];
+    fontColor: string;
+  };
+  toggleTheme: (newTheme: number) => void;
+};
+export const ThemeContext = React.createContext<ThemeContextType>({
+  theme: 0,
+  currentTheme: themes[0],
+  toggleTheme: () => {},
 });
 
-const ThemeProvider = ({ children }: Props) => {
-  const [darkTheme, setDarkTheme] = useLocalStorage('theme', false)
 
-  function toggleTheme() {
-    setDarkTheme((prevDarkTheme: boolean) => !prevDarkTheme);
+
+const ThemeProvider = ({ children }: Props) => {
+  const [theme, setTheme] = useLocalStorage('theme', 0)
+
+  function toggleTheme(newTheme: number) {
+    setTheme(newTheme);
+    console.log(newTheme);
   }
 
+  const currentTheme = themes[theme];
+
   const contextValue = {
-    darkTheme,
+    theme,
+    currentTheme,
     toggleTheme
   };
 
