@@ -4,6 +4,22 @@
 - Visual Studio Code
 - Node
 - Docker
+9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Tokyo Pekin data klasa cena
 

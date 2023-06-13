@@ -1,7 +1,14 @@
-const loadingMarkup = (
-    <div className="py-4 text-center">
-      <h3>Loading..</h3>
-    </div>
-)
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-export default loadingMarkup;
+const LoadingMarkup = () => {
+  const { t } = useTranslation('translations');
+
+  return (
+    <div className="py-4 text-center">
+      <h3>{t('Loading')}</h3>
+    </div>
+  );
+};
+
+export default LoadingMarkup;

@@ -1,10 +1,9 @@
-import { Container } from 'react-bootstrap';
-import { FaFacebookF,FaTwitter,FaYoutube,FaGooglePlus } from "react-icons/fa";
-import { useTranslation } from 'react-i18next'
+import { FaFacebookF, FaTwitter, FaYoutube, FaGooglePlus } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
-  const { t } = useTranslation()
-  
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-dark text-light py-3">
       <div className="container">
@@ -13,12 +12,12 @@ const Footer = () => {
             <h5>{t('Air Book')}</h5>
             <p>{t('Footer_Introduce')}</p>
             <h5>Student Debil</h5>
-            <Container className="my-4">
-              <FaFacebookF style={{ marginRight: "20px", width: "32px",height: "32px"}}/>
-              <FaTwitter style={{ marginRight: "20px", width: "32px",height: "32px"}} />
-              <FaYoutube style={{ marginRight: "20px", width: "32px",height: "32px"}} />
-              <FaGooglePlus style={{ marginRight: "20px", width: "32px",height: "32px"}} />
-            </Container>
+            <div className="my-4">
+              <FaFacebookF style={{ marginRight: "20px", width: "32px", height: "32px" }} />
+              <FaTwitter style={{ marginRight: "20px", width: "32px", height: "32px" }} />
+              <FaYoutube style={{ marginRight: "20px", width: "32px", height: "32px" }} />
+              <FaGooglePlus style={{ marginRight: "20px", width: "32px", height: "32px" }} />
+            </div>
           </div>
           <div className="col-md-3">
             <h5>{t('Footer_Contact')}</h5>

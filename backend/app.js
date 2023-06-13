@@ -19,9 +19,7 @@ app.use(cookieParser());
 
 
 app.use('/', express.static(path.join(__dirname, '/public')));
-app.get('/', (req, res) => {
-    res.status(200).send('Hello, World!');
-});
+app.get('/', (req, res) => {res.status(200).send('Hello, World!')});
 app.use('/register', require('./src/routes/register'));
 app.use('/login', require('./src/routes/login'));
 app.use('/refresh', require('./src/routes/refresh'));

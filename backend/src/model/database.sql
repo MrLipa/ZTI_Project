@@ -13,30 +13,49 @@ CREATE TABLE zti_project.user (
   CONSTRAINT user_pk PRIMARY KEY (user_id),
   firstName VARCHAR(255),
   lastName VARCHAR(255),
-  email VARCHAR(255),
+  email VARCHAR(255) UNIQUE,
   password VARCHAR(255),
-  role VARCHAR(255),
-  discription VARCHAR(255),
   phone VARCHAR(255),
   address VARCHAR(255),
-  image BYTEA,
-  notification VARCHAR(255),
+  image VARCHAR(255),
+  description VARCHAR(255),
+  messages VARCHAR(255)[],
   flightIds INTEGER[]
 );
+
 
 CREATE TABLE zti_project.token (
   user_id INTEGER NOT NULL,
   CONSTRAINT token_pk PRIMARY KEY (user_id),
-  token VARCHAR(255)
+  refresh_token VARCHAR(255)
 );
 
 SELECT * FROM zti_project.user LIMIT 100;
 
-INSERT INTO zti_project.user (firstName, lastName, email, password, image, flightIds)
-VALUES ('John', 'Doe', 'johndoe@example.com', 'password', 'image', '{47}');
+INSERT INTO zti_project.user (
+    firstName, 
+    lastName, 
+    email, 
+    password, 
+    phone, 
+    address, 
+    image, 
+    description, 
+    messages, 
+    flightIds
+) VALUES (
+    'admin', 
+    'admin', 
+    'admin@example.com', 
+    '$2b$10$YparQ5ndmjfaTWqpunT4nOd1DuViciOK7Vj6B4WkgOFR3nHmbVGTS',
+    '123-456-7890', 
+    '123 Admin St, City, Country', 
+    'https://randomuser.me/api/portraits/men/75.jpg', 
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non semper leo, vitae interdum est. In consequat massa in risus semper, in volutpat libero egestas. Sed in facilisis ante, nec ornare enim. Suspendisse malesuada dolor non consectetur mollis.', 
+    ARRAY['message1', 'message2']::varchar[], 
+    ARRAY[1, 2, 3]::integer[]
+);
 
-INSERT INTO zti_project.user (firstName, lastName, email, password)
-VALUES ('admin', 'admin', 'admin@example.com', '$2b$10$YparQ5ndmjfaTWqpunT4nOd1DuViciOK7Vj6B4WkgOFR3nHmbVGTS');
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -4,7 +4,7 @@ import Profile from "./pages/Profile";
 import SearchFlights from "./pages/SearchFlights";
 import Settings from "./pages/Settings";
 import Flight from "./pages/Flight";
-import Layout from "./pages/Layout";
+import Layout from "./components/Layout";
 import ThemeProvider from "./context/ThemeContext";
 import LanguageProvider from "./context/LanguageContext";
 import { QueryClientProvider, QueryClient } from "react-query";

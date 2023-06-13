@@ -12,15 +12,16 @@ const findFlightsFrom = async(req, res) =>{
         if (!idAirport)  {
             return res.status(400).json({ 'Message': 'Id Airport is required.' });
         }
-        const result = await session.run(`MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(a) = $idAirport RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`, { idAirport: idAirport });
+        const result = await session.run(`MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(a) = $idAirport RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`, { idAirport: idAirport });
 
         const flights = result.records.map((record) => ({
             id: record.get('id').low,
             originCountry: record.get('originCountry'),
             originCity: record.get('originCity'),
+            originImage: record.get('a.image'),
             destinationCountry: record.get('destinationCountry'),
             destinationCity: record.get('destinationCity'),
-            image: record.get('b.image'),
+            destinationImage: record.get('b.image'),
             distance: record.get('r.distance').low,
             date: record.get('r.date'),
             price: record.get('r.price').low,
@@ -43,15 +44,16 @@ const findFlightsTo = async(req, res) =>{
         if (!idAirport)  {
             return res.status(400).json({ 'Message': 'Id Airport is required.' });
         }
-        const result = await session.run(`MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(b) = $idAirport RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`, { idAirport: idAirport });
+        const result = await session.run(`MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(b) = $idAirport RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`, { idAirport: idAirport });
 
         const flights = result.records.map((record) => ({
             id: record.get('id').low,
             originCountry: record.get('originCountry'),
             originCity: record.get('originCity'),
+            originImage: record.get('a.image'),
             destinationCountry: record.get('destinationCountry'),
             destinationCity: record.get('destinationCity'),
-            image: record.get('b.image'),
+            destinationImage: record.get('b.image'),
             distance: record.get('r.distance').low,
             date: record.get('r.date'),
             price: record.get('r.price').low,
@@ -71,15 +73,16 @@ const getFlightsByIds = async (req, res) => {
     try {
         const { flightIds } = req.body;
 
-        const result = await session.run('MATCH (a:Airport)-[r:Flight]->(b:Airport) WHERE ID(r) IN $flightIds RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats', { flightIds: flightIds });
+        const result = await session.run('MATCH (a:Airport)-[r:Flight]->(b:Airport) WHERE ID(r) IN $flightIds RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats', { flightIds: flightIds });
 
         const flights = result.records.map((record) => ({
             id: record.get('id').low,
             originCountry: record.get('originCountry'),
             originCity: record.get('originCity'),
+            originImage: record.get('a.image'),
             destinationCountry: record.get('destinationCountry'),
             destinationCity: record.get('destinationCity'),
-            image: record.get('b.image'),
+            destinationImage: record.get('b.image'),
             distance: record.get('r.distance').low,
             date: record.get('r.date'),
             price: record.get('r.price').low,
@@ -97,15 +100,16 @@ const getFlightsByIds = async (req, res) => {
 
 const getAllFlights = async (req, res) => {
     try {
-        const result = await session.run(`MATCH (a:Airport)-[r:Flight]->(b:Airport) RETURN ID(r) AS id, a.country AS originCountry, a.city AS originCity, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`);
+        const result = await session.run(`MATCH (a:Airport)-[r:Flight]->(b:Airport) RETURN ID(r) AS id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`);
 
         const flights = result.records.map((record) => ({
             id: record.get('id').low,
             originCountry: record.get('originCountry'),
             originCity: record.get('originCity'),
+            originImage: record.get('a.image'),
             destinationCountry: record.get('destinationCountry'),
             destinationCity: record.get('destinationCity'),
-            image: record.get('b.image'),
+            destinationImage: record.get('b.image'),
             distance: record.get('r.distance').low,
             date: record.get('r.date'),
             price: record.get('r.price').low,

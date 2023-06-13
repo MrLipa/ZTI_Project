@@ -3,11 +3,11 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 
 router.get('/', userController.getAllUsers)
-router.get('/:email', userController.getUser)
+router.get('/:user_id', userController.getUser)
 router.post('/', userController.createNewUser)
 router.put('/', userController.updateUser)
-router.delete('/:email', userController.deleteUser)
-router.get('/flights_history/:email', userController.getUserFlightsHistory)
+router.delete('/:user_id', userController.deleteUser)
+router.get('/flights_history/:user_id', userController.getUserFlightsHistory)
 router.post('/made_reservation', userController.makeReservation)
 router.post('/cancel_reservation', userController.cancelReservation)
 

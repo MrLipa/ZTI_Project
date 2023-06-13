@@ -33,14 +33,14 @@ const handleLogin = async (req, res) => {
             if((await pool.query("SELECT * FROM zti_project.token WHERE user_id=$1",[foundUser.rows[0].user_id])).rows.length===0)
             {
                 await pool.query(
-                    "INSERT INTO zti_project.token (user_id, token) VALUES($1,$2) RETURNING *",
+                    "INSERT INTO zti_project.token (user_id, refresh_token) VALUES($1,$2) RETURNING *",
                     [foundUser.rows[0].user_id,refreshToken]
                 );
             }
             else
             { 
                 await pool.query(
-                    "UPDATE zti_project.token SET token = $2 WHERE user_id = $1 RETURNING *",
+                    "UPDATE zti_project.token SET refresh_token = $2 WHERE user_id = $1 RETURNING *",
                     [foundUser.rows[0].user_id,refreshToken]
                 );
             }

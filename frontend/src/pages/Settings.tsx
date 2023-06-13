@@ -1,106 +1,225 @@
-import React, { useState } from 'react';
-import { Avatar } from 'primereact/avatar';
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
-import { TabView, TabPanel } from 'primereact/tabview';
-import { Image } from 'primereact/image';
-import { Card } from 'primereact/card';
-import { InputSwitch } from 'primereact/inputswitch';
-import { InputTextarea } from 'primereact/inputtextarea';
+import React, { useState, useEffect, useContext } from "react";
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { TabView, TabPanel } from "primereact/tabview";
+import { Image } from "primereact/image";
+import { Card } from "primereact/card";
+import { InputSwitch } from "primereact/inputswitch";
+import { InputTextarea } from "primereact/inputtextarea";
+import { useUpdateUserMutation, useUserQuery } from "./../api/ApiHooks";
+import { User } from "../typescript/interfaces";
+import { Dropdown } from 'primereact/dropdown';
+import { ThemeContext } from "../context/ThemeContext";
+import { LanguageContext } from "../context/LanguageContext";
+import Flags from "country-flag-icons/react/3x2";
+import { Menu } from 'primereact/menu';
+import { useTranslation } from 'react-i18next';
 
-const NotificationSettingsComponent = () => {
-  const [isThemeSelected, setThemeSelected] = useState(false);
-  const [areNotificationsOff, setNotificationsOff] = useState(false);
 
-  const handleThemeSwitchChange = (e) => {
-      setThemeSelected(e.value);
+const MessageSettingsComponent = () => {
+  const { t } = useTranslation();
+  const { theme, currentTheme, toggleTheme } = useContext(ThemeContext);
+  const { language, flag, toggleLanguage } = useContext(LanguageContext);
+
+  const flagStyles: React.CSSProperties = {
+    width: "25px",
+    height: "25px",
+    marginRight: "9px",
   };
 
-  const handleNotificationSwitchChange = (e) => {
-      setNotificationsOff(e.value);
-  };
+  const languageOptions = [
+    {
+      label: t("polish"),
+      icon: <Flags.PL style={flagStyles} />,
+      command: () => {
+        toggleLanguage("pl");
+      },
+    },
+    {
+      label: t("english"),
+      icon: <Flags.GB style={flagStyles} />,
+      command: () => {
+        toggleLanguage("en");
+      },
+    },
+    {
+      label: t("german"),
+      icon: <Flags.DE style={flagStyles} />,
+      command: () => {
+        toggleLanguage("de");
+      },
+    },
+  ];
 
   return (
-      <div>
-          <h2 style={{fontWeight: 'bold'}}>Notification Settings</h2>
-          <p>Select notification you want to receive</p>
+    <div>
+      <h2 style={{ fontWeight: "bold" }}>{t("messageSettings")}</h2>
+      <p>{t("selectNotifications")}</p>
 
-          <div style={{marginTop: '30px'}}>
-              <h3 style={{fontWeight: 'bold'}}>Theme</h3>
-              <Card>
-                  <h4>Select Theme</h4>
-                  <InputSwitch checked={isThemeSelected} onChange={handleThemeSwitchChange} />
-              </Card>
-          </div>
-
-          <div style={{marginTop: '30px'}}>
-              <h3 style={{fontWeight: 'bold'}}>Notifications</h3>
-              <Card>
-                  <h4>Turn off notifications</h4>
-                  <InputSwitch checked={areNotificationsOff} onChange={handleNotificationSwitchChange} />
-              </Card>
-          </div>
+      <div style={{ marginTop: "30px" }}>
+        <h3 style={{ fontWeight: "bold" }}>{t("theme")}</h3>
+        <Card>
+          <h4>{t("darkTheme")}</h4>
+          <InputSwitch
+            checked={theme === 0 ? false : true}
+            onChange={()=>{toggleTheme(theme === 0 ? 1 : 0)}}
+          />
+        </Card>
       </div>
+      
+      <div style={{ marginTop: "30px" }}>
+        <h3 style={{ fontWeight: "bold" }}>{t("language")}</h3>
+        <Card>
+          <h4>{t("selectLanguage")}</h4>
+          <Menu model={languageOptions} />
+        </Card>
+      </div>
+    </div>
   );
 };
+
 const ProfileComponent = () => {
-  const [avatar, setAvatar] = useState('https://example.com/default-avatar.jpg');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { t } = useTranslation();
+  const user_id = 1;
+  const { data: userData, isLoading, isError } = useUserQuery(user_id);
+  const [user, setUser] = useState<User>({
+    user_id: 0,
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    role: "",
+    description: "",
+    phone: "",
+    address: "",
+    image: "",
+    messages: [],
+    flightids: [],
+  });
+
+  useEffect(() => {
+    if (userData) {
+      setUser(userData);
+    }
+  }, [userData]);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setUser({ ...user, [e.target.id]: e.target.value });
+  };
+
+  const updateUserMutation = useUpdateUserMutation();
 
   const handleAvatarChange = () => {
-      // Implement your logic for changing the avatar here
-      // For example, you can open a file picker or display a dialog for selecting a new avatar image
+    updateUserMutation.mutate(user);
   };
 
   const handleSaveChanges = () => {
-      // Implement your logic for saving the changes here
-      // You can access the updated values of firstName, lastName, email, and password
+    updateUserMutation.mutate(user);
   };
 
   return (
-      <div>
-          <div className="p-d-flex p-ai-center">
-              <Image src="https://i.natgeofe.com/k/95d61645-a0c7-470f-b198-74a399dd5dfb/singapore-city_2x3.jpg" alt="Image" width="250" height='250' preview />
-              <Button label="Zmień awatar" onClick={handleAvatarChange} style={{marginLeft: '50px'}}/>
-          </div>
-
-          <div className="p-grid p-mt-4" style={{marginTop: '40px', width: '100%'}}>
-              <div className="p-col-12 p-md-6" style={{width: '100%'}}>
-                  <InputText id="firstName" placeholder="Imię" value={firstName} onChange={(e) => setFirstName(e.target.value)} style={{width: '49%', marginRight: '2%'}} />
-                  <InputText id="lastName" placeholder="Nazwisko" value={lastName} onChange={(e) => setLastName(e.target.value)} style={{width: '49%'}}/>
-              </div>
-              <div className="p-col-12 p-md-6" style={{marginTop: '2%'}}>
-                  <InputText id="lastName" placeholder="Email" value={lastName} onChange={(e) => setLastName(e.target.value)} style={{width: '49%', marginRight: '2%'}}/>
-                  <InputText id="Address" placeholder="Address" value={lastName} onChange={(e) => setLastName(e.target.value)} style={{width: '49%'}}/>
-              </div>
-              <div className="p-col-12 p-md-6" style={{marginTop: '2%', marginBottom: '40px'}}>
-                  <InputText id="Phone" placeholder="Phone" value={lastName} onChange={(e) => setLastName(e.target.value)} style={{width: '49%', marginRight: '2%'}}/>
-                  <InputText id="password" type="password" placeholder="Hasło" value={password} onChange={(e) => setPassword(e.target.value)} style={{width: '49%'}}/>
-              </div>
-          </div>
-          <InputTextarea style={{marginTop: '2%', marginBottom: '40px'}} rows={5} cols={121} />
-          <div className="p-d-flex p-jc-end p-mt-4">
-              <Button label="Zapisz zmiany" onClick={handleSaveChanges} />
-          </div>
+    <div>
+      <div className="p-d-flex p-ai-center">
+        <Image src={user.image} alt="Image" width="250" height="250" preview />
+        <Button
+          label={t("changeAvatar")}
+          onClick={handleAvatarChange}
+          style={{ marginLeft: "50px" }}
+        />
       </div>
+
+      <div
+        className="p-grid p-mt-4"
+        style={{ marginTop: "40px", width: "100%" }}
+      >
+        <div className="p-col-12 p-md-6" style={{ width: "100%" }}>
+          <InputText
+            id="firstname"
+            placeholder={t("firstNamePlaceholder")}
+            value={user.firstname}
+            onChange={handleInputChange}
+            style={{ width: "49%", marginRight: "2%" }}
+          />
+          <InputText
+            id="lastname"
+            placeholder={t("lastNamePlaceholder")}
+            value={user.lastname}
+            onChange={handleInputChange}
+            style={{ width: "49%" }}
+          />
+        </div>
+        <div className="p-col-12 p-md-6" style={{ marginTop: "2%" }}>
+          <InputText
+            id="email"
+            placeholder={t("emailPlaceholder")}
+            value={user.email}
+            onChange={handleInputChange}
+            style={{ width: "49%", marginRight: "2%" }}
+          />
+          <InputText
+            id="address"
+            placeholder={t("addressPlaceholder")}
+            value={user.address}
+            onChange={handleInputChange}
+            style={{ width: "49%" }}
+          />
+        </div>
+        <div
+          className="p-col-12 p-md-6"
+          style={{ marginTop: "2%", marginBottom: "40px" }}
+        >
+          <InputText
+            id="phone"
+            placeholder={t("phonePlaceholder")}
+            value={user.phone}
+            onChange={handleInputChange}
+            style={{ width: "49%", marginRight: "2%" }}
+          />
+          <InputText
+            id="password"
+            type="password"
+            placeholder={t("passwordPlaceholder")}
+            value={user.password}
+            onChange={handleInputChange}
+            style={{ width: "49%" }}
+          />
+        </div>
+      </div>
+      <InputTextarea
+        value={user?.description || ''}
+        onChange={(e) => setUser(prevUser => {
+            return prevUser ? { ...prevUser, description: e.target.value } : prevUser
+        })}
+        style={{
+            marginTop: "2%",
+            marginBottom: "40px",
+            width: "100%",
+            height: "100%",
+        }}
+        rows={10}
+        />
+
+      <div className="p-d-flex p-jc-end p-mt-4">
+        <Button label={t("saveChanges")} onClick={handleSaveChanges} />
+      </div>
+    </div>
   );
 };
 
 const Settings = () => {
-
-return (
-  <TabView>
-      <TabPanel header="Profil">
-          <ProfileComponent/>
+  const { t } = useTranslation();
+  return (
+    <TabView>
+      <TabPanel header={t("profileTab")}>
+        <ProfileComponent />
       </TabPanel>
-      <TabPanel header="Settings">
-          <NotificationSettingsComponent/>
+      <TabPanel header={t("settingsTab")}>
+        <MessageSettingsComponent />
       </TabPanel>
-  </TabView>
-  )
-}
+    </TabView>
+  );
+};
 
-export default Settings
+export default Settings;

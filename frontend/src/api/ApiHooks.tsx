@@ -1,20 +1,9 @@
 import { useMutation, useQuery, UseMutationResult, UseQueryResult } from 'react-query';
+import { Flight, User } from "../typescript/interfaces";
+
 const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
-interface Flight {
-  id: number;
-  originCountry: string;
-  originCity: string;
-  destinationCountry: string;
-  destinationCity: string;
-  image: string;
-  price: number;
-  date: string;
-  duration: string;
-  airline: string;
-  class: string;
-  freeSeats: number;
-}
+
 
 const sendRequest = async (url: string, method: string, data: any = null) => {
   const response = await fetch(url, {
@@ -33,6 +22,21 @@ const sendRequest = async (url: string, method: string, data: any = null) => {
   return response.json();
 };
 
+
+const useUserQuery = (user_id: number): UseQueryResult<User, Error> => {
+  return useQuery<User, Error>({
+    queryKey: ['user', user_id],
+    queryFn: () => sendRequest(`${BASE_URL}/user/${user_id}`, 'GET'),
+  });
+};
+
+const useUserFlightsHistory = (user_id: number): UseQueryResult<Flight[], Error> => {
+  return useQuery<Flight[], Error>({
+    queryKey: ['userFlightsHistory', user_id],
+    queryFn: () => sendRequest(`${BASE_URL}/user/flights_history/${user_id}`, 'GET'),
+  });
+};
+
 const useFlightQuery = (): UseQueryResult<Flight[], Error> => {
   return useQuery<Flight[], Error>({
     queryKey: ['flight'],
@@ -40,10 +44,10 @@ const useFlightQuery = (): UseQueryResult<Flight[], Error> => {
   });
 };
 
-const useFlightsByIdsQuery = (flightIds: string[]): UseQueryResult<Flight[], Error> => {
+const useFlightsByIdsQuery = (flightIds: number[]): UseQueryResult<Flight[], Error> => {
   return useQuery<Flight[], Error>({
     queryKey: ['flights', flightIds],
-    queryFn: () => sendRequest(`${BASE_URL}/flight/flights_by_ids`, 'POST', { flightIds }),
+    queryFn: () => sendRequest(`${BASE_URL}/flight/flights_by_ids`, 'POST', { "flightIds": flightIds }),
   });
 };
 
@@ -118,7 +122,23 @@ const useCancelReservationMutation = (): UseMutationResult<any, Error, { email: 
   });
 };
 
+const useUpdateUserMutation = (): UseMutationResult<any, Error, Partial<User>> => {
+  const updateUser = async (userData: Partial<User>) => {
+    return sendRequest(`${BASE_URL}/user`, 'PUT', userData);
+  };
+
+  return useMutation({
+    mutationKey: 'updateUser',
+    mutationFn: updateUser,
+    onError: (error: Error) => {
+      console.error('Wystąpił błąd podczas aktualizacji danych użytkownika:', error.message);
+    },
+  });
+};
+
 export {
+  useUserQuery,
+  useUserFlightsHistory,
   useFlightQuery,
   useFlightsByIdsQuery,
   useRegisterMutation,
@@ -127,4 +147,5 @@ export {
   useLogoutQuery,
   useMakeReservationMutation,
   useCancelReservationMutation,
+  useUpdateUserMutation,
 };

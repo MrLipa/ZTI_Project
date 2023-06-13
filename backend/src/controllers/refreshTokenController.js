@@ -8,7 +8,7 @@ const handleRefreshToken = async (req, res) => {
     if (!cookies?.jwt) return res.sendStatus(401);
     const refreshToken = cookies.jwt;
 
-    const foundUser = await pool.query("SELECT * FROM zti_project.user JOIN zti_project.token USING (user_id) WHERE token=$1", [refreshToken]);
+    const foundUser = await pool.query("SELECT * FROM zti_project.user JOIN zti_project.token USING (user_id) WHERE refresh_token=$1", [refreshToken]);
 
     if (foundUser.rows.length===0) return res.sendStatus(403);
 
