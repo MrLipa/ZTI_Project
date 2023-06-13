@@ -6,6 +6,22 @@
 	},
 	"item": [
 		{
+			"name": "http://localhost:3000/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "http://localhost:3000/user",
 			"request": {
 				"auth": {
@@ -35,7 +51,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/",
+			"name": "http://localhost:3000/user/1",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -50,7 +66,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/user/johndoe@example.com",
+					"raw": "http://localhost:3000/user/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -58,7 +74,7 @@
 					"port": "3000",
 					"path": [
 						"user",
-						"johndoe@example.com"
+						"1"
 					]
 				}
 			},
@@ -81,7 +97,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"firstName\": \"111\",\r\n  \"lastName\": \"111\",\r\n  \"email\": \"111@example.com\",\r\n  \"password\": \"111\",\r\n  \"image\": \"111\",\r\n  \"flightIds\": [1, 2, 3]\r\n}",
+					"raw": "{\r\n  \"firstName\": \"John\",\r\n  \"lastName\": \"Doe\",\r\n  \"email\": \"johndoe@example.com\",\r\n  \"password\": \"secretpassword\",\r\n  \"phone\": \"123456789\",\r\n  \"address\": \"123 Main St, City\",\r\n  \"image\": \"https://example.com/avatar.jpg\",\r\n  \"description\": \"Lorem ipsum dolor sit amet\",\r\n  \"messages\": [\"Hello\", \"How are you?\"],\r\n  \"flightIds\": [1, 2, 3]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -119,7 +135,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"firstName\": \"222\",\r\n  \"lastName\": \"222\",\r\n  \"email\": \"111@example.com\",\r\n  \"password\": \"222\",\r\n  \"image\": \"222\",\r\n  \"flightIds\": [2, 4]\r\n}",
+					"raw": "{\r\n    \"user_id\": 2,\r\n    \"firstName\": \"Thomas\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -141,7 +157,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/johndoe@example.com",
+			"name": "http://localhost:3000/user/2",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -165,7 +181,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/user/111@example.com",
+					"raw": "http://localhost:3000/user/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -173,14 +189,14 @@
 					"port": "3000",
 					"path": [
 						"user",
-						"111@example.com"
+						"2"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/flights_history/johndoe@example.com",
+			"name": "http://localhost:3000/user/flights_history/1",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -195,7 +211,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/user/flights_history/johndoe@example.com",
+					"raw": "http://localhost:3000/user/flights_history/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -204,7 +220,7 @@
 					"path": [
 						"user",
 						"flights_history",
-						"johndoe@example.com"
+						"1"
 					]
 				}
 			},
@@ -227,7 +243,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"johndoe@example.com\",\r\n    \"flightId\": 47\r\n}",
+					"raw": "{\r\n    \"user_id\": 1,\r\n    \"flightId\": 4\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -266,7 +282,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"johndoe@example.com\",\r\n    \"flightId\": 47\r\n}",
+					"raw": "{\r\n    \"user_id\": 1,\r\n    \"flightId\": 4\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -290,9 +306,31 @@
 		},
 		{
 			"name": "http://localhost:3000/flight",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightId\": 47,\r\n    \"freeSeats\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:3000/flight",
 					"protocol": "http",
@@ -322,7 +360,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/flight/flights_to",
+					"raw": "http://localhost:3000/flight/flights_from",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -330,7 +368,7 @@
 					"port": "3000",
 					"path": [
 						"flight",
-						"flights_to"
+						"flights_from"
 					]
 				}
 			},
@@ -343,7 +381,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idAirport\": 24\r\n}",
+					"raw": "{\r\n    \"idAirport\": 8\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -372,7 +410,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"flightIds\": [47]\r\n}",
+					"raw": "{\r\n    \"flightIds\": [4]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -411,7 +449,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"flightId\": 47,\r\n    \"freeSeats\": 100\r\n}",
+					"raw": "{\r\n    \"flightId\": 4,\r\n    \"freeSeats\": 100\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -467,7 +505,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"user\"\r\n}",
+					"raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"admin\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -526,13 +564,7 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Cookie",
-						"value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE2ODQ2Nzc1ODAsImV4cCI6MTY4NDc2Mzk4MH0.f7GnWl7egrrd0ZcjJM53LdnYWFUgg59LIlmhv4XUa0A",
-						"type": "default"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": "",
