@@ -20,7 +20,8 @@ CREATE TABLE zti_project.user (
   image VARCHAR(255),
   description VARCHAR(255),
   messages VARCHAR(255)[],
-  flightIds INTEGER[]
+  flightIds INTEGER[],
+  roles VARCHAR(255)[],
 );
 
 

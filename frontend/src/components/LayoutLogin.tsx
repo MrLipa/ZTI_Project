@@ -61,26 +61,6 @@ const Navbar = () => {
           <li className="sidebar-item">
             <Link
               className="sidebar-link"
-              to="/home"
-              style={{ color: currentTheme.fontColor }}
-            >
-              <i className="pi pi-home" />
-              <span> {t('Home')}</span>
-            </Link>
-          </li>
-          <li className="sidebar-item">
-            <Link
-              className="sidebar-link"
-              to="/help"
-              style={{ color: currentTheme.fontColor }}
-            >
-              <i className="pi pi-question-circle" />
-              <span> {t('Help')}</span>
-            </Link>
-          </li>
-          <li className="sidebar-item">
-            <Link
-              className="sidebar-link"
               to="/profile"
               style={{ color: currentTheme.fontColor }}
             >
@@ -112,7 +92,7 @@ const Navbar = () => {
           <li className="sidebar-item">
             <Link
               className="sidebar-link"
-              to="/logout"
+              to="/"
               style={{ color: currentTheme.fontColor }}
             >
               <i className="pi pi-sign-out" />

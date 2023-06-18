@@ -1,9 +1,10 @@
 const neo4j = require('neo4j-driver');
-
-require('dotenv').config()
 const { NEO4J_DATABASE_URL, NEO4J_DB_USERNAME, NEO4J_DB_PASSWORD} = process.env
 const driver = neo4j.driver(NEO4J_DATABASE_URL, neo4j.auth.basic(NEO4J_DB_USERNAME, NEO4J_DB_PASSWORD));
 const session = driver.session();
+require('dotenv').config()
+
+
 
 const findFlightsFrom = async(req, res) =>{
     try {
@@ -151,6 +152,8 @@ const updateFlight = async (req, res) => {
         res.status(500).json({message: err.message});
     }
 };
+
+
 
 module.exports = {
     findFlightsFrom,

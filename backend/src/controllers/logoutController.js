@@ -1,5 +1,7 @@
 const pool = require("../model/db");
 
+
+
 const handleLogout = async (req, res) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(204).json({ 'Message': 'No token' });
@@ -18,4 +20,8 @@ const handleLogout = async (req, res) => {
     res.status(200).json({ 'Message': 'User logout' });
 }
 
-module.exports = { handleLogout }
+
+
+module.exports = { 
+    handleLogout 
+}

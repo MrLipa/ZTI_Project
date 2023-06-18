@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt');
 const pool = require("../model/db");
 const jwt = require('jsonwebtoken');
-
 require('dotenv').config();
+
+
 
 const handleLogin = async (req, res) => {
     const { email, password } = req.body;
@@ -19,14 +20,22 @@ const handleLogin = async (req, res) => {
             const accessToken = jwt.sign(
                 {
                     "UserInfo": {
-                        "email": foundUser.rows[0].email
+                        "user_id": foundUser.rows[0].user_id,
+                        "email": foundUser.rows[0].email,
+                        "roles": [2137]
                     }
                 },
                 process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '30s' }
+                { expiresIn: '15s' }
             );
             const refreshToken = jwt.sign(
-                { "email": foundUser.rows[0].email },
+                {
+                    "UserInfo": {
+                        "user_id": foundUser.rows[0].user_id,
+                        "email": foundUser.rows[0].email,
+                        "roles": [2137]
+                    }
+                },
                 process.env.REFRESH_TOKEN_SECRET,
                 { expiresIn: '1d' }
             );
@@ -46,7 +55,7 @@ const handleLogin = async (req, res) => {
             }
             
             res.cookie('jwt', refreshToken, { httpOnly: true,  maxAge: 24 * 60 * 60 * 1000 });
-            res.json({accessToken});
+            res.json({accessToken, roles: [2137]});
         } else {
             res.sendStatus(401);
         }

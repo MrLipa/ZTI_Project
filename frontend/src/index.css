@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.navbar-link:hover{
+  transform: scale(1.2);
+  color: #007bff;
+}
+html {
+    font-family: 'Nunito', sans-serif;
+}
 .p-overlaypanel-content{
   padding: 0px!important;
 }
@@ -47,6 +60,48 @@ li.sidebar-item {
   width: 100%;
 }
 
+.footer {
+  background: #1e1d1d;
+  color: #ffffff;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+  min-width: 200px;
+  padding: 20px;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
+
+.contact-list {
+  list-style: none;
+  padding-left: 0;
+}
 
 
 /* Layout */

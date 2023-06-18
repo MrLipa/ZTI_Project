@@ -79,7 +79,9 @@ const TravelDetailsCard = () => {
       setFlightData(flights);
     }
   }, [flights, isLoading, isError]);
+
   const navigate = useNavigate();
+  
   return (
     <Card title={t("Travel Details")} className="card travel-details-card">
       <DataTable

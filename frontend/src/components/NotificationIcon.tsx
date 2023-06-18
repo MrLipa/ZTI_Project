@@ -9,7 +9,7 @@ import { User } from "../typescript/interfaces";
 
 const NotificationIcon = () => {
   const user_id = 1;
-  const { data: userData, isLoading, isError } = useUserQuery(user_id);
+  // const { data: userData, isLoading, isError } = useUserQuery(user_id);
   const [user, setUser] = useState<User>({
     user_id: 0,
     firstname: "",
@@ -25,11 +25,11 @@ const NotificationIcon = () => {
     flightids: [],
   });
 
-  useEffect(() => {
-    if (userData) {
-      setUser(userData);
-    }
-  }, [userData]);
+  // useEffect(() => {
+  //   if (userData) {
+  //     setUser(userData);
+  //   }
+  // }, [userData]);
 
   const op = useRef(null);
 

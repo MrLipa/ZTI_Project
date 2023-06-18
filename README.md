@@ -4,8 +4,12 @@
 - Visual Studio Code
 - Node
 - Docker
-9
 
+
+ogarnać dwa formularze
+Ogarnąc Sesje 
+ogarnąć Strone tytułową 
+ogarnąć usuwanie rezerwacja czas 
 
 
 

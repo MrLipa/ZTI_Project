@@ -3,9 +3,6 @@ require('dotenv').config();
 
 const excludedPaths = [
   { path: '/flight', methods: ['GET'] },
-  { path: '/flight/flights_from', methods: ['POST'] },
-  { path: '/flight/flights_to', methods: ['POST'] },
-  { path: '/flight/flights_by_ids', methods: ['POST'] }
 ];
 
 const verifyJWT = (req, res, next) => {

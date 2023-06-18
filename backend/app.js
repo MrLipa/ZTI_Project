@@ -7,6 +7,8 @@ const credentials = require('./src/middleware/credentials');
 const { logger } = require('./src/middleware/logEvents');
 const errorHandler = require('./src/middleware/errorHandler');
 const verifyJWT = require('./src/middleware/verifyJWT');
+const ROLES_LIST = require('./src/config/roles_list');
+const verifyRoles = require('./src/middleware/verifyRoles');
 const app = express();
 
 
@@ -36,8 +38,9 @@ if (process.env.NODE_ENV === 'build') {
 
 app.use(errorHandler);
 app.use(verifyJWT);
-app.use('/flight', require('./src/routes/flight'));
-app.use('/user', require('./src/routes/user'));
+// app.use(verifyRoles(ROLES_LIST.Admin));
+app.use('/flight', require('./src/routes/api/flight'));
+app.use('/user', require('./src/routes/api/users'));
 
 
 module.exports = app;

@@ -1,6 +1,8 @@
 const pool = require("../model/db");
 const axios = require('axios');
 
+
+
 const getUser = async (req, res) => {
     try {
         const user_id = req.params.user_id;
@@ -156,6 +158,7 @@ const cancelReservation = async (req, res) => {
         res.status(500).json(err.message);
     }
 };
+
 
 
 module.exports = {
