@@ -23,7 +23,7 @@ const sendRequest = async (
     url: url,
     data: data,
   });
-
+  console.log(response)
   if (response.status === 400) {
     showToast("error", "Error", "Bad Request: ");
     throw new Error("Bad Request: ");
@@ -98,16 +98,16 @@ const useFlightsByIdsQuery = (
   });
 };
 
-const useFindFlightsQuery = (idAirport_from: number | null = null, idAirport_to: number | null = null): UseQueryResult<Flight[], Error> => {
+const useFindFlightsQuery = (city_from: string = '', city_to: string = ''): UseQueryResult<Flight[], Error> => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
 
   return useQuery<Flight[], Error>({
-    queryKey: ["flights", idAirport_from, idAirport_to],
+    queryKey: ["flights", city_from, city_to],
     queryFn: () =>
       sendRequest(
         axiosPrivate,
-        `/flight/find?idAirport_from=${idAirport_from}&idAirport_to=${idAirport_to}`,
+        `/flight/find?city_from=${city_from}&city_to=${city_to}`,
         "GET",
         showToast
       ),
@@ -127,7 +127,6 @@ const useMakeReservationMutation = (): UseMutationResult<
     user_id: number;
     flightId: number;
   }) => {
-    console.log(reservationData)
     return sendRequest(
       axiosPrivate,
       `/user/made_reservation`,
@@ -141,15 +140,12 @@ const useMakeReservationMutation = (): UseMutationResult<
     mutationKey: "makeReservation",
     mutationFn: makeReservation,
     onError: (error: Error) => {
-      console.error(
-        "Wystąpił błąd podczas tworzenia rezerwacji:",
-        error
-      );
-      showToast("error", "Error", "Failed to make reservation");
+      console.error("An 78i7",error);
+      showToast("error", "Error", "Failed to add message");
     },
     onSuccess: () => {
-      showToast("success", "Success", "Operation completed successfully");
-      queryClient.invalidateQueries(["userFlightsHistory", 1]);
+      showToast("success", "Success", "Message added successfully");
+      queryClient.invalidateQueries(["user", 1]);
     },
   });
 };

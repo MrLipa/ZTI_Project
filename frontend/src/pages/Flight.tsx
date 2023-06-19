@@ -15,12 +15,6 @@ const FlightComponent = () => {
   const { data: flightsData, isLoading, isError } = useFlightsByIdsQuery([flightId]);
   const makeReservationMutation = useMakeReservationMutation();
   const addMessageMutation = useAddMessageMutation();
-  const { showToast } = useToast();
-  const handleClick = () => {
-    makeReservationMutation.mutate({ user_id: 1, flightId: flightId });
-    addMessageMutation.mutate({ user_id: 1, message: `Reservation made id ${flightId}` });
-    showToast("success", "Success", "Operation completed successfully");
-  }
 
   const [flight, setFlight] = useState<Flight>({
     id: 0,
@@ -43,6 +37,13 @@ const FlightComponent = () => {
       setFlight(flightsData[0]);
     }
   }, [flightsData]);
+
+  const handleClick = () => {
+    makeReservationMutation.mutate({ user_id: 1, flightId: flightId });
+    addMessageMutation.mutate({ user_id: 1, message: `Reservation made to ${flight.destinationCountry} ${flight.destinationCity}` });
+  }
+
+
 
   if (isLoading) return <div>Ładowanie...</div>;
   if (isError) return <div>Błąd...</div>;

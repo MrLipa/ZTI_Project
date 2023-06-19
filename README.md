@@ -5,8 +5,6 @@
 - Node
 - Docker
 
-ogarnąć usuwanie rezerwacja czas 
-ogarnąc czemu sie odświerza
 
 
 apt-get update

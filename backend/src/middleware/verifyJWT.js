@@ -3,16 +3,16 @@ require('dotenv').config();
 
 const excludedPaths = [
   { path: '/flight', methods: ['GET'] },
-  { path: '/flight/flights_by_ids', methods: ['POST'] },
+  { path: '/find', methods: ['GET'] },
 ];
 
 const verifyJWT = (req, res, next) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
   const currentPath = req.originalUrl;
   const currentMethod = req.method;
-
+  
   const excludedPath = excludedPaths.find((path) => {
-    return path.path === currentPath && path.methods.includes(currentMethod);
+    return currentPath.startsWith(path.path) && path.methods.includes(currentMethod);
   });
 
   if (excludedPath) {

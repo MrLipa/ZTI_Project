@@ -385,14 +385,14 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/flight/find?idAirport_from=1&idAirport_to=2",
+			"name": "/flight/find?city_from=&city_to=",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{token}}",
+							"value": "",
 							"type": "string"
 						}
 					]
@@ -400,7 +400,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/flight/find?idAirport_from=null&idAirport_to=null",
+					"raw": "http://localhost:3000/flight/find?city_from=Warsaw&city_to=",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -412,12 +412,12 @@
 					],
 					"query": [
 						{
-							"key": "idAirport_from",
-							"value": "null"
+							"key": "city_from",
+							"value": "Warsaw"
 						},
 						{
-							"key": "idAirport_to",
-							"value": "null"
+							"key": "city_to",
+							"value": ""
 						}
 					]
 				}

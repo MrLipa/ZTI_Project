@@ -8,26 +8,26 @@ require('dotenv').config()
 
 const findFlights = async(req, res) => {
     try {
-        const idAirport_from = parseInt(req.query.idAirport_from, 10);
-        const idAirport_to = parseInt(req.query.idAirport_to, 10);
+        const city_from = req.query.city_from;
+        const city_to = req.query.city_to;
         
         let query = '';
         let parameters = {};
 
-        if (!idAirport_from && !idAirport_to) {
+        if (city_from==='' && city_to==='') {
             query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
         } 
-        else if (idAirport_from && !idAirport_to) {
-            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(a) = $idAirport_from RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
-            parameters = { idAirport_from: idAirport_from };
+        else if (city_from && city_to==='') {
+            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE a.city = $city_from RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
+            parameters = { city_from: city_from };
         }
-        else if (!idAirport_from && idAirport_to) {
-            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(b) = $idAirport_to RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
-            parameters = { idAirport_to: idAirport_to };
+        else if (city_from==='' && city_to) {
+            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE b.city = $city_to RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
+            parameters = { city_to: city_to };
         }
         else {
-            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(a) = $idAirport_from AND id(b) = $idAirport_to RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
-            parameters = { idAirport_from: idAirport_from, idAirport_to: idAirport_to };
+            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE a.city = $city_from AND b.city = $city_to RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
+            parameters = { city_from: city_from, city_to: city_to };
         }
         
         const result = await session.run(query, parameters);

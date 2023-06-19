@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "primereact/button";
 import { Carousel, CarouselResponsiveOption } from "primereact/carousel";
-import { useFlightQuery } from "../api/ApiHooks"; // Import the hook
+import { useFindFlightsQuery, useFlightQuery } from "../api/ApiHooks"; // Import the hook
 import { Flight } from "../typescript/interfaces";
 import { useTranslation } from "react-i18next";
 
-export default function BasicDemo() {
-  const { data: flights, isLoading, isError } = useFlightQuery();
+interface FlightCardsProps {
+  from: string;
+  to: string;
+}
+
+const FlightCards: React.FC<FlightCardsProps> = ({ from, to }) => {
   const { t } = useTranslation();
+  const { data: flights, isLoading, isError } = useFindFlightsQuery(from, to);
   const responsiveOptions: CarouselResponsiveOption[] = [
     {
       breakpoint: "1199px",
@@ -53,8 +57,8 @@ export default function BasicDemo() {
 
   if (isLoading) {
     return <div>Loading...</div>;
-  }
-
+  } 
+  
   if (isError) {
     return <div>Error loading flights</div>;
   }
@@ -71,3 +75,5 @@ export default function BasicDemo() {
     </div>
   );
 }
+
+export default FlightCards;

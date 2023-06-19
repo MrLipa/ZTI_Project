@@ -36,9 +36,9 @@ if (process.env.NODE_ENV === 'build') {
 }
 
 
-// app.use(errorHandler);
-// app.use(verifyJWT);
-// // app.use(verifyRoles(ROLES_LIST.Admin));
+app.use(errorHandler);
+app.use(verifyJWT);
+// app.use(verifyRoles(ROLES_LIST.Admin));
 app.use('/flight', require('./src/routes/api/flight'));
 app.use('/user', require('./src/routes/api/users'));
 

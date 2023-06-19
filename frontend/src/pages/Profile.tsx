@@ -3,12 +3,12 @@ import { Avatar } from "primereact/avatar";
 import { Card } from "primereact/card";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { useUserFlightsHistory, useUserQuery, useCancelReservationMutation } from "./../api/ApiHooks";
+import { useUserFlightsHistory, useUserQuery, useCancelReservationMutation, useAddMessageMutation } from "./../api/ApiHooks";
 import { Flight, User } from "../typescript/interfaces";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { Button } from 'primereact/button';
-
+import { useToast } from "../context/ToastProvider";
 
 const ProfileCard = () => {
   const { t } = useTranslation('translations');
@@ -61,9 +61,11 @@ const TravelDetailsCard = () => {
   const [selectedTravel, setSelectedTravel] = useState(null);
   const [flightData, setFlightData] = useState<Flight[]>([]);
   const cancelReservationMutation = useCancelReservationMutation();
-  
-  const removeFlight = (flightId: number) => {
-    cancelReservationMutation.mutate({ user_id: 1, flightId: flightId });
+  const addMessageMutation = useAddMessageMutation();
+
+  const removeFlight = (flight: Flight) => {
+    cancelReservationMutation.mutate({ user_id: 1, flightId: flight.id });
+    addMessageMutation.mutate({ user_id: 1, message: `Reservation cancel to ${flight.destinationCountry} ${flight.destinationCity}` });
   }
 
   const toTemplate = (flight: Flight) => {
@@ -86,13 +88,13 @@ const TravelDetailsCard = () => {
     flightDate.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
   
-    const isFlightInPast = flightDate.getTime() > today.getTime();
+    const isFlightInPast = flightDate.getTime() < today.getTime();
   
     return (
       <Button 
         icon="pi pi-times" 
         severity="danger" 
-        onClick={()=>{removeFlight(flight.id)}}
+        onClick={()=>{removeFlight(flight)}}
         disabled={isFlightInPast}
       />
     );

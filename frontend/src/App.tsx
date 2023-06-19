@@ -4,9 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import Users from "./pages/Users";
 import PersistLogin from "./components/PersistLogin";
-import LayoutLogout from "./components/LayoutLogout";
 import SearchFlights from "./pages/SearchFlights";
 import Settings from "./pages/Settings";
 import Flight from "./pages/Flight";
@@ -33,12 +31,10 @@ function App() {
             <LanguageProvider>
               <QueryClientProvider client={queryClient}>
                 <Routes>
-                  <Route path="/" element={<LayoutLogout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="help" element={<Help />} />
-                    <Route path="login" element={<Login />} />
-                    <Route path="register" element={<Register />} />
-                  </Route>
+                  <Route path="/" element={<Home />} />
+                  <Route path="help" element={<Help />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="register" element={<Register />} />
                   <Route element={<PersistLogin />}>
                     <Route path="/" element={<LayoutLogin />}>
                       <Route
