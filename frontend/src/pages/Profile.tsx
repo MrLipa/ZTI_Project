@@ -3,11 +3,11 @@ import { Avatar } from "primereact/avatar";
 import { Card } from "primereact/card";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { useUserFlightsHistory, useUserQuery } from "./../api/ApiHooks";
+import { useUserFlightsHistory, useUserQuery, useCancelReservationMutation } from "./../api/ApiHooks";
 import { Flight, User } from "../typescript/interfaces";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-
+import { Button } from 'primereact/button';
 
 
 const ProfileCard = () => {
@@ -60,6 +60,11 @@ const TravelDetailsCard = () => {
   const { data: flights, isLoading, isError } = useUserFlightsHistory(user_id);
   const [selectedTravel, setSelectedTravel] = useState(null);
   const [flightData, setFlightData] = useState<Flight[]>([]);
+  const cancelReservationMutation = useCancelReservationMutation();
+  
+  const removeFlight = (flightId: number) => {
+    cancelReservationMutation.mutate({ user_id: 1, flightId: flightId });
+  }
 
   const toTemplate = (flight: Flight) => {
     return (
@@ -74,9 +79,29 @@ const TravelDetailsCard = () => {
     );
   };
 
+  const actionTemplate = (flight: Flight) => {
+    const flightDate = new Date(flight.date);
+    const today = new Date();
+  
+    flightDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+  
+    const isFlightInPast = flightDate.getTime() > today.getTime();
+  
+    return (
+      <Button 
+        icon="pi pi-times" 
+        severity="danger" 
+        onClick={()=>{removeFlight(flight.id)}}
+        disabled={isFlightInPast}
+      />
+    );
+  };
+  
   useEffect(() => {
     if (!isLoading && !isError && flights) {
-      setFlightData(flights);
+      const flightsWithCustomIds = flights.map((flight, index) => ({...flight, customId: index + 1}));
+      setFlightData(flightsWithCustomIds);
     }
   }, [flights, isLoading, isError]);
 
@@ -92,27 +117,32 @@ const TravelDetailsCard = () => {
           navigate(`/flight/${e.value.id}`);
           setSelectedTravel(e.value);
         }}
-        dataKey="id"
+        dataKey="customId"
       >
         <Column
           field="destinationCity"
           header={t("Destination")}
           body={toTemplate}
           sortable
-          style={{ width: "20%" }}
+          style={{ width: "25%" }}
         ></Column>
         <Column
           field="price"
           header={t("Price")}
           sortable
-          style={{ width: "20%" }}
+          style={{ width: "10%" }}
         ></Column>
         <Column
           field="date"
           header={t("Date")}
           sortable
-          style={{ width: "20%" }}
+          style={{ width: "15%" }}
         ></Column>
+        <Column
+          body={actionTemplate}
+          header={t("Action")}
+          style={{ width: "1%" }}
+      ></Column>
       </DataTable>
     </Card>
   );

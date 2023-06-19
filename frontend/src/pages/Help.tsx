@@ -1,6 +1,6 @@
 const Help = () => {
   return (
-    <div>
+    <div style={{ margin: "auto", width: "70vw", marginTop: "20vh", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut
       elit a lectus euismod pretium ut in ipsum. Aliquam velit nisi, lobortis
       pellentesque sodales et, ornare eget augue. Nulla facilisi. Sed eleifend,

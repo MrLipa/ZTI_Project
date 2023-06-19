@@ -137,7 +137,7 @@ export default function BasicDemo() {
             placeholder={t("Global Search")}
           />
         </span>
-        <Button label={t("Shortest Path")} />
+        {/* <Button label={t("Shortest Path")} /> */}
       </>
     );
   };

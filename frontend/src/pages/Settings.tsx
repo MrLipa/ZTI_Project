@@ -14,6 +14,7 @@ import { LanguageContext } from "../context/LanguageContext";
 import Flags from "country-flag-icons/react/3x2";
 import { Menu } from 'primereact/menu';
 import { useTranslation } from 'react-i18next';
+import { useToast } from "../context/ToastProvider";
 
 
 const MessageSettingsComponent = () => {
@@ -82,6 +83,7 @@ const ProfileComponent = () => {
   const { t } = useTranslation();
   const user_id = 1;
   const { data: userData, isLoading, isError } = useUserQuery(user_id);
+  const { showToast } = useToast();
   const [user, setUser] = useState<User>({
     user_id: 0,
     firstname: "",
@@ -113,10 +115,12 @@ const ProfileComponent = () => {
 
   const handleAvatarChange = () => {
     updateUserMutation.mutate(user);
+    showToast("success", "Success", "Operation completed successfully");
   };
 
   const handleSaveChanges = () => {
     updateUserMutation.mutate(user);
+    showToast("success", "Success", "Operation completed successfully");
   };
 
   return (

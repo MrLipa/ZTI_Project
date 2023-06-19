@@ -1,187 +1,275 @@
-import { useMutation, useQuery, UseMutationResult, UseQueryResult } from 'react-query';
+import {
+  useMutation,
+  useQuery,
+  UseMutationResult,
+  UseQueryResult,
+} from "react-query";
 import { Flight, User } from "../typescript/interfaces";
-import useAuth from '../hooks/useAuth';
-import { useToast } from '../context/ToastProvider'; 
+import useAuth from "../hooks/useAuth";
+import { useToast } from "../context/ToastProvider";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useQueryClient } from 'react-query';
 
-const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
-
-
-const sendRequest = async (url: string, method: string, data: any = null, token: string | null = null, showToast: any = null) => {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  };
-
-  const response = await fetch(url, {
-    method,
-    headers,
-    body: data ? JSON.stringify(data) : null,
-    credentials: 'include', // od ciasteczek 
+const sendRequest = async (
+  axiosPrivate: any,
+  url: string,
+  method: string,
+  data: any = null,
+  showToast: any = null
+) => {
+  const response = await axiosPrivate.request({
+    method: method,
+    url: url,
+    data: data,
   });
-  
 
-  if (!response.ok) {
-    const status=response.status
-    if (status === 400) {
-      showToast('error', 'Error', 'Bad Request: ');
-      throw new Error('Bad Request: ');
-    } else if (status === 401) {
-      showToast('warn', 'Warning', 'Unauthorized: ');
-      throw new Error('Unauthorized: ');
-    } else if (status === 409) {
-      showToast('warn', 'Warning', 'Conflict: ');
-      throw new Error('Conflict: ');
-    } else {
-      showToast('error', 'Error', 'Request failed with status: ' + status);
-      throw new Error('Request failed with status: ' + status);
-    }
+  if (response.status === 400) {
+    showToast("error", "Error", "Bad Request: ");
+    throw new Error("Bad Request: ");
+  } else if (response.status === 401) {
+    showToast("warn", "Warning", "Unauthorized: ");
+    throw new Error("Unauthorized: ");
+  } else if (response.status === 409) {
+    showToast("warn", "Warning", "Conflict: ");
+    throw new Error("Conflict: ");
   }
-  return response.json();
+
+  return response.data;
 };
+
+
 
 const useUserQuery = (user_id: number): UseQueryResult<User, Error> => {
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
+
   return useQuery<User, Error>({
-    queryKey: ['user', user_id],
-    queryFn: () => sendRequest(`${BASE_URL}/user/${user_id}`, 'GET'),
+    queryKey: ["user", user_id],
+    queryFn: () =>
+      sendRequest(axiosPrivate, `/user/${user_id}`, "GET", showToast),
   });
 };
 
-const useUserFlightsHistory = (user_id: number): UseQueryResult<Flight[], Error> => {
+const useUserFlightsHistory = (
+  user_id: number
+): UseQueryResult<Flight[], Error> => {
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
+
   return useQuery<Flight[], Error>({
-    queryKey: ['userFlightsHistory', user_id],
-    queryFn: () => sendRequest(`${BASE_URL}/user/flights_history/${user_id}`, 'GET'),
+    queryKey: ["userFlightsHistory", user_id],
+    queryFn: () =>
+      sendRequest(
+        axiosPrivate,
+        `/user/flights_history/${user_id}`,
+        "GET",
+        showToast
+      ),
   });
 };
 
 const useFlightQuery = (): UseQueryResult<Flight[], Error> => {
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
+
   return useQuery<Flight[], Error>({
-    queryKey: ['flight'],
-    queryFn: () => sendRequest(`${BASE_URL}/flight`, 'GET'),
+    queryKey: ["flight"],
+    queryFn: () => sendRequest(axiosPrivate, `/flight`, "GET", showToast),
   });
 };
 
-const useFlightsByIdsQuery = (flightIds: number[]): UseQueryResult<Flight[], Error> => {
+const useFlightsByIdsQuery = (
+  flightIds: number[]
+): UseQueryResult<Flight[], Error> => {
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
+
   return useQuery<Flight[], Error>({
-    queryKey: ['flights', flightIds],
-    queryFn: () => sendRequest(`${BASE_URL}/flight/flights_by_ids`, 'POST', { "flightIds": flightIds }),
+    queryKey: ["flights", flightIds],
+    queryFn: () =>
+      sendRequest(
+        axiosPrivate,
+        `/flight/flights_by_ids`,
+        "POST",
+        { flightIds: flightIds },
+        showToast
+      ),
   });
 };
 
-const useRegisterMutation = (): UseMutationResult<any, Error, { firstname: string; lastname: string; email: string; password: string }> => {
-  const registerUser = async (userData: { firstname: string; lastname: string; email: string; password: string }) => {
-    return sendRequest(`http://localhost:3000/register`, 'POST', userData, null, showToast);
+const useMakeReservationMutation = (): UseMutationResult<
+  any,
+  Error,
+  { user_id: number; flightId: number }
+> => {
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
+  const queryClient = useQueryClient(); 
+
+  const makeReservation = async (reservationData: {
+    user_id: number;
+    flightId: number;
+  }) => {
+    console.log(reservationData)
+    return sendRequest(
+      axiosPrivate,
+      `/user/made_reservation`,
+      "POST",
+      reservationData,
+      showToast
+    );
   };
 
   return useMutation({
-    mutationKey: 'register',
-    mutationFn: registerUser,
-    onError: (error: any) => {
-      console.error('Wystąpił błąd podczas rejestracji:', error);
-      if (error.response && error.response.status) {
-        console.error('Status code:', error.response.status);
-      }
+    mutationKey: "makeReservation",
+    mutationFn: makeReservation,
+    onError: (error: Error) => {
+      console.error(
+        "Wystąpił błąd podczas tworzenia rezerwacji:",
+        error
+      );
+      showToast("error", "Error", "Failed to make reservation");
     },
     onSuccess: () => {
-      console.log('Registration was successful');
-    }
+      showToast("success", "Success", "Operation completed successfully");
+      queryClient.invalidateQueries(["userFlightsHistory", 1]);
+    },
   });
 };
 
-const useLoginMutation = (): UseMutationResult<any, Error, { email: string; password: string }> => {
-  const { setAuth } = useAuth();
+const useCancelReservationMutation = (): UseMutationResult<
+  any,
+  Error,
+  { user_id: number; flightId: number }
+> => {
+  const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
-  const loginUser = async (userData: { email: string; password: string }) => {
-    return sendRequest(`${BASE_URL}/login`, 'POST', userData, null, showToast);
+  const queryClient = useQueryClient(); 
+
+  const cancelReservation = async (reservationData: {
+    user_id: number;
+    flightId: number;
+  }) => {
+    return sendRequest(
+      axiosPrivate,
+      `/user/cancel_reservation`,
+      "POST",
+      reservationData,
+      showToast
+    );
   };
 
   return useMutation({
-    mutationKey: 'login',
+    mutationKey: "cancelReservation",
+    mutationFn: cancelReservation,
+    onError: (error: Error) => {
+      console.error(
+        "Wystąpił błąd podczas tworzenia rezerwacji:",
+        error
+      );
+      showToast("error", "Error", "Failed to make reservation");
+    },
+    onSuccess: () => {
+      showToast("success", "Success", "Operation completed successfully");
+      queryClient.invalidateQueries(["userFlightsHistory", 1]);
+    },
+  });
+};
+
+const useRegisterMutation = (): UseMutationResult<
+  any,
+  Error,
+  { firstname: string; lastname: string; email: string; password: string }
+> => {
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
+
+  const registerUser = async (userData: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+  }) => {
+    return sendRequest(axiosPrivate, `/register`, "POST", userData, showToast);
+  };
+
+  return useMutation({
+    mutationKey: "register",
+    mutationFn: registerUser,
+    onError: (error: any) => {
+      console.error("Wystąpił błąd podczas rejestracji:", error);
+    },
+    onSuccess: () => {
+      console.log("Registration was successful");
+    },
+  });
+};
+
+const useLoginMutation = (): UseMutationResult<
+  any,
+  Error,
+  { email: string; password: string }
+> => {
+  const { setAuth } = useAuth();
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
+
+  const loginUser = async (userData: { email: string; password: string }) => {
+    return sendRequest(axiosPrivate, `/login`, "POST", userData, showToast);
+  };
+
+  return useMutation({
+    mutationKey: "login",
     mutationFn: loginUser,
     onError: (error: Error) => {
-      console.error('Wystąpił błąd podczas logowania:', error.message);
+      console.error("Wystąpił błąd podczas logowania:", error.message);
     },
     onSuccess: (data) => {
       setAuth({
         roles: [2137],
         token: data.accessToken,
       });
-      showToast('success', 'Zalogowano pomyślnie', 'Zostałeś pomyślnie zalogowany');
-    }
-  });
-};
-
-const refresh = async () => {
-  try {
-    const data = await sendRequest(`${BASE_URL}/refresh`, "GET");
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const logout = async () => {
-  try {
-    const data = await sendRequest(`${BASE_URL}/logout`, "GET");
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const useMakeReservationMutation = (): UseMutationResult<any, Error, { email: string; flightId: string }> => {
-  const makeReservation = async (reservationData: { email: string; flightId: string }) => {
-    return sendRequest(`${BASE_URL}/reservation`, 'POST', reservationData);
-  };
-
-  return useMutation({
-    mutationKey: 'makeReservation',
-    mutationFn: makeReservation,
-    onError: (error: Error) => {
-      console.error('Wystąpił błąd podczas tworzenia rezerwacji:', error.message);
+      showToast(
+        "success",
+        "Zalogowano pomyślnie",
+        "Zostałeś pomyślnie zalogowany"
+      );
     },
   });
 };
 
-const useCancelReservationMutation = (): UseMutationResult<any, Error, { email: string; flightId: string }> => {
-  const cancelReservation = async (reservationData: { email: string; flightId: string }) => {
-    return sendRequest(`${BASE_URL}/reservation/cancel`, 'POST', reservationData);
-  };
+const useUpdateUserMutation = (): UseMutationResult<
+  any,
+  Error,
+  Partial<User>
+> => {
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
 
-  return useMutation({
-    mutationKey: 'cancelReservation',
-    mutationFn: cancelReservation,
-    onError: (error: Error) => {
-      console.error('Wystąpił błąd podczas anulowania rezerwacji:', error.message);
-    },
-  });
-};
-
-const useUpdateUserMutation = (): UseMutationResult<any, Error, Partial<User>> => {
   const updateUser = async (userData: Partial<User>) => {
-    return sendRequest(`${BASE_URL}/user`, 'PUT', userData);
+    return sendRequest(axiosPrivate, `/user`, "PUT", userData, showToast);
   };
 
   return useMutation({
-    mutationKey: 'updateUser',
+    mutationKey: "updateUser",
     mutationFn: updateUser,
     onError: (error: Error) => {
-      console.error('Wystąpił błąd podczas aktualizacji danych użytkownika:', error.message);
+      console.error(
+        "Wystąpił błąd podczas aktualizacji danych użytkownika:",
+        error.message
+      );
     },
   });
 };
 
 export {
-  BASE_URL,
-  sendRequest,
   useUserQuery,
   useUserFlightsHistory,
   useFlightQuery,
   useFlightsByIdsQuery,
   useRegisterMutation,
   useLoginMutation,
-  refresh,
-  logout,
   useMakeReservationMutation,
   useCancelReservationMutation,
   useUpdateUserMutation,

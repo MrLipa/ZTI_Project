@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import Users from "./components/Users";
+import Users from "./pages/Users";
 import PersistLogin from "./components/PersistLogin";
 import LayoutLogout from "./components/LayoutLogout";
 import SearchFlights from "./pages/SearchFlights";

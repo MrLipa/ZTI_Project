@@ -6,46 +6,30 @@ require('dotenv').config()
 
 
 
-const findFlightsFrom = async(req, res) =>{
+const findFlights = async(req, res) =>{
     try {
-        const {idAirport} = req.body;
+        const { idAirport_from, idAirport_to } = req.body;
 
-        if (!idAirport)  {
-            return res.status(400).json({ 'Message': 'Id Airport is required.' });
+        let query = '';
+        let parameters = {};
+
+        if (!idAirport_from && !idAirport_to) {
+            return res.status(400).json({ 'Message': 'At least one of idAirport_from or idAirport_to is required.' });
+        } 
+        else if (idAirport_from && !idAirport_to) {
+            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(a) = $idAirport_from RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
+            parameters = { idAirport_from };
         }
-        const result = await session.run(`MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(a) = $idAirport RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`, { idAirport: idAirport });
-
-        const flights = result.records.map((record) => ({
-            id: record.get('id').low,
-            originCountry: record.get('originCountry'),
-            originCity: record.get('originCity'),
-            originImage: record.get('a.image'),
-            destinationCountry: record.get('destinationCountry'),
-            destinationCity: record.get('destinationCity'),
-            destinationImage: record.get('b.image'),
-            distance: record.get('r.distance').low,
-            date: record.get('r.date'),
-            price: record.get('r.price').low,
-            duration: record.get('r.duration'),
-            airlines: record.get('r.airlines'),
-            class: record.get('r.class'),
-            freeSeats: record.get('r.freeSeats').low,
-        }));
-
-        res.status(200).json(flights);
-    } catch (err) {
-        res.status(500).json(err.message);
-    }
-}
-
-const findFlightsTo = async(req, res) =>{
-    try {
-        const {idAirport} = req.body;
-
-        if (!idAirport)  {
-            return res.status(400).json({ 'Message': 'Id Airport is required.' });
+        else if (!idAirport_from && idAirport_to) {
+            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(b) = $idAirport_to RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
+            parameters = { idAirport_to };
         }
-        const result = await session.run(`MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(b) = $idAirport RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats`, { idAirport: idAirport });
+        else {
+            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(a) = $idAirport_from AND id(b) = $idAirport_to RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
+            parameters = { idAirport_from, idAirport_to };
+        }
+
+        const result = await session.run(query, parameters);
 
         const flights = result.records.map((record) => ({
             id: record.get('id').low,
@@ -156,8 +140,7 @@ const updateFlight = async (req, res) => {
 
 
 module.exports = {
-    findFlightsFrom,
-    findFlightsTo,
+    findFlights,
     getFlightsByIds,
     getAllFlights,
     updateFlight,

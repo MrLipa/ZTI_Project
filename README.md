@@ -6,10 +6,10 @@
 - Docker
 
 
-ogarnać dwa formularze
-Ogarnąc Sesje 
 ogarnąć Strone tytułową 
 ogarnąć usuwanie rezerwacja czas 
+ogarnąc czemu sie odświerza
+
 
 
 

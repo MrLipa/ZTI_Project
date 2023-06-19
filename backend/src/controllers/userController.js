@@ -108,6 +108,31 @@ const deleteUser = (req, res) => {
     }
 }
 
+const addMessage = async (req, res) => {
+    try {
+        const { user_id, message } = req.body;
+        
+        if (!user_id || !message) {
+            return res.status(400).json({ 'Message': 'User ID and message are required.' });
+        }
+
+        await pool.query(
+            "UPDATE zti_project.user SET messages = array_append(messages, $1) WHERE user_id = $2 RETURNING *",
+            [message, user_id],
+            (error, results) => {
+                if (error) {
+                    res.status(500).json({ 'Error': error });
+                } else {
+                    res.status(200).json({ 'Message': 'Message added' });
+                }
+            }
+        );
+    } catch (err) {
+        res.status(500).json(err.message);
+    }
+}
+
+
 const getUserFlightsHistory = async (req, res) => {
     try {
         const { user_id } = req.params;
@@ -116,18 +141,29 @@ const getUserFlightsHistory = async (req, res) => {
         const flightIds = userQuery.rows[0].flightids;
 
         const response = await axios.post('http://localhost:3000/flight/flights_by_ids', { flightIds });
-        
-        res.json(response.data);
+
+        const flightsMap = response.data.reduce((map, flight) => {
+            if (!map[flight.id]) {
+                map[flight.id] = flight;
+            }
+            return map;
+        }, {});
+
+        const flights = flightIds.map(id => flightsMap[id]);
+
+        res.json(flights);
     } catch (err) {
         res.status(500).json(err.message);
     }
 };
+
 
 const makeReservation = async (req, res) => {
     try {
         const authHeader = req.headers.authorization || req.headers.Authorization;
         const token = authHeader.split(' ')[1];
         const { user_id, flightId } = req.body;
+        console.log(req.body)
 
         pool.query('UPDATE zti_project.user SET flightIds = array_append(flightIds, $1) WHERE user_id = $2', [flightId, user_id])
 
@@ -147,7 +183,15 @@ const cancelReservation = async (req, res) => {
         const token = authHeader.split(' ')[1];
         const { user_id, flightId } = req.body;
 
-        pool.query('UPDATE zti_project.user SET flightIds = array_remove(flightIds, $1) WHERE user_id = $2', [flightId, user_id])
+        const userQuery = await pool.query('SELECT flightIds FROM zti_project.user WHERE user_id=$1', [user_id]);
+        const flightIds = userQuery.rows[0].flightids;
+
+        const index = flightIds.indexOf(flightId);
+        if (index !== -1) {
+          flightIds.splice(index, 1);
+        }
+
+        await pool.query('UPDATE zti_project.user SET flightIds = $1 WHERE user_id = $2', [flightIds, user_id])
 
         const flights = await axios.post('http://localhost:3000/flight/flights_by_ids', { "flightIds": [flightId] });
 
@@ -161,12 +205,14 @@ const cancelReservation = async (req, res) => {
 
 
 
+
 module.exports = {
     getUser,
     getAllUsers,
     createNewUser,
     updateUser,
     deleteUser,
+    addMessage,
     getUserFlightsHistory,
     makeReservation,
     cancelReservation,

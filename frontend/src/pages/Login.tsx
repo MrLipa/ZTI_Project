@@ -6,9 +6,6 @@ import LoginForm from "../components/LoginForm";
 import { Card } from "primereact/card";
 
 const Login = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
   return (
     <>
       <div className="card-container">

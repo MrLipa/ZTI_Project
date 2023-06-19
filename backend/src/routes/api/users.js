@@ -5,6 +5,7 @@ const userController = require('../../controllers/userController');
 router.get('/', userController.getAllUsers)
 router.get('/:user_id', userController.getUser)
 router.post('/', userController.createNewUser)
+router.post('/add_message', userController.addMessage)
 router.put('/', userController.updateUser)
 router.delete('/:user_id', userController.deleteUser)
 router.get('/flights_history/:user_id', userController.getUserFlightsHistory)

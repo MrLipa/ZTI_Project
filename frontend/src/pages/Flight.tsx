@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import { Card } from "primereact/card";
-import { useFlightsByIdsQuery } from "./../api/ApiHooks";
+import { useFlightsByIdsQuery, useMakeReservationMutation } from "./../api/ApiHooks";
 import { Flight } from "../typescript/interfaces";
 import { PrimeIcons } from "primereact/api";
 import { Button } from 'primereact/button';
@@ -12,12 +12,12 @@ const FlightComponent = () => {
   const { id = "0" } = useParams<{ id: string }>();
   const { t } = useTranslation('translations');
   const flightId = parseInt(id, 10);
+  const { data: flightsData, isLoading, isError } = useFlightsByIdsQuery([flightId]);
+  const makeReservationMutation = useMakeReservationMutation();
 
   const handleClick = () => {
-    console.log('Przycisk został kliknięty!');
+    makeReservationMutation.mutate({ user_id: 1, flightId: flightId });
   }
-
-  const { data: flightsData, isLoading, isError } = useFlightsByIdsQuery([flightId]);
 
   const [flight, setFlight] = useState<Flight>({
     id: 0,

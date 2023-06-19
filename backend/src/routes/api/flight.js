@@ -5,8 +5,7 @@ const ROLES_LIST = require('../../config/roles_list');
 const verifyRoles = require('../../middleware/verifyRoles');
 
 
-router.post('/flights_from', flightController.findFlightsFrom)
-router.post('/flights_to', flightController.findFlightsTo)
+router.post('/find', flightController.findFlights)
 router.post('/flights_by_ids', flightController.getFlightsByIds)
 router.get('/', flightController.getAllFlights)
 router.put('/', verifyRoles(ROLES_LIST.Admin), flightController.updateFlight)
