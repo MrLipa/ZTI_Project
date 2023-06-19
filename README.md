@@ -5,45 +5,8 @@
 - Node
 - Docker
 
-
-ogarnąć Strone tytułową 
 ogarnąć usuwanie rezerwacja czas 
 ogarnąc czemu sie odświerza
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tokyo Pekin data klasa cena
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 apt-get update

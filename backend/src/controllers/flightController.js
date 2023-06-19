@@ -6,29 +6,30 @@ require('dotenv').config()
 
 
 
-const findFlights = async(req, res) =>{
+const findFlights = async(req, res) => {
     try {
-        const { idAirport_from, idAirport_to } = req.body;
-
+        const idAirport_from = parseInt(req.query.idAirport_from, 10);
+        const idAirport_to = parseInt(req.query.idAirport_to, 10);
+        
         let query = '';
         let parameters = {};
 
         if (!idAirport_from && !idAirport_to) {
-            return res.status(400).json({ 'Message': 'At least one of idAirport_from or idAirport_to is required.' });
+            query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
         } 
         else if (idAirport_from && !idAirport_to) {
             query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(a) = $idAirport_from RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
-            parameters = { idAirport_from };
+            parameters = { idAirport_from: idAirport_from };
         }
         else if (!idAirport_from && idAirport_to) {
             query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(b) = $idAirport_to RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
-            parameters = { idAirport_to };
+            parameters = { idAirport_to: idAirport_to };
         }
         else {
             query = 'MATCH (a:Airport)-[r:Flight]-(b:Airport) WHERE id(a) = $idAirport_from AND id(b) = $idAirport_to RETURN ID(r) as id, a.country AS originCountry, a.city AS originCity, a.image, b.country AS destinationCountry, b.city AS destinationCity, b.image, r.distance, r.date, r.price, r.duration, r.airlines, r.class, r.freeSeats';
-            parameters = { idAirport_from, idAirport_to };
+            parameters = { idAirport_from: idAirport_from, idAirport_to: idAirport_to };
         }
-
+        
         const result = await session.run(query, parameters);
 
         const flights = result.records.map((record) => ({

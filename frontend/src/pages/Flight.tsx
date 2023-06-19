@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import { Card } from "primereact/card";
-import { useFlightsByIdsQuery, useMakeReservationMutation } from "./../api/ApiHooks";
+import { useFlightsByIdsQuery, useMakeReservationMutation,useAddMessageMutation } from "./../api/ApiHooks";
 import { Flight } from "../typescript/interfaces";
 import { PrimeIcons } from "primereact/api";
 import { Button } from 'primereact/button';
 import { useTranslation } from 'react-i18next';
-
+import { useToast } from "../context/ToastProvider";
 
 const FlightComponent = () => {
   const { id = "0" } = useParams<{ id: string }>();
@@ -14,9 +14,12 @@ const FlightComponent = () => {
   const flightId = parseInt(id, 10);
   const { data: flightsData, isLoading, isError } = useFlightsByIdsQuery([flightId]);
   const makeReservationMutation = useMakeReservationMutation();
-
+  const addMessageMutation = useAddMessageMutation();
+  const { showToast } = useToast();
   const handleClick = () => {
     makeReservationMutation.mutate({ user_id: 1, flightId: flightId });
+    addMessageMutation.mutate({ user_id: 1, message: `Reservation made id ${flightId}` });
+    showToast("success", "Success", "Operation completed successfully");
   }
 
   const [flight, setFlight] = useState<Flight>({

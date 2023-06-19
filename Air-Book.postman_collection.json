@@ -29,7 +29,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -58,7 +58,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -88,7 +88,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -126,7 +126,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -164,7 +164,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -203,7 +203,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -227,14 +227,14 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/made_reservation",
+			"name": "http://localhost:3000/user/add_message",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -243,7 +243,46 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_id\": 1,\r\n    \"flightId\": 4\r\n}",
+					"raw": "{\r\n    \"user_id\": 1,\r\n    \"message\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/add_message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"add_message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/user/made_reservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 1,\r\n    \"flightId\": 5\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -273,7 +312,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -282,7 +321,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_id\": 1,\r\n    \"flightId\": 4\r\n}",
+					"raw": "{\r\n    \"user_id\": 1,\r\n    \"flightId\": 5\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -315,7 +354,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -346,50 +385,22 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/flight/flights_from",
+			"name": "http://localhost:3000/flight/find?idAirport_from=1&idAirport_to=2",
 			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"idAirport\": 3\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/flight/flights_from",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"flight",
-						"flights_from"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:3000/flight/flights_to",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"idAirport\": 8\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
 				},
+				"method": "GET",
+				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/flight/flights_to",
+					"raw": "http://localhost:3000/flight/find?idAirport_from=null&idAirport_to=null",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -397,7 +408,17 @@
 					"port": "3000",
 					"path": [
 						"flight",
-						"flights_to"
+						"find"
+					],
+					"query": [
+						{
+							"key": "idAirport_from",
+							"value": "null"
+						},
+						{
+							"key": "idAirport_to",
+							"value": "null"
+						}
 					]
 				}
 			},
@@ -406,11 +427,21 @@
 		{
 			"name": "http://localhost:3000/flight/flights_by_ids",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"flightIds\": [4]\r\n}",
+					"raw": "{\r\n    \"flightIds\": [1,2,3]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -440,7 +471,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0sImlhdCI6MTY4NDY3NjIzNCwiZXhwIjoxNzE2Mjk4NjM0fQ.W07FDgqVAhfR2GhxyKuXG1FqzeSbRgwBBRxIOaXEZ5U",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -473,11 +504,21 @@
 		{
 			"name": "http://localhost:3000/register",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"firstName\": \"user\",\r\n  \"lastName\": \"user\",\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"user\"\r\n}",
+					"raw": "{\r\n  \"firstname\": \"user\",\r\n  \"lastname\": \"user\",\r\n  \"email\": \"ugser@example.com\",\r\n  \"password\": \"user\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -501,11 +542,21 @@
 		{
 			"name": "http://localhost:3000/login",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"admin\"\r\n}",
+					"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"admin\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -532,6 +583,16 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -563,6 +624,16 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {

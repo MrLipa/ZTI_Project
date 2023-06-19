@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Sidebar } from "primereact/sidebar";
 import { Avatar } from "primereact/avatar";
 import SearchBar from "./SearchBar";
@@ -15,11 +15,49 @@ import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
 import SettingsIcon from "./SettingsIcon";
 import FlagIcon from "./FlagIcon";
+import { useNavigate } from "react-router-dom";
+import useLogout from "../hooks/useLogout";
+import { useToast } from "../context/ToastProvider";
+import { useUpdateUserMutation, useUserQuery } from "./../api/ApiHooks";
+import { User } from "../typescript/interfaces";
 
 const Navbar = () => {
   const { theme, currentTheme, toggleTheme } = useContext(ThemeContext);
   const { t } = useTranslation('translations');
   const [sidebarVisible, setSidebarVisible] = useState(false);
+  const { showToast } = useToast();
+
+  const user_id = 1;
+  const { data: userData, isLoading, isError } = useUserQuery(user_id);
+  const [user, setUser] = useState<User>({
+    user_id: 0,
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    role: "",
+    description: "",
+    phone: "",
+    address: "",
+    image: "",
+    messages: [],
+    flightids: [],
+  });
+
+  useEffect(() => {
+    if (userData) {
+      setUser(userData);
+    }
+  }, [userData]);
+  
+  const navigate = useNavigate();
+  const logout = useLogout();
+
+  const signOut = async () => {
+      await logout();
+      navigate('/');
+      showToast("success", "Success", "Operation completed successfully");
+  }
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -43,7 +81,7 @@ const Navbar = () => {
           <SettingsIcon />
           <FlagIcon />
           <Link to="/profile">
-            <Avatar image={avatarImage} size="large" shape="circle" />
+            <Avatar image={user.image} size="large" shape="circle" />
           </Link>
         </div>
       </div>
@@ -95,10 +133,14 @@ const Navbar = () => {
               to="/"
               style={{ color: currentTheme.fontColor }}
             >
+                <span onClick={signOut}>
               <i className="pi pi-sign-out" />
               <span> {t('Logout')}</span>
+            </span>
             </Link>
+            
           </li>
+
         </ul>
       </Sidebar>
 

@@ -117,7 +117,7 @@ const addMessage = async (req, res) => {
         }
 
         await pool.query(
-            "UPDATE zti_project.user SET messages = array_append(messages, $1) WHERE user_id = $2 RETURNING *",
+            "UPDATE zti_project.user SET messages = array_prepend($1, messages) WHERE user_id = $2 RETURNING *",
             [message, user_id],
             (error, results) => {
                 if (error) {

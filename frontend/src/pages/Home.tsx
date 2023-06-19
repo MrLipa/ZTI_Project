@@ -2,15 +2,13 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useTranslation } from "react-i18next";
 import { FaMapMarkerAlt, FaSearch } from "react-icons/fa";
+import { useFindFlightsQuery } from "./../api/ApiHooks";
+import { Flight } from "../typescript/interfaces";
 
 
 const Home = () => {
   const { t } = useTranslation();
-  const flightClasses = [
-    {label: t("Home_Class_Economy"), value: 'Economy'},
-    {label: t("Home_Class_Premium"), value: 'Premium'},
-    {label: t("Home_Class_Business"), value: 'Business'}
-  ];
+  const { data: flightsData, isLoading, isError } = useFindFlightsQuery();
 
   return (
     <div style={{ margin: "auto", width: "70vw", marginTop: "20vh", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>

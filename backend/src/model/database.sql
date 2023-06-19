@@ -18,12 +18,11 @@ CREATE TABLE zti_project.user (
   phone VARCHAR(255),
   address VARCHAR(255),
   image VARCHAR(255),
-  description VARCHAR(255),
+  description VARCHAR(511),
   messages VARCHAR(255)[],
   flightIds INTEGER[],
-  roles VARCHAR(255)[],
+  roles VARCHAR(255)[]
 );
-
 
 CREATE TABLE zti_project.token (
   user_id INTEGER NOT NULL,
@@ -45,14 +44,14 @@ INSERT INTO zti_project.user (
     messages, 
     flightIds
 ) VALUES (
-    'admin', 
-    'admin', 
-    'admin@example.com', 
+    'Xavier', 
+    'Venkatanarasimha', 
+    'xavier@gmail.com', 
     '$2b$10$YparQ5ndmjfaTWqpunT4nOd1DuViciOK7Vj6B4WkgOFR3nHmbVGTS',
-    '123-456-7890', 
-    '123 Admin St, City, Country', 
-    'https://randomuser.me/api/portraits/men/75.jpg', 
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non semper leo, vitae interdum est. In consequat massa in risus semper, in volutpat libero egestas. Sed in facilisis ante, nec ornare enim. Suspendisse malesuada dolor non consectetur mollis.', 
+    '+48 213 769 420', 
+    'Alwar, India, Rajasthan', 
+    'https://varnam.my/wp-content/uploads/2021/01/FB_IMG_1605666747087-2.jpg.webp', 
+    'Hi, Im Xavier, your average guy from Earth. You might know me as a meme maker and comedian. I work at a gas station, although for the life of me, I cant pinpoint its location. Just know its somewhere on Earth! Im also a married man, though my wife seems to think I have a few girlfriends on the side. But you know, wives know everything.', 
     ARRAY['message1', 'message2']::varchar[], 
     ARRAY[1, 2, 3]::integer[]
 );

@@ -98,6 +98,22 @@ const useFlightsByIdsQuery = (
   });
 };
 
+const useFindFlightsQuery = (idAirport_from: number | null = null, idAirport_to: number | null = null): UseQueryResult<Flight[], Error> => {
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
+
+  return useQuery<Flight[], Error>({
+    queryKey: ["flights", idAirport_from, idAirport_to],
+    queryFn: () =>
+      sendRequest(
+        axiosPrivate,
+        `/flight/find?idAirport_from=${idAirport_from}&idAirport_to=${idAirport_to}`,
+        "GET",
+        showToast
+      ),
+  });
+};
+
 const useMakeReservationMutation = (): UseMutationResult<
   any,
   Error,
@@ -173,6 +189,38 @@ const useCancelReservationMutation = (): UseMutationResult<
     onSuccess: () => {
       showToast("success", "Success", "Operation completed successfully");
       queryClient.invalidateQueries(["userFlightsHistory", 1]);
+    },
+  });
+};
+
+const useAddMessageMutation = (): UseMutationResult<any,Error,{ user_id: number; message: string }> => {
+  const axiosPrivate = useAxiosPrivate();
+  const { showToast } = useToast();
+  const queryClient = useQueryClient(); 
+
+  const addMessage = async (messageData: {
+    user_id: number;
+    message: string;
+  }) => {
+    return sendRequest(
+      axiosPrivate,
+      `/user/add_message`,
+      "POST",
+      messageData,
+      showToast
+    );
+  };
+
+  return useMutation({
+    mutationKey: "addMessage",
+    mutationFn: addMessage,
+    onError: (error: Error) => {
+      console.error("An error occurred while adding the message:",error);
+      showToast("error", "Error", "Failed to add message");
+    },
+    onSuccess: () => {
+      showToast("success", "Success", "Message added successfully");
+      queryClient.invalidateQueries(["user", 1]);
     },
   });
 };
@@ -265,8 +313,10 @@ const useUpdateUserMutation = (): UseMutationResult<
 
 export {
   useUserQuery,
+  useAddMessageMutation,
   useUserFlightsHistory,
   useFlightQuery,
+  useFindFlightsQuery,
   useFlightsByIdsQuery,
   useRegisterMutation,
   useLoginMutation,
