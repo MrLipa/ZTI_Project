@@ -2,7 +2,7 @@
 
 
 apt-get update -y
-# apt-get install nano -y
+apt-get install nano -y
 # apt-get install x11-apps -y
 apt-get install tightvncserver -y
 apt-get install wget -y
@@ -21,6 +21,9 @@ echo $DISPLAY
 # rm -f /tmp/.X1-lock && rm -f /tmp/.X11-unix/X1
 # ps aux | grep Xtightvnc
 # echo $DISPLAY
+# vncserver -kill :1
+# rm -f /tmp/.X1-lock
+# rm -f /tmp/.X11-unix/X1
 
 
 # Install Google Chrome
