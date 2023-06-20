@@ -75,7 +75,7 @@ pipeline {
                     unstash 'frontend-node-modules'
                     sh 'cd backend && npm run start &'
                     sh 'cd frontend && npm run dev &'
-                    sh 'cd integration_tests && pytest test.py'
+                    sh 'cd tests && pytest test.py'
                 }
             }
         }
