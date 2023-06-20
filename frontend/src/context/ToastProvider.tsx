@@ -1,8 +1,16 @@
-import React, { createContext, useCallback, useContext, useRef, ReactNode } from 'react';
-import { Toast } from 'primereact/toast';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useRef,
+  ReactNode,
+} from "react";
+import { Toast } from "primereact/toast";
+
+type ToastSeverity = 'success' | 'info' | 'warn' | 'error';
 
 type ToastContextType = {
-  showToast: (severity: string, summary: string, detail: string) => void;
+  showToast: (severity: ToastSeverity, summary: string, detail: string) => void;
 };
 
 const ToastContext = createContext<ToastContextType>({ showToast: () => {} });
@@ -11,12 +19,17 @@ interface ToastProviderProps {
   children: ReactNode;
 }
 
-export const ToastProvider: React.FunctionComponent<ToastProviderProps> = ({ children }: ToastProviderProps) => {
+export const ToastProvider: React.FunctionComponent<ToastProviderProps> = ({
+  children,
+}: ToastProviderProps) => {
   const toast = useRef<Toast>(null);
 
-  const showToast = useCallback((severity: string, summary: string, detail: string) => {
-    toast.current?.show({ severity, summary, detail });
-  }, []);
+  const showToast = useCallback(
+    (severity: ToastSeverity, summary: string, detail: string) => {
+      toast.current?.show({ severity, summary, detail });
+    },
+    []
+  );
 
   return (
     <ToastContext.Provider value={{ showToast }}>

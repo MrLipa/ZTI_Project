@@ -1,11 +1,8 @@
 import LoginForm from "../components/LoginForm";
 import { Card } from "primereact/card";
-import { Flight } from "../typescript/interfaces";
-import backgroundImage from "../images/1.jpg";
-import FlightCards from "./../components/FlightCards";
+import backgroundImage from "../images/background.jpg";
 import Navbar from "./../components/Navbar";
 import Footer from "./../components/Footer";
-import { Outlet } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -24,7 +21,6 @@ const Login = () => {
           </Card>
         </div>
       </div>
-      <FlightCards />
       <Footer />
     </>
   );

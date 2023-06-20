@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { useTranslation } from "react-i18next";
-import { FaMapMarkerAlt, FaSearch } from "react-icons/fa";
-import backgroundImage from "../images/1.jpg";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import backgroundImage from "../images/background.jpg";
 import FlightCards from "./../components/FlightCards";
 import Navbar from "./../components/Navbar";
 import Footer from "./../components/Footer";
 
 const Home = () => {
-  const { t } = useTranslation();
-  const [from, setFrom] = useState('');
-  const [to, setTo] = useState('');
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
 
   return (
     <>
@@ -34,9 +32,13 @@ const Home = () => {
             flexDirection: "column",
           }}
         >
-          <h1 className="display-4 mb-4">{t("Home_Title")}</h1>
+          <h1 className="display-4 mb-4" style={{ color: "#ffffff" }}>
+          Travel with maximum comfort
+          </h1>
           <br />
-          <p className="lead mb-4">{t("Home_Description")}</p>
+          <p className="lead mb-4" style={{ color: "#ffffff" }}>
+          Find the best travel deals and book your dream trip.
+          </p>
           <br />
           <div className="p-inputgroup">
             <span className="p-inputgroup-addon">
@@ -45,7 +47,7 @@ const Home = () => {
               </i>
             </span>
             <InputText
-              placeholder={t("Home_Placeholder_From") as string}
+              placeholder={"From" as string}
               style={{ marginRight: ".5em" }}
               value={from}
               onChange={(e) => setFrom(e.target.value)}
@@ -56,21 +58,20 @@ const Home = () => {
               </i>
             </span>
             <InputText
-              placeholder={t("Home_Placeholder_To") as string}
+              placeholder={"To" as string}
               style={{ marginRight: ".5em" }}
               value={to}
               onChange={(e) => setTo(e.target.value)}
             />
             <Button
-              label={t("Home_Search")}
+              label={"Search"}
               icon="pi pi-search"
               className="p-button-rounded"
             />
           </div>
         </div>
       </div>
-      <FlightCards to={to} from={from}/>
-
+      <FlightCards to={to} from={from} />
       <Footer />
     </>
   );

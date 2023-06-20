@@ -1,6 +1,6 @@
-import React, { useState, FC } from 'react';
-import i18next from 'i18next';
-import cookies from 'js-cookie';
+import React, { useState, FC } from "react";
+import i18next from "i18next";
+import cookies from "js-cookie";
 import Flags from "country-flag-icons/react/3x2";
 
 interface Props {
@@ -15,21 +15,19 @@ const flagStyles: React.CSSProperties = {
   width: "40px",
   height: "30px",
 };
-const flags: Record<string, JSX.Element> = { 
-  'pl': <Flags.PL style={flagStyles} />, 
-  'en': <Flags.GB style={flagStyles} />, 
-  'de': <Flags.DE style={flagStyles} /> 
+const flags: Record<string, JSX.Element> = {
+  pl: <Flags.PL style={flagStyles} />,
+  en: <Flags.GB style={flagStyles} />,
+  de: <Flags.DE style={flagStyles} />,
 };
 export const LanguageContext = React.createContext<LanguageContextProps>({
-  language: '',
+  language: "",
   flag: <></>,
-  toggleLanguage: () => {}
+  toggleLanguage: () => {},
 });
 
-
-
 const LanguageProvider: FC<Props> = ({ children }) => {
-  const [language, setLanguage] = useState(cookies.get('i18next') || 'en');
+  const [language, setLanguage] = useState(cookies.get("i18next") || "en");
 
   function toggleLanguage(newLanguage: string) {
     setLanguage(newLanguage);

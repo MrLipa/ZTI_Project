@@ -1,12 +1,9 @@
 import RegisterForm from "../components/RegisterForm";
 import { Card } from "primereact/card";
 import "./Register.css";
-import { Flight } from "../typescript/interfaces";
-import backgroundImage from "../images/1.jpg";
-import FlightCards from "./../components/FlightCards";
+import backgroundImage from "../images/background.jpg";
 import Navbar from "./../components/Navbar";
 import Footer from "./../components/Footer";
-import { Outlet } from "react-router-dom";
 
 const Register = () => {
   return (
@@ -25,7 +22,6 @@ const Register = () => {
           </Card>
         </div>
       </div>
-      <FlightCards />
       <Footer />
     </>
   );

@@ -1,5 +1,5 @@
-import React from 'react';
-import useLocalStorage from '../hooks/useLocalStorage'
+import React from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 interface Props {
   children: React.ReactNode;
@@ -31,10 +31,8 @@ export const ThemeContext = React.createContext<ThemeContextType>({
   toggleTheme: () => {},
 });
 
-
-
 const ThemeProvider = ({ children }: Props) => {
-  const [theme, setTheme] = useLocalStorage('theme', 0)
+  const [theme, setTheme] = useLocalStorage("theme", 0);
 
   function toggleTheme(newTheme: number) {
     setTheme(newTheme);
@@ -46,7 +44,7 @@ const ThemeProvider = ({ children }: Props) => {
   const contextValue = {
     theme,
     currentTheme,
-    toggleTheme
+    toggleTheme,
   };
 
   return (

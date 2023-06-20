@@ -7,7 +7,7 @@ const SearchBar = () => {
 
     return (
         <div className="search-bar-container">
-            <InputText type="search" placeholder={t('Search')} className="search-input" />
+            <InputText type="search" placeholder={t('Search')??''} className="search-input" />
             <i className="pi pi-search search-icon"></i>
         </div>
     );

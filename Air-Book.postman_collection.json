@@ -518,7 +518,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"firstname\": \"user\",\r\n  \"lastname\": \"user\",\r\n  \"email\": \"ugser@example.com\",\r\n  \"password\": \"user\"\r\n}",
+					"raw": "{\r\n  \"email\": \"ugser@example.com\",\r\n  \"password\": \"user\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -556,7 +556,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"admin\"\r\n}",
+					"raw": "{\r\n    \"email\": \"xavier@gmail.com\",\r\n    \"password\": \"admin\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

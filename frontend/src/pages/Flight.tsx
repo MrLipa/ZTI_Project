@@ -6,7 +6,7 @@ import { Flight } from "../typescript/interfaces";
 import { PrimeIcons } from "primereact/api";
 import { Button } from 'primereact/button';
 import { useTranslation } from 'react-i18next';
-import { useToast } from "../context/ToastProvider";
+import useAuth from "../hooks/useAuth";
 
 const FlightComponent = () => {
   const { id = "0" } = useParams<{ id: string }>();
@@ -15,6 +15,11 @@ const FlightComponent = () => {
   const { data: flightsData, isLoading, isError } = useFlightsByIdsQuery([flightId]);
   const makeReservationMutation = useMakeReservationMutation();
   const addMessageMutation = useAddMessageMutation();
+  const { auth } = useAuth();
+  
+  if (!auth?.user_id) {
+    throw new Error("User id is required");
+}
 
   const [flight, setFlight] = useState<Flight>({
     id: 0,
@@ -39,8 +44,8 @@ const FlightComponent = () => {
   }, [flightsData]);
 
   const handleClick = () => {
-    makeReservationMutation.mutate({ user_id: 1, flightId: flightId });
-    addMessageMutation.mutate({ user_id: 1, message: `Reservation made to ${flight.destinationCountry} ${flight.destinationCity}` });
+    makeReservationMutation.mutate({ user_id: auth?.user_id, flightId: flightId });
+    addMessageMutation.mutate({ user_id: auth?.user_id, message: `Reservation made to ${flight.destinationCountry} ${flight.destinationCity}` });
   }
 
 
@@ -109,7 +114,7 @@ const FlightComponent = () => {
             </h6>
           </div>
         </div>
-        <Button label={t('Book')} onClick={handleClick} />
+        <Button label={t('Book') ?? ''} onClick={handleClick} />
       </Card>
     </>
   );

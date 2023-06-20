@@ -9,11 +9,16 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { Button } from 'primereact/button';
 import { useToast } from "../context/ToastProvider";
+import useAuth from "../hooks/useAuth";
 
 const ProfileCard = () => {
   const { t } = useTranslation('translations');
-  const user_id = 1;
-  const { data: userData, isLoading, isError } = useUserQuery(user_id);
+  const { auth } = useAuth();
+
+  if (!auth?.user_id) {
+    throw new Error("User id is required");
+  }
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
   const [user, setUser] = useState<User>({
     user_id: 0,
     firstname: "",
@@ -56,16 +61,20 @@ const ProfileCard = () => {
 
 const TravelDetailsCard = () => {
   const { t } = useTranslation('translations');
-  const user_id = 1;
-  const { data: flights, isLoading, isError } = useUserFlightsHistory(user_id);
-  const [selectedTravel, setSelectedTravel] = useState(null);
+  const { auth } = useAuth();
+
+  if (!auth?.user_id) {
+    throw new Error("User id is required");
+  }
+  const { data: flights, isLoading, isError } = useUserFlightsHistory(auth?.user_id);
+  const [selectedTravel, setSelectedTravel] = useState<Flight | undefined>();
   const [flightData, setFlightData] = useState<Flight[]>([]);
   const cancelReservationMutation = useCancelReservationMutation();
   const addMessageMutation = useAddMessageMutation();
 
   const removeFlight = (flight: Flight) => {
-    cancelReservationMutation.mutate({ user_id: 1, flightId: flight.id });
-    addMessageMutation.mutate({ user_id: 1, message: `Reservation cancel to ${flight.destinationCountry} ${flight.destinationCity}` });
+    cancelReservationMutation.mutate({ user_id: auth?.user_id, flightId: flight.id });
+    addMessageMutation.mutate({ user_id: auth?.user_id, message: `Reservation cancel to ${flight.destinationCountry} ${flight.destinationCity}` });
   }
 
   const toTemplate = (flight: Flight) => {
@@ -115,7 +124,7 @@ const TravelDetailsCard = () => {
         value={flightData}
         selectionMode="single"
         selection={selectedTravel}
-        onSelectionChange={(e) => {
+        onSelectionChange={(e: any) => {
           navigate(`/flight/${e.value.id}`);
           setSelectedTravel(e.value);
         }}
@@ -152,8 +161,12 @@ const TravelDetailsCard = () => {
 
 const UserDetailsCard = () => {
   const { t } = useTranslation('translations');
-  const user_id = 1;
-  const { data: userData, isLoading, isError } = useUserQuery(user_id);
+  const { auth } = useAuth();
+
+  if (!auth?.user_id) {
+    throw new Error("User id is required");
+  }
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
   const [user, setUser] = useState<User>({
     user_id: 0,
     firstname: "",

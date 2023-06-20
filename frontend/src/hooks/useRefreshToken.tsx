@@ -1,20 +1,26 @@
 import axios from './../api/Axios';
 import useAuth from './useAuth';
+import { AuthContextProps } from "../typescript/interfaces";
 
 const useRefreshToken = () => {
-    const { setAuth } = useAuth();
+    const { auth, setAuth } = useAuth();
 
     const refresh = async () => {
         const response = await axios.get('/refresh', {
             withCredentials: true
         });
-        setAuth(prev => {
-            return {
-                ...prev,
-                roles: response.data.roles,
-                accessToken: response.data.accessToken
-            }
-        });
+        const newAuth: Partial<AuthContextProps['auth']> = {
+            ...auth,
+            user_id: response.data.user_id,
+            roles: response.data.roles,
+            accessToken: response.data.accessToken
+        }
+        if(setAuth){
+            setAuth(newAuth);
+        }
+        else{
+            throw new Error("Auth provider is missing");
+        }
         return response.data.accessToken;
     }
     return refresh;

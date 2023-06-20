@@ -6,10 +6,15 @@ import { Badge } from "primereact/badge";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useUserQuery } from "../api/ApiHooks";
 import { User } from "../typescript/interfaces";
+import useAuth from "../hooks/useAuth";
 
 const NotificationIcon = () => {
-  const user_id = 1;
-  const { data: userData, isLoading, isError } = useUserQuery(user_id);
+  const { auth } = useAuth();
+  
+  if (!auth?.user_id) {
+    throw new Error("User id is required");
+}
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
   const [user, setUser] = useState<User>({
     user_id: 0,
     firstname: "",
@@ -31,12 +36,12 @@ const NotificationIcon = () => {
     }
   }, [userData]);
 
-  const op = useRef(null);
+  const op = useRef<OverlayPanel | null>(null);
 
   const Notification = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
-    const onPageChange = (event) => {
+    const onPageChange = (event: any) => {
       setCurrentPage(event.first);
     };
     const getPaginatedData = () => {
@@ -72,7 +77,7 @@ const NotificationIcon = () => {
       <i
         className={`pi pi-bell p-overlay-badge`}
         style={{ fontSize: "2rem" }}
-        onClick={(e) => op.current.toggle(e)}
+        onClick={(e) => op.current?.toggle(e)}
       >
         {user.messages && <Badge value={user.messages.length}></Badge>}
       </i>

@@ -103,7 +103,7 @@ export default function BasicDemo() {
         options={statuses}
         onChange={(e) => options.filterCallback(e.value, options.index)}
         itemTemplate={classItemTemplate}
-        placeholder={t("Select One")}
+        placeholder={t("Select One") ?? ''}
         className="p-column-filter"
         showClear
       />
@@ -134,7 +134,7 @@ export default function BasicDemo() {
             type="search"
             value={value || ""}
             onChange={(e) => onGlobalFilterChange(e)}
-            placeholder={t("Global Search")}
+            placeholder={t("Global Search") ?? ''}
           />
         </span>
         {/* <Button label={t("Shortest Path")} /> */}
@@ -154,7 +154,7 @@ export default function BasicDemo() {
         filters={filters}
         onFilter={(e) => setFilters(e.filters)}
         selection={selectedFlight}
-        onSelectionChange={(e) => {
+        onSelectionChange={(e: any) => {
           navigate(`/flight/${e.value.id}`);
           setSelectedFlight(e.value);
         }}
@@ -172,7 +172,7 @@ export default function BasicDemo() {
           sortField="originCity"
           filter
           filterField="originCity"
-          filterPlaceholder={t("Search")}
+          filterPlaceholder={t("Search") ?? ''}
           style={{ width: "25%" }}
         ></Column>
         <Column
@@ -182,7 +182,7 @@ export default function BasicDemo() {
           sortField="destinationCity"
           filter
           filterField="destinationCity"
-          filterPlaceholder={t("Search")}
+          filterPlaceholder={t("Search") ?? ''}
           style={{ width: "25%" }}
         ></Column>
         <Column
@@ -190,7 +190,7 @@ export default function BasicDemo() {
           header={t("Price")}
           sortable
           filter
-          filterPlaceholder={t("Search")}
+          filterPlaceholder={t("Search") ?? ''}
           style={{ width: "25%" }}
         ></Column>
         <Column

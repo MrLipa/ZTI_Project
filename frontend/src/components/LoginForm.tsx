@@ -1,27 +1,28 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, RefObject } from 'react';
 import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { AuthContextProps } from "../typescript/interfaces";
 
 import axios from '../api/Axios';
 const LOGIN_URL = '/login';
 
-const LoginForm = () => {
-    const { setAuth, persist, setPersist } = useAuth();
+const LoginForm: React.FC = () => {
+    const { setAuth, persist, setPersist } = useAuth() as AuthContextProps;
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
-    const emailRef = useRef();
+    const emailRef = useRef<HTMLInputElement>(null);
 
-    const [email, setEmail] = useState('');
-    const [pwd, setPwd] = useState('');
+    const [email, setEmail] = useState<string>('');
+    const [pwd, setPwd] = useState<string>('');
 
     useEffect(() => {
-        emailRef.current.focus();
+        emailRef.current?.focus();
     }, [])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
@@ -36,12 +37,13 @@ const LoginForm = () => {
                 }
             );
             const accessToken = response?.data?.accessToken;
+            const user_id = response?.data?.user_id;
             const roles = response?.data?.roles;
-            setAuth({ email, roles, accessToken });
+            setAuth({ user_id, email, roles, accessToken });
             setEmail('');
             setPwd('');
             navigate(`/profile`, { replace: true });
-        } catch{}
+        } catch(err: any) {}
     }
 
     const togglePersist = () => {
@@ -49,7 +51,7 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
-        localStorage.setItem("persist", persist);
+        localStorage.setItem("persist", persist.toString());
     }, [persist])
 
     return (

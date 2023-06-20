@@ -1,13 +1,14 @@
 import axios from "./../api/Axios";
 import useAuth from "./useAuth";
+import { AuthContextProps } from "../typescript/interfaces";
 
 const useLogout = () => {
-    const { setAuth } = useAuth();
+    const { setAuth } = useAuth() as AuthContextProps;
 
     const logout = async () => {
-        setAuth({});
         try {
-            const response = await axios('/logout', {
+            setAuth({});
+            await axios('/logout', {
                 withCredentials: true
             });
         } catch (err) {
@@ -18,4 +19,4 @@ const useLogout = () => {
     return logout;
 }
 
-export default useLogout
+export default useLogout;

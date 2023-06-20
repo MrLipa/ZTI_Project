@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Carousel, CarouselResponsiveOption } from "primereact/carousel";
 import { useFindFlightsQuery, useFlightQuery } from "../api/ApiHooks"; // Import the hook
-import { Flight } from "../typescript/interfaces";
+import { Flight, FlightCardsProps } from "../typescript/interfaces";
 import { useTranslation } from "react-i18next";
-
-interface FlightCardsProps {
-  from: string;
-  to: string;
-}
 
 const FlightCards: React.FC<FlightCardsProps> = ({ from, to }) => {
   const { t } = useTranslation();

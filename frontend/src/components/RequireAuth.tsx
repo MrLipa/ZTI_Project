@@ -1,12 +1,16 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { AuthContextProps } from "../typescript/interfaces";
 
-const RequireAuth = ({ allowedRoles }) => {
-    const { auth } = useAuth();
+interface RequireAuthProps {
+    allowedRoles?: number[];
+}
+
+const RequireAuth: React.FC<RequireAuthProps> = ({ allowedRoles }) => {
+    const { auth } = useAuth() as AuthContextProps;
     const location = useLocation();
 
     return (
-        
         auth?.roles?.find(role => allowedRoles?.includes(role))
             ? <Outlet />
             : auth?.accessToken //changed from user to accessToken to persist login after refresh

@@ -8,14 +8,12 @@ import { InputSwitch } from "primereact/inputswitch";
 import { InputTextarea } from "primereact/inputtextarea";
 import { useUpdateUserMutation, useUserQuery } from "./../api/ApiHooks";
 import { User } from "../typescript/interfaces";
-import { Dropdown } from 'primereact/dropdown';
 import { ThemeContext } from "../context/ThemeContext";
 import { LanguageContext } from "../context/LanguageContext";
 import Flags from "country-flag-icons/react/3x2";
 import { Menu } from 'primereact/menu';
 import { useTranslation } from 'react-i18next';
-import { useToast } from "../context/ToastProvider";
-
+import useAuth from "../hooks/useAuth";
 
 const MessageSettingsComponent = () => {
   const { t } = useTranslation();
@@ -81,9 +79,12 @@ const MessageSettingsComponent = () => {
 
 const ProfileComponent = () => {
   const { t } = useTranslation();
-  const user_id = 1;
-  const { data: userData, isLoading, isError } = useUserQuery(user_id);
-  const { showToast } = useToast();
+  const { auth } = useAuth();
+
+  if (!auth?.user_id) {
+    throw new Error("User id is required");
+  }
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
   const [user, setUser] = useState<User>({
     user_id: 0,
     firstname: "",
@@ -115,12 +116,10 @@ const ProfileComponent = () => {
 
   const handleAvatarChange = () => {
     updateUserMutation.mutate(user);
-    showToast("success", "Success", "Operation completed successfully");
   };
 
   const handleSaveChanges = () => {
     updateUserMutation.mutate(user);
-    showToast("success", "Success", "Operation completed successfully");
   };
 
   return (
@@ -128,7 +127,7 @@ const ProfileComponent = () => {
       <div className="p-d-flex p-ai-center">
         <Image src={user.image} alt="Image" width="250" height="250" preview />
         <Button
-          label={t("changeAvatar")}
+          label={t("changeAvatar") ?? ''}
           onClick={handleAvatarChange}
           style={{ marginLeft: "50px" }}
         />
@@ -141,14 +140,14 @@ const ProfileComponent = () => {
         <div className="p-col-12 p-md-6" style={{ width: "100%" }}>
           <InputText
             id="firstname"
-            placeholder={t("firstNamePlaceholder")}
+            placeholder={t("firstNamePlaceholder") ?? ''}
             value={user.firstname}
             onChange={handleInputChange}
             style={{ width: "49%", marginRight: "2%" }}
           />
           <InputText
             id="lastname"
-            placeholder={t("lastNamePlaceholder")}
+            placeholder={t("lastNamePlaceholder") ?? ''}
             value={user.lastname}
             onChange={handleInputChange}
             style={{ width: "49%" }}
@@ -157,14 +156,14 @@ const ProfileComponent = () => {
         <div className="p-col-12 p-md-6" style={{ marginTop: "2%" }}>
           <InputText
             id="email"
-            placeholder={t("emailPlaceholder")}
+            placeholder={t("emailPlaceholder") ?? ''}
             value={user.email}
             onChange={handleInputChange}
             style={{ width: "49%", marginRight: "2%" }}
           />
           <InputText
             id="address"
-            placeholder={t("addressPlaceholder")}
+            placeholder={t("addressPlaceholder") ?? ''}
             value={user.address}
             onChange={handleInputChange}
             style={{ width: "49%" }}
@@ -176,7 +175,7 @@ const ProfileComponent = () => {
         >
           <InputText
             id="phone"
-            placeholder={t("phonePlaceholder")}
+            placeholder={t("phonePlaceholder") ?? ''}
             value={user.phone}
             onChange={handleInputChange}
             style={{ width: "49%", marginRight: "2%" }}
@@ -184,7 +183,7 @@ const ProfileComponent = () => {
           <InputText
             id="password"
             type="password"
-            placeholder={t("passwordPlaceholder")}
+            placeholder={t("passwordPlaceholder") ?? ''}
             value={user.password}
             onChange={handleInputChange}
             style={{ width: "49%" }}
@@ -206,7 +205,7 @@ const ProfileComponent = () => {
         />
 
       <div className="p-d-flex p-jc-end p-mt-4">
-        <Button label={t("saveChanges")} onClick={handleSaveChanges} />
+        <Button label={t("saveChanges") ?? ''} onClick={handleSaveChanges} />
       </div>
     </div>
   );

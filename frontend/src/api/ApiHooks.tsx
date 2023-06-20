@@ -4,12 +4,11 @@ import {
   UseMutationResult,
   UseQueryResult,
 } from "react-query";
-import { Flight, User } from "../typescript/interfaces";
+import { Flight, User, AuthContextProps } from "../typescript/interfaces";
 import useAuth from "../hooks/useAuth";
 import { useToast } from "../context/ToastProvider";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useQueryClient } from 'react-query';
-
+import { useQueryClient } from "react-query";
 
 const sendRequest = async (
   axiosPrivate: any,
@@ -23,7 +22,7 @@ const sendRequest = async (
     url: url,
     data: data,
   });
-  console.log(response)
+  console.log(response);
   if (response.status === 400) {
     showToast("error", "Error", "Bad Request: ");
     throw new Error("Bad Request: ");
@@ -37,8 +36,6 @@ const sendRequest = async (
 
   return response.data;
 };
-
-
 
 const useUserQuery = (user_id: number): UseQueryResult<User, Error> => {
   const axiosPrivate = useAxiosPrivate();
@@ -98,7 +95,10 @@ const useFlightsByIdsQuery = (
   });
 };
 
-const useFindFlightsQuery = (city_from: string = '', city_to: string = ''): UseQueryResult<Flight[], Error> => {
+const useFindFlightsQuery = (
+  city_from: string = "",
+  city_to: string = ""
+): UseQueryResult<Flight[], Error> => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
 
@@ -121,12 +121,14 @@ const useMakeReservationMutation = (): UseMutationResult<
 > => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
-  const queryClient = useQueryClient(); 
+  const queryClient = useQueryClient();
+  const { auth } = useAuth();
 
   const makeReservation = async (reservationData: {
     user_id: number;
     flightId: number;
   }) => {
+    
     return sendRequest(
       axiosPrivate,
       `/user/made_reservation`,
@@ -140,12 +142,11 @@ const useMakeReservationMutation = (): UseMutationResult<
     mutationKey: "makeReservation",
     mutationFn: makeReservation,
     onError: (error: Error) => {
-      console.error("An 78i7",error);
-      showToast("error", "Error", "Failed to add message");
+      showToast("error", "Error", "Failed to made reservation");
     },
     onSuccess: () => {
-      showToast("success", "Success", "Message added successfully");
-      queryClient.invalidateQueries(["user", 1]);
+      showToast("success", "Success", "Reservation made successfully");
+      queryClient.invalidateQueries(["user", auth?.user_id]);
     },
   });
 };
@@ -157,7 +158,8 @@ const useCancelReservationMutation = (): UseMutationResult<
 > => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
-  const queryClient = useQueryClient(); 
+  const queryClient = useQueryClient();
+  const { auth } = useAuth();
 
   const cancelReservation = async (reservationData: {
     user_id: number;
@@ -176,24 +178,25 @@ const useCancelReservationMutation = (): UseMutationResult<
     mutationKey: "cancelReservation",
     mutationFn: cancelReservation,
     onError: (error: Error) => {
-      console.error(
-        "Wystąpił błąd podczas tworzenia rezerwacji:",
-        error
-      );
-      showToast("error", "Error", "Failed to make reservation");
+      showToast("error", "Error", "Failed to cancel reservation");
     },
     onSuccess: () => {
-      showToast("success", "Success", "Operation completed successfully");
-      queryClient.invalidateQueries(["userFlightsHistory", 1]);
+      showToast("success", "Success", "Reservation canceled successfully");
+      queryClient.invalidateQueries(["userFlightsHistory", auth?.user_id]);
     },
   });
 };
 
-const useAddMessageMutation = (): UseMutationResult<any,Error,{ user_id: number; message: string }> => {
+const useAddMessageMutation = (): UseMutationResult<
+  any,
+  Error,
+  { user_id: number; message: string }
+> => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
-  const queryClient = useQueryClient(); 
-
+  const queryClient = useQueryClient();
+  const { auth } = useAuth();
+  
   const addMessage = async (messageData: {
     user_id: number;
     message: string;
@@ -211,12 +214,10 @@ const useAddMessageMutation = (): UseMutationResult<any,Error,{ user_id: number;
     mutationKey: "addMessage",
     mutationFn: addMessage,
     onError: (error: Error) => {
-      console.error("An error occurred while adding the message:",error);
       showToast("error", "Error", "Failed to add message");
     },
     onSuccess: () => {
-      showToast("success", "Success", "Message added successfully");
-      queryClient.invalidateQueries(["user", 1]);
+      queryClient.invalidateQueries(["user", auth?.user_id]);
     },
   });
 };
@@ -242,10 +243,10 @@ const useRegisterMutation = (): UseMutationResult<
     mutationKey: "register",
     mutationFn: registerUser,
     onError: (error: any) => {
-      console.error("Wystąpił błąd podczas rejestracji:", error);
+      showToast("error", "Error", "Failed to register");
     },
     onSuccess: () => {
-      console.log("Registration was successful");
+      showToast("success", "Success", "User registered successfully");
     },
   });
 };
@@ -255,7 +256,7 @@ const useLoginMutation = (): UseMutationResult<
   Error,
   { email: string; password: string }
 > => {
-  const { setAuth } = useAuth();
+  const { setAuth } = useAuth() as AuthContextProps;
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
 
@@ -267,18 +268,11 @@ const useLoginMutation = (): UseMutationResult<
     mutationKey: "login",
     mutationFn: loginUser,
     onError: (error: Error) => {
-      console.error("Wystąpił błąd podczas logowania:", error.message);
+      showToast("error", "Error", "Failed to login");
     },
     onSuccess: (data) => {
-      setAuth({
-        roles: [2137],
-        token: data.accessToken,
-      });
-      showToast(
-        "success",
-        "Zalogowano pomyślnie",
-        "Zostałeś pomyślnie zalogowany"
-      );
+      setAuth({ roles: [2137], token: data.accessToken });
+      showToast("success", "Success", "User login successfully");
     },
   });
 };
@@ -299,10 +293,10 @@ const useUpdateUserMutation = (): UseMutationResult<
     mutationKey: "updateUser",
     mutationFn: updateUser,
     onError: (error: Error) => {
-      console.error(
-        "Wystąpił błąd podczas aktualizacji danych użytkownika:",
-        error.message
-      );
+      showToast("error", "Error", "Failed to update user");
+    },
+    onSuccess: (data) => {
+      showToast("success", "Success", "User update successfully");
     },
   });
 };

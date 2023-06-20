@@ -5,7 +5,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { useTranslation } from 'react-i18next';
 
 const SettingsIcon = () => {
-  const op = useRef(null);
+  const op = useRef<OverlayPanel | null>(null);
   const { theme, currentTheme, toggleTheme } = useContext(ThemeContext);
   const { t } = useTranslation('translations');
 
@@ -31,7 +31,7 @@ const SettingsIcon = () => {
       <i
         className={`pi pi-cog`}
         style={{ fontSize: "2rem" }}
-        onClick={(e) => op.current.toggle(e)}
+        onClick={(e) => op.current?.toggle(e)}
       ></i>
       <OverlayPanel
         ref={op}

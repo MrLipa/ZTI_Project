@@ -27,3 +27,22 @@ export interface User {
     messages: string[];
     flightids: number[];
 }
+
+export interface AuthContextProps {
+    auth: {
+        user_id: number;
+        email?: string;
+        token?: string;
+        accessToken?: string;
+        roles?: number[];
+    };
+    setAuth: (authData: Partial<AuthContextProps['auth']>) => void;
+    persist: boolean;
+    setPersist: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+export interface FlightCardsProps {
+    from: string;
+    to: string;
+}

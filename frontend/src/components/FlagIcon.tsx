@@ -6,7 +6,7 @@ import Flags from "country-flag-icons/react/3x2";
 import { useTranslation } from 'react-i18next';
 
 const FlagIcon = () => {
-  const op = useRef(null);
+  const op = useRef<OverlayPanel | null>(null);
   const { language, flag, toggleLanguage } = useContext(LanguageContext);
   const { t } = useTranslation('translations');
 
@@ -42,7 +42,7 @@ const FlagIcon = () => {
 
   return (
     <div>
-      <i onClick={(e) => op.current.toggle(e)}>{flag}</i>
+      <i onClick={(e) => op.current?.toggle(e)}>{flag}</i>
       <OverlayPanel
         ref={op}
         id={`globe-menu`}

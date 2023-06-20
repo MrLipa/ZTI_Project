@@ -20,6 +20,7 @@ import useLogout from "../hooks/useLogout";
 import { useToast } from "../context/ToastProvider";
 import { useUpdateUserMutation, useUserQuery } from "./../api/ApiHooks";
 import { User } from "../typescript/interfaces";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
   const { theme, currentTheme, toggleTheme } = useContext(ThemeContext);
@@ -27,8 +28,12 @@ const Navbar = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const { showToast } = useToast();
 
-  const user_id = 1;
-  const { data: userData, isLoading, isError } = useUserQuery(user_id);
+  const { auth } = useAuth();
+
+  if (!auth?.user_id) {
+    throw new Error("User id is required");
+  }
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
   const [user, setUser] = useState<User>({
     user_id: 0,
     firstname: "",
@@ -56,7 +61,7 @@ const Navbar = () => {
   const signOut = async () => {
       await logout();
       navigate('/');
-      showToast("success", "Success", "Operation completed successfully");
+      showToast("success", "Success", "Logout successfully");
   }
 
   const toggleSidebar = () => {
