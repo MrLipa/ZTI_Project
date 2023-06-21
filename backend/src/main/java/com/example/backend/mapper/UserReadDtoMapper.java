@@ -1,8 +1,8 @@
-package com.example.backend.controller.mapper;
+package com.example.backend.mapper;
 
-import com.example.backend.controller.dbo.UserFlightIdReadDto;
-import com.example.backend.controller.dbo.UserMessageReadDto;
-import com.example.backend.controller.dbo.UserReadDto;
+import com.example.backend.dto.UserFlightIdReadDto;
+import com.example.backend.dto.UserMessageReadDto;
+import com.example.backend.dto.UserReadDto;
 import com.example.backend.entity.User;
 import com.example.backend.entity.UserFlightId;
 import com.example.backend.entity.UserMessage;
@@ -17,8 +17,7 @@ public class UserReadDtoMapper {
                 .map(user -> mapUserToDto(user))
                 .collect(Collectors.toSet());
     }
-
-    private static UserReadDto mapUserToDto(User user) {
+    public static UserReadDto mapUserToDto(User user) {
         return UserReadDto.UserReadDtoBuilder.aUserReadDto()
                 .withUserId(user.getUserId())
                 .withFirstName(user.getFirstName())

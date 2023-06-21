@@ -1,36 +1,58 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.UserReadDto;
+import com.example.backend.entity.Token;
 import com.example.backend.entity.User;
+import com.example.backend.repository.TokenRepository;
 import com.example.backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+
+import static com.example.backend.mapper.UserReadDtoMapper.mapUserToUserReadDtoSet;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, TokenRepository tokenRepository) {
         this.userRepository = userRepository;
+        this.tokenRepository = tokenRepository;
     }
 
-    public List<User> getUsers() {
-        List<User> users = userRepository.findAll();
+    public Set<User> getUsers() {
+        Set<User> users = userRepository.findAllUsersWithMessagesAndFlightIds();
         return users;
     }
 
-    public void addNewUser(User user) {
+    public User getUser(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        return user.orElse(null);
+    }
+
+    public User findUserByEmail(String email){
+        Optional<User> user = userRepository.findUserByEmail(email);
+        return user.orElse(null);
+    }
+//
+//    public User findUserByRefreshToken(String refreshToken) {
+//        Optional<User> user = userRepository.findByRefreshToken(refreshToken);
+//        return user.orElse(null);
+//    }
+
+    public void createNewUser(User user) {
         Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
         if (userByEmail.isPresent()){
             throw new IllegalStateException("email taken");
         }
-        System.out.println(user);
         userRepository.save(user);
     }
 
@@ -79,8 +101,8 @@ public class UserService {
         }
     }
 
-    public List<User> getUsersA() {
-        List<User> users = userRepository.findAllUsersWithMessagesAndFlightIds();
-        return users;
+    public User findUserByRefreshToken(String refreshToken) {
+        Token token = tokenRepository.findTokenByRefreshToken(refreshToken).orElse(null);
+        return userRepository.findById(token.getUserId()).orElse(null);
     }
 }

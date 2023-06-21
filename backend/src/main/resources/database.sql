@@ -37,15 +37,14 @@ CREATE TABLE zti_project.userFlightId (
 );
 
 CREATE TABLE zti_project.token (
-                                   userId INTEGER NOT NULL,
-                                   CONSTRAINT token_pk PRIMARY KEY (userId),
+                                   id SERIAL PRIMARY KEY,
+                                   userId INTEGER REFERENCES zti_project.user(userId),
                                    refreshToken VARCHAR(255)
 );
 
 SELECT * FROM zti_project.user LIMIT 100;
 
 INSERT INTO zti_project.user (
-    userId,
     firstName,
     lastName,
     email,
@@ -55,7 +54,6 @@ INSERT INTO zti_project.user (
     image,
     description
 ) VALUES (
-             1,
              'Xavier',
              'Venkatanarasimha',
              'xavier@gmail.com',
@@ -77,6 +75,8 @@ VALUES (1, 1),
        (1, 12),
        (1, 13);
 
+INSERT INTO zti_project.token (userId, refreshToken)
+VALUES (1, 'your_refresh_token_here');
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------

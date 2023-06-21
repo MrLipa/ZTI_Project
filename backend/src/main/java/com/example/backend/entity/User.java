@@ -29,24 +29,24 @@ public class User {
     public User() {
     }
 
+    public User(Long userId) {
+        this.userId=userId;
+    }
+
     public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", image='" + image + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+    public User(String firstName, String lastName, String email, String password, String phone, String address, String image, String description) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.image = image;
+        this.description = description;
     }
 
     public Long getUserId() {
@@ -144,7 +144,7 @@ public class User {
             user = new User();
         }
 
-        public static UserBuilder anUser() {
+        public static UserBuilder aUser() {
             return new UserBuilder();
         }
 

@@ -1,4 +1,4 @@
-package com.example.backend.controller.dbo;
+package com.example.backend.dto;
 
 import java.util.Set;
 
