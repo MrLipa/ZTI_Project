@@ -1,17 +1,20 @@
 package com.example.backend.controller;
 
-import com.example.backend.aop.AdditionalAuthentication;
-import com.example.backend.dto.UserReadDto;
+import com.example.backend.dto.UserDto;
+import com.example.backend.dto.FlightDto;
+import com.example.backend.entity.Flight;
 import com.example.backend.entity.User;
+import com.example.backend.service.FlightService;
 import com.example.backend.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Set;
 
-import static com.example.backend.mapper.UserReadDtoMapper.mapUserToDto;
-import static com.example.backend.mapper.UserReadDtoMapper.mapUserToUserReadDtoSet;
+import static com.example.backend.mapper.FlightMapper.mapFlightToFlightDtoSet;
+import static com.example.backend.mapper.UserMapper.*;
 
 
 @RestController
@@ -20,40 +23,72 @@ import static com.example.backend.mapper.UserReadDtoMapper.mapUserToUserReadDtoS
 public class UserController {
 
     private final UserService userService;
+    private final FlightService flightService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, FlightService flightService){
         this.userService = userService;
+        this.flightService = flightService;
     }
 
-    @AdditionalAuthentication
-    @GetMapping(path="{userId}")
-    public UserReadDto getUser(@PathVariable("userId") Long userId) {
-        return mapUserToDto(userService.getUser(userId));
-    }
 
-    @AdditionalAuthentication
     @GetMapping()
-    public Set<UserReadDto> getUsers() {
-        return mapUserToUserReadDtoSet(userService.getUsers());
+    public Set<UserDto> getUsers() {
+        Set<User> users = userService.getUsers();
+        return mapUserToUserDtoSet(users);
     }
 
-    @AdditionalAuthentication
+    @GetMapping(path="{userId}")
+    public UserDto getUser(@PathVariable("userId") Long userId) {
+        User user = userService.getUser(userId);
+        return mapUserToUserDto(user);
+    }
+
     @PostMapping()
-    public void createNewUser(@RequestBody User user){
-        userService.createNewUser(user);
+    public void createUser(@RequestBody UserDto userDto){
+        User user = mapUserDtoToUser(userDto);
+        userService.createUser(user);
     }
 
-    @AdditionalAuthentication
     @DeleteMapping(path="{userId}")
     public void deleteUser(@PathVariable("userId") Long userId){
-
         userService.deleteUser(userId);
     }
 
-    @AdditionalAuthentication
     @PutMapping(path = "{userId}")
-    public void updateUser(@PathVariable("userId") Long userId, @RequestBody User user){
+    public void updateUser(@PathVariable("userId") Long userId, @RequestBody UserDto userDto){
+        User user = mapUserDtoToUser(userDto);
         userService.updateUser(userId, user);
     }
+
+    @GetMapping(path = "/flights_history/{userId}")
+    public Set<FlightDto> getUserHistory(@PathVariable("userId") Long userId) {
+        User user = userService.getUser(userId);
+        Set<Flight> flights = flightService.getFlightsByIds(user.getUserFlightId());
+        return mapFlightToFlightDtoSet(flights);
+    }
+
+    @PostMapping()
+    public void addMessage(@RequestBody Map<String, Object> requestBody) {
+        Long userId = Long.parseLong(requestBody.get("userId").toString());
+        String message = requestBody.get("message").toString();
+        userService.addMessage(userId, message);
+    }
+
+    @PostMapping()
+    public void madeReservation(@RequestBody Map<String, Object> requestBody){
+        Long userId = Long.parseLong(requestBody.get("userId").toString());
+        Integer flightId = Integer.parseInt(requestBody.get("flightId").toString());
+        userService.addFlightId(userId, flightId);
+        flightService.takeSeat(flightId);
+    }
+
+    @PostMapping()
+    public void cancelReservation(@RequestBody Map<String, Object> requestBody) {
+        Long userId = Long.parseLong(requestBody.get("userId").toString());
+        Integer flightId = Integer.parseInt(requestBody.get("flightId").toString());
+        userService.removeFlightId(userId, flightId);
+        flightService.freeSeat(flightId);
+    }
+
 }

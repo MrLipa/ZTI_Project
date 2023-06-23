@@ -1,6 +1,5 @@
 package com.example.backend.service;
 
-import com.example.backend.dto.UserReadDto;
 import com.example.backend.entity.Token;
 import com.example.backend.entity.User;
 import com.example.backend.repository.TokenRepository;
@@ -9,12 +8,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-
-import static com.example.backend.mapper.UserReadDtoMapper.mapUserToUserReadDtoSet;
 
 @Service
 public class UserService {
@@ -104,5 +100,17 @@ public class UserService {
     public User findUserByRefreshToken(String refreshToken) {
         Token token = tokenRepository.findTokenByRefreshToken(refreshToken).orElse(null);
         return userRepository.findById(token.getUserId()).orElse(null);
+    }
+
+    public void createUser(User user) {
+    }
+
+    public void addMessage(Long userId, String message) {
+    }
+
+    public void addFlightId(Long userId, Integer flightId) {
+    }
+
+    public void removeFlightId(Long userId, Integer flightId) {
     }
 }

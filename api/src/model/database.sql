@@ -1,18 +1,7 @@
-DO $$ DECLARE
-    r RECORD;
-BEGIN
-    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = current_schema()) LOOP
-        EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
-    END LOOP;
-END $$;
-
-
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'zti_project') THEN
-    DROP TABLE IF EXISTS zti_project.userMessages;
-    DROP TABLE IF EXISTS zti_project.userFlights;
-    DROP TABLE IF EXISTS zti_project.token;
     DROP TABLE IF EXISTS zti_project.user;
+    DROP TABLE IF EXISTS zti_project.token;
     DROP SCHEMA zti_project CASCADE;
   END IF;
 END $$;
@@ -20,41 +9,30 @@ END $$;
 CREATE SCHEMA zti_project;
 
 CREATE TABLE zti_project.user (
-    userId SERIAL,
-    firstName VARCHAR(255),
-    lastName VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    password VARCHAR(255),
-    phone VARCHAR(255),
-    address VARCHAR(255),
-    image VARCHAR(255),
-    description VARCHAR(511),
-    CONSTRAINT user_pk PRIMARY KEY (userId)
-);
-
-CREATE TABLE zti_project.userMessages (
-    id SERIAL PRIMARY KEY,
-    userId INTEGER REFERENCES zti_project.user(userId),
-    message VARCHAR(255)
-);
-
-
-CREATE TABLE zti_project.userFlights (
-    id SERIAL PRIMARY KEY,
-    userId INTEGER REFERENCES zti_project.user(userId),
-    flightId INTEGER
+  user_id SERIAL,
+  CONSTRAINT user_pk PRIMARY KEY (user_id),
+  firstName VARCHAR(255),
+  lastName VARCHAR(255),
+  email VARCHAR(255) UNIQUE,
+  password VARCHAR(255),
+  phone VARCHAR(255),
+  address VARCHAR(255),
+  image VARCHAR(255),
+  description VARCHAR(511),
+  messages VARCHAR(255)[],
+  flightIds INTEGER[],
+  roles VARCHAR(255)[]
 );
 
 CREATE TABLE zti_project.token (
-  userId INTEGER NOT NULL,
-  CONSTRAINT token_pk PRIMARY KEY (userId),
-  refreshToken VARCHAR(255)
+  user_id INTEGER NOT NULL,
+  CONSTRAINT token_pk PRIMARY KEY (user_id),
+  refresh_token VARCHAR(255)
 );
 
 SELECT * FROM zti_project.user LIMIT 100;
 
 INSERT INTO zti_project.user (
-    userId,
     firstName, 
     lastName, 
     email, 
@@ -62,9 +40,10 @@ INSERT INTO zti_project.user (
     phone, 
     address, 
     image, 
-    description
+    description, 
+    messages, 
+    flightIds
 ) VALUES (
-    1,
     'Xavier', 
     'Venkatanarasimha', 
     'xavier@gmail.com', 
@@ -72,19 +51,10 @@ INSERT INTO zti_project.user (
     '+48 213 769 420', 
     'Alwar, India, Rajasthan', 
     'https://varnam.my/wp-content/uploads/2021/01/FB_IMG_1605666747087-2.jpg.webp', 
-    'Hi, Im Xavier, your average guy from Earth. You might know me as a meme maker and comedian. I work at a gas station, although for the life of me, I cant pinpoint its location. Just know its somewhere on Earth! Im also a married man, though my wife seems to think I have a few girlfriends on the side. But you know, wives know everything.'
+    'Hi, Im Xavier, your average guy from Earth. You might know me as a meme maker and comedian. I work at a gas station, although for the life of me, I cant pinpoint its location. Just know its somewhere on Earth! Im also a married man, though my wife seems to think I have a few girlfriends on the side. But you know, wives know everything.', 
+    ARRAY[]::varchar[], 
+    ARRAY[26,27,28,37,38,39]::integer[]
 );
-
-INSERT INTO zti_project.userMessages (userId, message) 
-VALUES (1, 'test1'),
-       (1, 'test2');
-
-INSERT INTO zti_project.userFlights (userId, flightId) 
-VALUES (1, 1),
-       (1, 2),
-       (1, 3),
-       (1, 12),
-       (1, 13);
 
 
 -- DO $$ BEGIN

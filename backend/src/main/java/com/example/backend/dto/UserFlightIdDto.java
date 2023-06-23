@@ -1,6 +1,6 @@
 package com.example.backend.dto;
 
-public class UserFlightIdReadDto {
+public class UserFlightIdDto {
     private Long id;
     private Integer flightId;
 
@@ -33,8 +33,8 @@ public class UserFlightIdReadDto {
             return this;
         }
 
-        public UserFlightIdReadDto build() {
-            UserFlightIdReadDto userFlightIdReadDto = new UserFlightIdReadDto();
+        public UserFlightIdDto build() {
+            UserFlightIdDto userFlightIdReadDto = new UserFlightIdDto();
             userFlightIdReadDto.id = this.id;
             userFlightIdReadDto.flightId = this.flightId;
             return userFlightIdReadDto;

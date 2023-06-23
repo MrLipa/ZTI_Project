@@ -1,6 +1,6 @@
 package com.example.backend.dto;
 
-public class UserMessageReadDto {
+public class UserMessageDto {
     private Long id;
     private String message;
 
@@ -33,8 +33,8 @@ public class UserMessageReadDto {
             return this;
         }
 
-        public UserMessageReadDto build() {
-            UserMessageReadDto userMessageReadDto = new UserMessageReadDto();
+        public UserMessageDto build() {
+            UserMessageDto userMessageReadDto = new UserMessageDto();
             userMessageReadDto.id = this.id;
             userMessageReadDto.message = this.message;
             return userMessageReadDto;
