@@ -8,36 +8,44 @@ public class UserFlightIdDto {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Integer getFlightId() {
         return flightId;
     }
 
-    public static final class UserFlightIdReadDtoBuilder {
+    public void setFlightId(Integer flightId) {
+        this.flightId = flightId;
+    }
+
+    public static class UserFlightIdDtoBuilder {
         private Long id;
         private Integer flightId;
 
-        private UserFlightIdReadDtoBuilder() {
+        private UserFlightIdDtoBuilder() {
         }
 
-        public static UserFlightIdReadDtoBuilder aUserFlightIdReadDto() {
-            return new UserFlightIdReadDtoBuilder();
+        public static UserFlightIdDtoBuilder aUserFlightIdDto() {
+            return new UserFlightIdDtoBuilder();
         }
 
-        public UserFlightIdReadDtoBuilder withId(Long id) {
+        public UserFlightIdDtoBuilder withId(Long id) {
             this.id = id;
             return this;
         }
 
-        public UserFlightIdReadDtoBuilder withFlightId(Integer flightId) {
+        public UserFlightIdDtoBuilder withFlightId(Integer flightId) {
             this.flightId = flightId;
             return this;
         }
 
         public UserFlightIdDto build() {
-            UserFlightIdDto userFlightIdReadDto = new UserFlightIdDto();
-            userFlightIdReadDto.id = this.id;
-            userFlightIdReadDto.flightId = this.flightId;
-            return userFlightIdReadDto;
+            UserFlightIdDto userFlightIdDto = new UserFlightIdDto();
+            userFlightIdDto.id = this.id;
+            userFlightIdDto.flightId = this.flightId;
+            return userFlightIdDto;
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.UserDto;
-import com.example.backend.dto.FlightDto;
 import com.example.backend.entity.Flight;
 import com.example.backend.entity.User;
 import com.example.backend.service.FlightService;
@@ -10,10 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.example.backend.mapper.FlightMapper.mapFlightToFlightDtoSet;
 import static com.example.backend.mapper.UserMapper.*;
 
 
@@ -62,10 +62,11 @@ public class UserController {
     }
 
     @GetMapping(path = "/flights_history/{userId}")
-    public Set<FlightDto> getUserHistory(@PathVariable("userId") Long userId) {
+    public Collection<Flight> getUserHistory(@PathVariable("userId") Long userId) {
         User user = userService.getUser(userId);
-        Set<Flight> flights = flightService.getFlightsByIds(user.getUserFlightId());
-        return mapFlightToFlightDtoSet(flights);
+        List<Integer> userFlightIds = userService.getFlightIds(user.getUserId());
+        Collection<Flight> flights = flightService.getFlightsByIds(userFlightIds);
+        return flights;
     }
 
     @PostMapping()

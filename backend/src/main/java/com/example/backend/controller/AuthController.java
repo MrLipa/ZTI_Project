@@ -37,7 +37,7 @@ public class AuthController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        userService.createNewUser(user);
+        userService.createUser(user);
     }
 
     @PostMapping(path="/login")

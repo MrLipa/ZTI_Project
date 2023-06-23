@@ -26,29 +26,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<UserFlightId> userFlightId;
 
-    public User() {
-    }
-
-    public User(Long userId) {
-        this.userId=userId;
-    }
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(String firstName, String lastName, String email, String password, String phone, String address, String image, String description) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.address = address;
-        this.image = image;
-        this.description = description;
-    }
-
     public Long getUserId() {
         return userId;
     }
@@ -137,73 +114,94 @@ public class User {
         this.userFlightId = userFlightId;
     }
 
-    public static final class UserBuilder {
-        private User user;
+    public static class UserBuilder {
+        private Long userId;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String password;
+        private String phone;
+        private String address;
+        private String image;
+        private String description;
+        private Set<UserMessage> userMessage;
+        private Set<UserFlightId> userFlightId;
 
         private UserBuilder() {
-            user = new User();
         }
 
-        public static UserBuilder aUser() {
+        public static UserBuilder anUser() {
             return new UserBuilder();
         }
 
         public UserBuilder withUserId(Long userId) {
-            user.setUserId(userId);
+            this.userId = userId;
             return this;
         }
 
         public UserBuilder withFirstName(String firstName) {
-            user.setFirstName(firstName);
+            this.firstName = firstName;
             return this;
         }
 
         public UserBuilder withLastName(String lastName) {
-            user.setLastName(lastName);
+            this.lastName = lastName;
             return this;
         }
 
         public UserBuilder withEmail(String email) {
-            user.setEmail(email);
+            this.email = email;
             return this;
         }
 
         public UserBuilder withPassword(String password) {
-            user.setPassword(password);
+            this.password = password;
             return this;
         }
 
         public UserBuilder withPhone(String phone) {
-            user.setPhone(phone);
+            this.phone = phone;
             return this;
         }
 
         public UserBuilder withAddress(String address) {
-            user.setAddress(address);
+            this.address = address;
             return this;
         }
 
         public UserBuilder withImage(String image) {
-            user.setImage(image);
+            this.image = image;
             return this;
         }
 
         public UserBuilder withDescription(String description) {
-            user.setDescription(description);
+            this.description = description;
             return this;
         }
 
-        public UserBuilder withUserMessage(Set<UserMessage> userMessages) {
-            user.setUserMessage(userMessages);
+        public UserBuilder withUserMessage(Set<UserMessage> userMessage) {
+            this.userMessage = userMessage;
             return this;
         }
 
-        public UserBuilder withUserFlightId(Set<UserFlightId> userFlightIds) {
-            user.setUserFlightId(userFlightIds);
+        public UserBuilder withUserFlightId(Set<UserFlightId> userFlightId) {
+            this.userFlightId = userFlightId;
             return this;
         }
 
         public User build() {
+            User user = new User();
+            user.userId = this.userId;
+            user.firstName = this.firstName;
+            user.lastName = this.lastName;
+            user.email = this.email;
+            user.password = this.password;
+            user.phone = this.phone;
+            user.address = this.address;
+            user.image = this.image;
+            user.description = this.description;
+            user.userMessage = this.userMessage;
+            user.userFlightId = this.userFlightId;
             return user;
         }
     }

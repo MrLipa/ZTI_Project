@@ -59,7 +59,7 @@ public class UserDto {
         return userFlightId;
     }
 
-    public static final class UserReadDtoBuilder {
+    public static class UserDtoBuilder {
         private Long userId;
         private String firstName;
         private String lastName;
@@ -72,82 +72,82 @@ public class UserDto {
         private Set<UserMessageDto> userMessage;
         private Set<UserFlightIdDto> userFlightId;
 
-        private UserReadDtoBuilder() {
+        private UserDtoBuilder() {
         }
 
-        public static UserReadDtoBuilder aUserReadDto() {
-            return new UserReadDtoBuilder();
+        public static UserDtoBuilder aUserDto() {
+            return new UserDtoBuilder();
         }
 
-        public UserReadDtoBuilder withUserId(Long userId) {
+        public UserDtoBuilder withUserId(Long userId) {
             this.userId = userId;
             return this;
         }
 
-        public UserReadDtoBuilder withFirstName(String firstName) {
+        public UserDtoBuilder withFirstName(String firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        public UserReadDtoBuilder withLastName(String lastName) {
+        public UserDtoBuilder withLastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        public UserReadDtoBuilder withEmail(String email) {
+        public UserDtoBuilder withEmail(String email) {
             this.email = email;
             return this;
         }
 
-        public UserReadDtoBuilder withPassword(String password) {
+        public UserDtoBuilder withPassword(String password) {
             this.password = password;
             return this;
         }
 
-        public UserReadDtoBuilder withPhone(String phone) {
+        public UserDtoBuilder withPhone(String phone) {
             this.phone = phone;
             return this;
         }
 
-        public UserReadDtoBuilder withAddress(String address) {
+        public UserDtoBuilder withAddress(String address) {
             this.address = address;
             return this;
         }
 
-        public UserReadDtoBuilder withImage(String image) {
+        public UserDtoBuilder withImage(String image) {
             this.image = image;
             return this;
         }
 
-        public UserReadDtoBuilder withDescription(String description) {
+        public UserDtoBuilder withDescription(String description) {
             this.description = description;
             return this;
         }
 
-        public UserReadDtoBuilder withUserMessage(Set<UserMessageDto> userMessage) {
+        public UserDtoBuilder withUserMessage(Set<UserMessageDto> userMessage) {
             this.userMessage = userMessage;
             return this;
         }
 
-        public UserReadDtoBuilder withUserFlightId(Set<UserFlightIdDto> userFlightId) {
+        public UserDtoBuilder withUserFlightId(Set<UserFlightIdDto> userFlightId) {
             this.userFlightId = userFlightId;
             return this;
         }
 
         public UserDto build() {
-            UserDto userReadDto = new UserDto();
-            userReadDto.userId = this.userId;
-            userReadDto.firstName = this.firstName;
-            userReadDto.lastName = this.lastName;
-            userReadDto.email = this.email;
-            userReadDto.password = this.password;
-            userReadDto.phone = this.phone;
-            userReadDto.address = this.address;
-            userReadDto.image = this.image;
-            userReadDto.description = this.description;
-            userReadDto.userMessage = this.userMessage;
-            userReadDto.userFlightId = this.userFlightId;
-            return userReadDto;
+            UserDto userDto = new UserDto();
+            userDto.userId = this.userId;
+            userDto.firstName = this.firstName;
+            userDto.lastName = this.lastName;
+            userDto.email = this.email;
+            userDto.password = this.password;
+            userDto.phone = this.phone;
+            userDto.address = this.address;
+            userDto.image = this.image;
+            userDto.description = this.description;
+            userDto.userMessage = this.userMessage;
+            userDto.userFlightId = this.userFlightId;
+            return userDto;
         }
     }
 }

@@ -7,7 +7,6 @@ public class AuthResponse {
     private String accessToken;
     private List<Integer> roles;
 
-
     public Long getUserId() {
         return userId;
     }

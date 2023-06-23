@@ -24,14 +24,6 @@ public class UserMessage {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -40,4 +32,47 @@ public class UserMessage {
         this.message = message;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public static class UserMessageBuilder {
+        private Long id;
+        private String message;
+        private User user;
+
+        private UserMessageBuilder() {
+        }
+
+        public static UserMessageBuilder anUserMessage() {
+            return new UserMessageBuilder();
+        }
+
+        public UserMessageBuilder withId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserMessageBuilder withMessage(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public UserMessageBuilder withUser(User user) {
+            this.user = user;
+            return this;
+        }
+
+        public UserMessage build() {
+            UserMessage userMessage = new UserMessage();
+            userMessage.id = this.id;
+            userMessage.message = this.message;
+            userMessage.user = this.user;
+            return userMessage;
+        }
+    }
 }

@@ -8,36 +8,44 @@ public class UserMessageDto {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getMessage() {
         return message;
     }
 
-    public static final class UserMessageReadDtoBuilder {
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public static class UserMessageDtoBuilder {
         private Long id;
         private String message;
 
-        private UserMessageReadDtoBuilder() {
+        private UserMessageDtoBuilder() {
         }
 
-        public static UserMessageReadDtoBuilder aUserMessageReadDto() {
-            return new UserMessageReadDtoBuilder();
+        public static UserMessageDtoBuilder aUserMessageDto() {
+            return new UserMessageDtoBuilder();
         }
 
-        public UserMessageReadDtoBuilder withId(Long id) {
+        public UserMessageDtoBuilder withId(Long id) {
             this.id = id;
             return this;
         }
 
-        public UserMessageReadDtoBuilder withMessage(String message) {
+        public UserMessageDtoBuilder withMessage(String message) {
             this.message = message;
             return this;
         }
 
         public UserMessageDto build() {
-            UserMessageDto userMessageReadDto = new UserMessageDto();
-            userMessageReadDto.id = this.id;
-            userMessageReadDto.message = this.message;
-            return userMessageReadDto;
+            UserMessageDto userMessageDto = new UserMessageDto();
+            userMessageDto.id = this.id;
+            userMessageDto.message = this.message;
+            return userMessageDto;
         }
     }
 }

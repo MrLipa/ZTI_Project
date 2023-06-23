@@ -24,6 +24,14 @@ public class UserFlightId {
         this.id = id;
     }
 
+    public Integer getFlightId() {
+        return flightId;
+    }
+
+    public void setFlightId(Integer flightId) {
+        this.flightId = flightId;
+    }
+
     public User getUser() {
         return user;
     }
@@ -32,11 +40,39 @@ public class UserFlightId {
         this.user = user;
     }
 
-    public Integer getFlightId() {
-        return flightId;
-    }
+    public static class UserFlightIdBuilder {
+        private Long id;
+        private Integer flightId;
+        private User user;
 
-    public void setFlightId(Integer flightId) {
-        this.flightId = flightId;
+        private UserFlightIdBuilder() {
+        }
+
+        public static UserFlightIdBuilder anUserFlightId() {
+            return new UserFlightIdBuilder();
+        }
+
+        public UserFlightIdBuilder withId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserFlightIdBuilder withFlightId(Integer flightId) {
+            this.flightId = flightId;
+            return this;
+        }
+
+        public UserFlightIdBuilder withUser(User user) {
+            this.user = user;
+            return this;
+        }
+
+        public UserFlightId build() {
+            UserFlightId userFlightId = new UserFlightId();
+            userFlightId.id = this.id;
+            userFlightId.flightId = this.flightId;
+            userFlightId.user = this.user;
+            return userFlightId;
+        }
     }
 }

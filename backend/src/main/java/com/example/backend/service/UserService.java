@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -38,13 +39,8 @@ public class UserService {
         Optional<User> user = userRepository.findUserByEmail(email);
         return user.orElse(null);
     }
-//
-//    public User findUserByRefreshToken(String refreshToken) {
-//        Optional<User> user = userRepository.findByRefreshToken(refreshToken);
-//        return user.orElse(null);
-//    }
 
-    public void createNewUser(User user) {
+    public void createUser(User user) {
         Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
         if (userByEmail.isPresent()){
             throw new IllegalStateException("email taken");
@@ -58,6 +54,29 @@ public class UserService {
             throw new IllegalStateException("user with id "+ userId + " not exist");
         }
         userRepository.deleteById(userId);
+    }
+
+    public User findUserByRefreshToken(String refreshToken) {
+        Token token = tokenRepository.findTokenByRefreshToken(refreshToken).orElse(null);
+        return userRepository.findById(token.getUserId()).orElse(null);
+    }
+
+    public void addMessage(Long userId, String message) {
+        userRepository.addMessage(userId, message);
+    }
+
+    public void addFlightId(Long userId, Integer flightId) {
+        userRepository.addFlightId(userId, flightId);
+    }
+
+    public void removeFlightId(Long userId, Integer flightId) {
+        userRepository.removeFlightId(userId, flightId);
+    }
+
+    public List<Integer> getFlightIds(Long userId) {
+        List<Integer> flightsId = userRepository.getFlightIds(userId);
+        return flightsId;
+
     }
 
     @Transactional
@@ -95,22 +114,5 @@ public class UserService {
         if (user.getDescription() != null && !Objects.equals(existingUser.getDescription(), user.getDescription())) {
             existingUser.setDescription(user.getDescription());
         }
-    }
-
-    public User findUserByRefreshToken(String refreshToken) {
-        Token token = tokenRepository.findTokenByRefreshToken(refreshToken).orElse(null);
-        return userRepository.findById(token.getUserId()).orElse(null);
-    }
-
-    public void createUser(User user) {
-    }
-
-    public void addMessage(Long userId, String message) {
-    }
-
-    public void addFlightId(Long userId, Integer flightId) {
-    }
-
-    public void removeFlightId(Long userId, Integer flightId) {
     }
 }

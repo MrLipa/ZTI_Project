@@ -24,9 +24,14 @@ public interface FlightRepository extends Neo4jRepository<Flight, Long> {
     Collection<Flight> findFlightsFromCityToCity(String city_from, String city_to);
 
     @Query("MATCH (a:Airport)-[r:Flight]->(b:Airport) WHERE id(r) IN $flightIds RETURN properties(r)")
-    Collection<Flight> getFlightsByIds(List<Long> flightIds);
+    Collection<Flight> getFlightsByIds(List<Integer> flightIds);
 
     @Query("MATCH (a:Airport)-[r:Flight]->(b:Airport) WHERE id(r) = $flightId SET r += $flightParams RETURN properties(r)")
-    Flight updateFlight(Long flightId, Flight flightParams);
+    Flight updateFlight(Integer flightId, Flight flightParams);
 
+    Collection<Flight> findFlightsByCity(String cityFrom, String cityTo);
+
+    void freeSeat(Integer flightId);
+
+    void takeSeat(Integer flightId);
 }
