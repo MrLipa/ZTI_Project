@@ -58,7 +58,7 @@ public class UserService {
 
     public User findUserByRefreshToken(String refreshToken) {
         Token token = tokenRepository.findTokenByRefreshToken(refreshToken).orElse(null);
-        return userRepository.findById(token.getUserId()).orElse(null);
+        return userRepository.findById(token.getUser().getUserId()).orElse(null);
     }
 
     public void addMessage(Long userId, String message) {

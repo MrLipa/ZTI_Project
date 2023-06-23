@@ -20,10 +20,7 @@ public class TokenService {
     }
 
     public void createRefreshToken(Long userId, String refreshToken) {
-        Token token = new Token();
-        token.setUserId(userId);
-        token.setRefreshToken(refreshToken);
-        tokenRepository.save(token);
+        tokenRepository.createToken(userId, refreshToken);
     }
 
     public void deleteRefreshToken(String refreshToken) {
