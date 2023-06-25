@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.List;
 
-
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
 @RestController
 @RequestMapping(path="/flight")
 @Slf4j

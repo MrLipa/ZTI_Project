@@ -13,10 +13,21 @@ export interface Flight {
     class: string;
     freeSeats: number;
 }
-export interface User {
-    user_id: number;
-    firstname: string;
-    lastname: string;
+
+export interface UserMessage {
+    id: number;
+    message: string;
+  }
+  
+  export interface UserFlightId {
+    id: number;
+    flightId: number;
+  }
+  
+  export interface User {
+    userId: number;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
     role: string;
@@ -24,13 +35,13 @@ export interface User {
     phone: string;
     address: string;
     image: string;
-    messages: string[];
-    flightids: number[];
-}
+    userMessage: UserMessage[];
+    userFlightId: UserFlightId[];
+  }
 
 export interface AuthContextProps {
     auth: {
-        user_id: number;
+        userId: number;
         email?: string;
         token?: string;
         accessToken?: string;

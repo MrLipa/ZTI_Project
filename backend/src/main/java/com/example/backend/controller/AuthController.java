@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
 @RestController
 @RequestMapping("/")
 public class AuthController {
@@ -33,11 +34,12 @@ public class AuthController {
     }
 
     @PostMapping(path="/register")
-    public void register(@RequestBody User user){
+    public ResponseEntity<String> register(@RequestBody User user){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         userService.createUser(user);
+        return new ResponseEntity<>("User register", HttpStatus.OK);
     }
 
     @PostMapping(path="/login")
@@ -53,12 +55,12 @@ public class AuthController {
             User foundUser = userService.findUserByEmail(email);
 
             if (foundUser == null) {
-                throw new IllegalStateException("no found user by email");
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
 
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             if (!passwordEncoder.matches(password, foundUser.getPassword())) {
-                throw new IllegalStateException("Incorrect password");
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
 
             String accessToken = jwtUtils.generateJWTToken(foundUser.getUserId(), foundUser.getEmail());
@@ -96,7 +98,7 @@ public class AuthController {
         }
 
         if (refreshToken == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
         User foundUser = userService.findUserByRefreshToken(refreshToken);
@@ -108,7 +110,7 @@ public class AuthController {
         try {
             jwtUtils.verifyJWTRefreshToken(refreshToken);
         } catch (JwtAuthenticationException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         String newAccessToken = jwtUtils.generateJWTToken(foundUser.getUserId(), foundUser.getEmail());

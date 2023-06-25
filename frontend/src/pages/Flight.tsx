@@ -1,40 +1,48 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card } from "primereact/card";
-import { useFlightsByIdsQuery, useMakeReservationMutation,useAddMessageMutation } from "./../api/ApiHooks";
+import {
+  useFlightsByIdsQuery,
+  useMakeReservationMutation,
+  useAddMessageMutation,
+} from "./../api/ApiHooks";
 import { Flight } from "../typescript/interfaces";
 import { PrimeIcons } from "primereact/api";
-import { Button } from 'primereact/button';
-import { useTranslation } from 'react-i18next';
+import { Button } from "primereact/button";
+import { useTranslation } from "react-i18next";
 import useAuth from "../hooks/useAuth";
 
 const FlightComponent = () => {
   const { id = "0" } = useParams<{ id: string }>();
-  const { t } = useTranslation('translations');
+  const { t } = useTranslation("translations");
   const flightId = parseInt(id, 10);
-  const { data: flightsData, isLoading, isError } = useFlightsByIdsQuery([flightId]);
+  const {
+    data: flightsData,
+    isLoading,
+    isError,
+  } = useFlightsByIdsQuery([flightId]);
   const makeReservationMutation = useMakeReservationMutation();
   const addMessageMutation = useAddMessageMutation();
   const { auth } = useAuth();
-  
-  if (!auth?.user_id) {
+
+  if (!auth?.userId) {
     throw new Error("User id is required");
-}
+  }
 
   const [flight, setFlight] = useState<Flight>({
     id: 0,
-    originCountry: '',
-    originCity: '',
-    originImage: '',
-    destinationCountry: '',
-    destinationCity: '',
-    destinationImage: '',
+    originCountry: "",
+    originCity: "",
+    originImage: "",
+    destinationCountry: "",
+    destinationCity: "",
+    destinationImage: "",
     price: 0,
-    date: '',
-    duration: '',
-    airline: '',
-    class: '',
-    freeSeats: 0
+    date: "",
+    duration: "",
+    airline: "",
+    class: "",
+    freeSeats: 0,
   });
 
   useEffect(() => {
@@ -44,11 +52,15 @@ const FlightComponent = () => {
   }, [flightsData]);
 
   const handleClick = () => {
-    makeReservationMutation.mutate({ user_id: auth?.user_id, flightId: flightId });
-    addMessageMutation.mutate({ user_id: auth?.user_id, message: `Reservation made to ${flight.destinationCountry} ${flight.destinationCity}` });
-  }
-
-
+    makeReservationMutation.mutate({
+      userId: auth?.userId,
+      flightId: flightId,
+    });
+    addMessageMutation.mutate({
+      userId: auth?.userId,
+      message: `Reservation made to ${flight.destinationCountry} ${flight.destinationCity}`,
+    });
+  };
 
   if (isLoading) return <div>Ładowanie...</div>;
   if (isError) return <div>Błąd...</div>;
@@ -57,7 +69,7 @@ const FlightComponent = () => {
     <>
       <div style={{ display: "flex", marginBottom: "20px" }}>
         <Card style={{ flexBasis: "50%", marginRight: "20px" }}>
-          <h3>{t('Origin')}</h3>
+          <h3>{t("Origin")}</h3>
           <h6>
             {flight.originCountry} {flight.originCity}
           </h6>
@@ -69,7 +81,7 @@ const FlightComponent = () => {
           />
         </Card>
         <Card style={{ flexBasis: "50%" }}>
-          <h3>{t('Destination')}</h3>
+          <h3>{t("Destination")}</h3>
           <h6>
             {flight.destinationCountry} {flight.destinationCity}
           </h6>
@@ -82,39 +94,39 @@ const FlightComponent = () => {
         </Card>
       </div>
       <Card>
-        <h3>{t('Details')}</h3>
+        <h3>{t("Details")}</h3>
         <br />
         <div style={{ display: "flex" }}>
           <div style={{ flexBasis: "50%" }}>
             <h6>
               <i className={`${PrimeIcons.MONEY_BILL} p-mr-2`} />
-              {t('Price')}: {flight.price} zł
+              {t("Price")}: {flight.price} zł
             </h6>
             <h6>
               <i className={`${PrimeIcons.CALENDAR} p-mr-2`} />
-              {t('Date')}: {flight.date}
+              {t("Date")}: {flight.date}
             </h6>
             <h6>
               <i className={`${PrimeIcons.CLOCK} p-mr-2`} />
-              {t('Duration')}: {flight.duration}
+              {t("Duration")}: {flight.duration}
             </h6>
           </div>
           <div style={{ flexBasis: "50%", marginBottom: "40px" }}>
             <h6>
               <i className={`${PrimeIcons.GLOBE} p-mr-2`} />
-              {t('Airline')}: {flight.airline}
+              {t("Airline")}: {flight.airline}
             </h6>
             <h6>
               <i className={`${PrimeIcons.STAR} p-mr-2`} />
-              {t('Class')}: {flight.class}
+              {t("Class")}: {flight.class}
             </h6>
             <h6>
               <i className={`${PrimeIcons.USER_PLUS} p-mr-2`} />
-              {t('Free Seats')}: {flight.freeSeats}
+              {t("Free Seats")}: {flight.freeSeats}
             </h6>
           </div>
         </div>
-        <Button label={t('Book') ?? ''} onClick={handleClick} />
+        <Button label={t("Book") ?? ""} onClick={handleClick} />
       </Card>
     </>
   );

@@ -64,10 +64,6 @@ INSERT INTO zti_project.user (
              'Hi, Im Xavier, your average guy from Earth. You might know me as a meme maker and comedian. I work at a gas station, although for the life of me, I cant pinpoint its location. Just know its somewhere on Earth! Im also a married man, though my wife seems to think I have a few girlfriends on the side. But you know, wives know everything.'
          );
 
-INSERT INTO zti_project.userMessage (userId, message)
-VALUES (1, 'test1'),
-       (1, 'test2');
-
 INSERT INTO zti_project.userFlightId (userId, flightId)
 VALUES (1, 1),
        (1, 2),

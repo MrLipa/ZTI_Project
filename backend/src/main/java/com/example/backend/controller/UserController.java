@@ -16,9 +16,9 @@ import java.util.Set;
 
 import static com.example.backend.mapper.UserMapper.*;
 
-
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:5173" })
 @RestController
-@RequestMapping(path="/user")
+@RequestMapping(path = "/user")
 @Slf4j
 public class UserController {
 
@@ -26,11 +26,10 @@ public class UserController {
     private final FlightService flightService;
 
     @Autowired
-    public UserController(UserService userService, FlightService flightService){
+    public UserController(UserService userService, FlightService flightService) {
         this.userService = userService;
         this.flightService = flightService;
     }
-
 
     @GetMapping()
     public Set<UserDto> getUsers() {
@@ -38,24 +37,24 @@ public class UserController {
         return mapUserToUserDtoSet(users);
     }
 
-    @GetMapping(path="{userId}")
+    @GetMapping(path = "{userId}")
     public UserDto getUser(@PathVariable("userId") Long userId) {
         User user = userService.getUser(userId);
         return mapUserToUserDto(user);
     }
 
     @PostMapping()
-    public void createUser(@RequestBody User user){
+    public void createUser(@RequestBody User user) {
         userService.createUser(user);
     }
 
-    @DeleteMapping(path="{userId}")
-    public void deleteUser(@PathVariable("userId") Long userId){
+    @DeleteMapping(path = "{userId}")
+    public void deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
     }
 
     @PutMapping(path = "{userId}")
-    public void updateUser(@PathVariable("userId") Long userId, @RequestBody User user){
+    public void updateUser(@PathVariable("userId") Long userId, @RequestBody User user) {
         userService.updateUser(userId, user);
     }
 
@@ -68,14 +67,14 @@ public class UserController {
 
     @PostMapping(path = "/add_message")
     public void addMessage(@RequestBody Map<String, Object> requestBody) {
-        Long userId = Long.parseLong(requestBody.get("user_id").toString());
+        Long userId = Long.parseLong(requestBody.get("userId").toString());
         String message = requestBody.get("message").toString();
         userService.addMessage(userId, message);
     }
 
     @PostMapping(path = "/made_reservation")
-    public void madeReservation(@RequestBody Map<String, Object> requestBody){
-        Long userId = Long.parseLong(requestBody.get("user_id").toString());
+    public void madeReservation(@RequestBody Map<String, Object> requestBody) {
+        Long userId = Long.parseLong(requestBody.get("userId").toString());
         Integer flightId = Integer.parseInt(requestBody.get("flightId").toString());
         userService.addFlightId(userId, flightId);
         flightService.takeSeat(flightId);
@@ -83,7 +82,7 @@ public class UserController {
 
     @PostMapping(path = "/cancel_reservation")
     public void cancelReservation(@RequestBody Map<String, Object> requestBody) {
-        Long userId = Long.parseLong(requestBody.get("user_id").toString());
+        Long userId = Long.parseLong(requestBody.get("userId").toString());
         Integer flightId = Integer.parseInt(requestBody.get("flightId").toString());
         userService.removeFlightId(userId, flightId);
         flightService.freeSeat(flightId);

@@ -11,8 +11,8 @@ import { User } from "../typescript/interfaces";
 import { ThemeContext } from "../context/ThemeContext";
 import { LanguageContext } from "../context/LanguageContext";
 import Flags from "country-flag-icons/react/3x2";
-import { Menu } from 'primereact/menu';
-import { useTranslation } from 'react-i18next';
+import { Menu } from "primereact/menu";
+import { useTranslation } from "react-i18next";
 import useAuth from "../hooks/useAuth";
 
 const MessageSettingsComponent = () => {
@@ -61,11 +61,13 @@ const MessageSettingsComponent = () => {
           <h4>{t("darkTheme")}</h4>
           <InputSwitch
             checked={theme === 0 ? false : true}
-            onChange={()=>{toggleTheme(theme === 0 ? 1 : 0)}}
+            onChange={() => {
+              toggleTheme(theme === 0 ? 1 : 0);
+            }}
           />
         </Card>
       </div>
-      
+
       <div style={{ marginTop: "30px" }}>
         <h3 style={{ fontWeight: "bold" }}>{t("language")}</h3>
         <Card>
@@ -81,14 +83,14 @@ const ProfileComponent = () => {
   const { t } = useTranslation();
   const { auth } = useAuth();
 
-  if (!auth?.user_id) {
+  if (!auth?.userId) {
     throw new Error("User id is required");
   }
-  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.userId);
   const [user, setUser] = useState<User>({
-    user_id: 0,
-    firstname: "",
-    lastname: "",
+    userId: 0,
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     role: "",
@@ -96,8 +98,8 @@ const ProfileComponent = () => {
     phone: "",
     address: "",
     image: "",
-    messages: [],
-    flightids: [],
+    userMessage: [],
+    userFlightId: [],
   });
 
   useEffect(() => {
@@ -127,7 +129,7 @@ const ProfileComponent = () => {
       <div className="p-d-flex p-ai-center">
         <Image src={user.image} alt="Image" width="250" height="250" preview />
         <Button
-          label={t("changeAvatar") ?? ''}
+          label={t("changeAvatar") ?? ""}
           onClick={handleAvatarChange}
           style={{ marginLeft: "50px" }}
         />
@@ -139,16 +141,16 @@ const ProfileComponent = () => {
       >
         <div className="p-col-12 p-md-6" style={{ width: "100%" }}>
           <InputText
-            id="firstname"
-            placeholder={t("firstNamePlaceholder") ?? ''}
-            value={user.firstname}
+            id="firstName"
+            placeholder={t("firstNamePlaceholder") ?? ""}
+            value={user.firstName}
             onChange={handleInputChange}
             style={{ width: "49%", marginRight: "2%" }}
           />
           <InputText
-            id="lastname"
-            placeholder={t("lastNamePlaceholder") ?? ''}
-            value={user.lastname}
+            id="lastName"
+            placeholder={t("lastNamePlaceholder") ?? ""}
+            value={user.lastName}
             onChange={handleInputChange}
             style={{ width: "49%" }}
           />
@@ -156,14 +158,14 @@ const ProfileComponent = () => {
         <div className="p-col-12 p-md-6" style={{ marginTop: "2%" }}>
           <InputText
             id="email"
-            placeholder={t("emailPlaceholder") ?? ''}
+            placeholder={t("emailPlaceholder") ?? ""}
             value={user.email}
             onChange={handleInputChange}
             style={{ width: "49%", marginRight: "2%" }}
           />
           <InputText
             id="address"
-            placeholder={t("addressPlaceholder") ?? ''}
+            placeholder={t("addressPlaceholder") ?? ""}
             value={user.address}
             onChange={handleInputChange}
             style={{ width: "49%" }}
@@ -175,7 +177,7 @@ const ProfileComponent = () => {
         >
           <InputText
             id="phone"
-            placeholder={t("phonePlaceholder") ?? ''}
+            placeholder={t("phonePlaceholder") ?? ""}
             value={user.phone}
             onChange={handleInputChange}
             style={{ width: "49%", marginRight: "2%" }}
@@ -183,7 +185,7 @@ const ProfileComponent = () => {
           <InputText
             id="password"
             type="password"
-            placeholder={t("passwordPlaceholder") ?? ''}
+            placeholder={t("passwordPlaceholder") ?? ""}
             value={user.password}
             onChange={handleInputChange}
             style={{ width: "49%" }}
@@ -191,21 +193,25 @@ const ProfileComponent = () => {
         </div>
       </div>
       <InputTextarea
-        value={user?.description || ''}
-        onChange={(e) => setUser(prevUser => {
-            return prevUser ? { ...prevUser, description: e.target.value } : prevUser
-        })}
+        value={user?.description || ""}
+        onChange={(e) =>
+          setUser((prevUser) => {
+            return prevUser
+              ? { ...prevUser, description: e.target.value }
+              : prevUser;
+          })
+        }
         style={{
-            marginTop: "2%",
-            marginBottom: "40px",
-            width: "100%",
-            height: "100%",
+          marginTop: "2%",
+          marginBottom: "40px",
+          width: "100%",
+          height: "100%",
         }}
         rows={10}
-        />
+      />
 
       <div className="p-d-flex p-jc-end p-mt-4">
-        <Button label={t("saveChanges") ?? ''} onClick={handleSaveChanges} />
+        <Button label={t("saveChanges") ?? ""} onClick={handleSaveChanges} />
       </div>
     </div>
   );

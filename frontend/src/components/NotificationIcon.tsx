@@ -5,29 +5,32 @@ import { Column } from "primereact/column";
 import { Badge } from "primereact/badge";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useUserQuery } from "../api/ApiHooks";
-import { User } from "../typescript/interfaces";
 import useAuth from "../hooks/useAuth";
+import { User } from "../typescript/interfaces";
+
 
 const NotificationIcon = () => {
   const { auth } = useAuth();
-  
-  if (!auth?.user_id) {
+
+  if (!auth?.userId) {
     throw new Error("User id is required");
-}
-  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
+  }
+
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.userId);
+  
   const [user, setUser] = useState<User>({
-    user_id: 0,
-    firstname: "",
-    lastname: "",
+    userId: 0,
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     role: "",
-    description: "",
     phone: "",
     address: "",
     image: "",
-    messages: ['',''],
-    flightids: [],
+    description: "",
+    userMessage: [],
+    userFlightId: [],
   });
 
   useEffect(() => {
@@ -40,19 +43,24 @@ const NotificationIcon = () => {
 
   const Notification = () => {
     const [currentPage, setCurrentPage] = useState(0);
+    const rowsPerPage = 3;
 
     const onPageChange = (event: any) => {
-      setCurrentPage(event.first);
+      setCurrentPage(event.page);
     };
+
     const getPaginatedData = () => {
-      const startIndex = currentPage;
-      const endIndex = startIndex + 3;
+      const startIndex = currentPage * rowsPerPage;
+      const endIndex = startIndex + rowsPerPage;
 
-      return user.messages.slice(startIndex, endIndex).map(message => ({
-        label: message
+      return user.userMessage.slice(startIndex, endIndex).map((messageObj) => ({
+        label: messageObj.message,
       }));
-
     };
+
+    if (isLoading) return <div>Loading...</div>;
+    if (isError) return <div>Error occurred.</div>;
+
     return (
       <div>
         <DataTable
@@ -62,9 +70,9 @@ const NotificationIcon = () => {
           <Column field="label" />
         </DataTable>
         <Paginator
-          first={currentPage}
-          rows={3}
-          totalRecords={user.messages.length}
+          first={currentPage * rowsPerPage}
+          rows={rowsPerPage}
+          totalRecords={user.userMessage.length}
           onPageChange={onPageChange}
           pageLinkSize={3}
         />
@@ -79,7 +87,7 @@ const NotificationIcon = () => {
         style={{ fontSize: "2rem" }}
         onClick={(e) => op.current?.toggle(e)}
       >
-        {user.messages && <Badge value={user.messages.length}></Badge>}
+        {user.userMessage && <Badge value={user.userMessage.length}></Badge>}
       </i>
       <OverlayPanel
         ref={op}

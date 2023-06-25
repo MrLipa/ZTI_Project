@@ -2,17 +2,9 @@ import React from 'react';
 import axios from 'axios';
 
 const TestEndpoint = () => {
-  const testRegister = async () => {
+  const test = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/register', {
-        email: 'ugsers@example.com',
-        password: 'user'
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      const response = await axios.get('http://localhost:3000/user/1');
 
       console.log(response.data);
     } catch (error) {
@@ -22,8 +14,8 @@ const TestEndpoint = () => {
 
   return (
     <div>
-      <button onClick={testRegister} style={{ display: 'block', margin: '0 auto' }}>
-        Test Register Endpoint
+      <button onClick={test} style={{ display: 'block', margin: '0 auto' }}>
+        Test Endpoint
       </button>
     </div>
   );

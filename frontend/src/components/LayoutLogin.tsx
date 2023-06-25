@@ -18,26 +18,26 @@ import FlagIcon from "./FlagIcon";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 import { useToast } from "../context/ToastProvider";
-import { useUpdateUserMutation, useUserQuery } from "./../api/ApiHooks";
+import { useUserQuery } from "./../api/ApiHooks";
 import { User } from "../typescript/interfaces";
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
   const { theme, currentTheme, toggleTheme } = useContext(ThemeContext);
-  const { t } = useTranslation('translations');
+  const { t } = useTranslation("translations");
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const { showToast } = useToast();
 
   const { auth } = useAuth();
 
-  if (!auth?.user_id) {
+  if (!auth?.userId) {
     throw new Error("User id is required");
   }
-  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.userId);
   const [user, setUser] = useState<User>({
-    user_id: 0,
-    firstname: "",
-    lastname: "",
+    userId: 0,
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     role: "",
@@ -45,8 +45,8 @@ const Navbar = () => {
     phone: "",
     address: "",
     image: "",
-    messages: [],
-    flightids: [],
+    userMessage: [],
+    userFlightId: [],
   });
 
   useEffect(() => {
@@ -54,15 +54,15 @@ const Navbar = () => {
       setUser(userData);
     }
   }, [userData]);
-  
+
   const navigate = useNavigate();
   const logout = useLogout();
 
   const signOut = async () => {
-      await logout();
-      navigate('/');
-      showToast("success", "Success", "Logout successfully");
-  }
+    await logout();
+    navigate("/");
+    showToast("success", "Success", "Logout successfully");
+  };
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -108,7 +108,7 @@ const Navbar = () => {
               style={{ color: currentTheme.fontColor }}
             >
               <i className="pi pi-user" />
-              <span> {t('Profile')}</span>
+              <span> {t("Profile")}</span>
             </Link>
           </li>
           <li className="sidebar-item">
@@ -118,7 +118,7 @@ const Navbar = () => {
               style={{ color: currentTheme.fontColor }}
             >
               <i className="pi pi-search" />
-              <span> {t('Search Flights')}</span>
+              <span> {t("Search Flights")}</span>
             </Link>
           </li>
           <Divider />
@@ -129,7 +129,7 @@ const Navbar = () => {
               style={{ color: currentTheme.fontColor }}
             >
               <i className="pi pi-cog" />
-              <span> {t('Settings')}</span>
+              <span> {t("Settings")}</span>
             </Link>
           </li>
           <li className="sidebar-item">
@@ -138,14 +138,12 @@ const Navbar = () => {
               to="/"
               style={{ color: currentTheme.fontColor }}
             >
-                <span onClick={signOut}>
-              <i className="pi pi-sign-out" />
-              <span> {t('Logout')}</span>
-            </span>
+              <span onClick={signOut}>
+                <i className="pi pi-sign-out" />
+                <span> {t("Logout")}</span>
+              </span>
             </Link>
-            
           </li>
-
         </ul>
       </Sidebar>
 

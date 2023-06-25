@@ -3,26 +3,31 @@ import { Avatar } from "primereact/avatar";
 import { Card } from "primereact/card";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { useUserFlightsHistory, useUserQuery, useCancelReservationMutation, useAddMessageMutation } from "./../api/ApiHooks";
+import {
+  useUserFlightsHistory,
+  useUserQuery,
+  useCancelReservationMutation,
+  useAddMessageMutation,
+} from "./../api/ApiHooks";
 import { Flight, User } from "../typescript/interfaces";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
-import { Button } from 'primereact/button';
+import { useTranslation } from "react-i18next";
+import { Button } from "primereact/button";
 import { useToast } from "../context/ToastProvider";
 import useAuth from "../hooks/useAuth";
 
 const ProfileCard = () => {
-  const { t } = useTranslation('translations');
+  const { t } = useTranslation("translations");
   const { auth } = useAuth();
 
-  if (!auth?.user_id) {
+  if (!auth?.userId) {
     throw new Error("User id is required");
   }
-  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.userId);
   const [user, setUser] = useState<User>({
-    user_id: 0,
-    firstname: "",
-    lastname: "",
+    userId: 0,
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     role: "",
@@ -30,8 +35,8 @@ const ProfileCard = () => {
     phone: "",
     address: "",
     image: "",
-    messages: [],
-    flightids: [],
+    userMessage: [],
+    userFlightId: [],
   });
 
   useEffect(() => {
@@ -42,7 +47,7 @@ const ProfileCard = () => {
 
   return (
     <Card
-      title={user.firstname + " " + user.lastname}
+      title={user.firstName + " " + user.lastName}
       subTitle={t("Passenger")}
       header={<Avatar image={user.image} size="xlarge" shape="circle" />}
       className="card profile-card"
@@ -60,22 +65,32 @@ const ProfileCard = () => {
 };
 
 const TravelDetailsCard = () => {
-  const { t } = useTranslation('translations');
+  const { t } = useTranslation("translations");
   const { auth } = useAuth();
 
-  if (!auth?.user_id) {
+  if (!auth?.userId) {
     throw new Error("User id is required");
   }
-  const { data: flights, isLoading, isError } = useUserFlightsHistory(auth?.user_id);
+  const {
+    data: flights,
+    isLoading,
+    isError,
+  } = useUserFlightsHistory(auth?.userId);
   const [selectedTravel, setSelectedTravel] = useState<Flight | undefined>();
   const [flightData, setFlightData] = useState<Flight[]>([]);
   const cancelReservationMutation = useCancelReservationMutation();
   const addMessageMutation = useAddMessageMutation();
 
   const removeFlight = (flight: Flight) => {
-    cancelReservationMutation.mutate({ user_id: auth?.user_id, flightId: flight.id });
-    addMessageMutation.mutate({ user_id: auth?.user_id, message: `Reservation cancel to ${flight.destinationCountry} ${flight.destinationCity}` });
-  }
+    cancelReservationMutation.mutate({
+      userId: auth?.userId,
+      flightId: flight.id,
+    });
+    addMessageMutation.mutate({
+      userId: auth?.userId,
+      message: `Reservation cancel to ${flight.destinationCountry} ${flight.destinationCity}`,
+    });
+  };
 
   const toTemplate = (flight: Flight) => {
     return (
@@ -93,31 +108,36 @@ const TravelDetailsCard = () => {
   const actionTemplate = (flight: Flight) => {
     const flightDate = new Date(flight.date);
     const today = new Date();
-  
+
     flightDate.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
-  
+
     const isFlightInPast = flightDate.getTime() < today.getTime();
-  
+
     return (
-      <Button 
-        icon="pi pi-times" 
-        severity="danger" 
-        onClick={()=>{removeFlight(flight)}}
+      <Button
+        icon="pi pi-times"
+        severity="danger"
+        onClick={() => {
+          removeFlight(flight);
+        }}
         disabled={isFlightInPast}
       />
     );
   };
-  
+
   useEffect(() => {
     if (!isLoading && !isError && flights) {
-      const flightsWithCustomIds = flights.map((flight, index) => ({...flight, customId: index + 1}));
+      const flightsWithCustomIds = flights.map((flight, index) => ({
+        ...flight,
+        customId: index + 1,
+      }));
       setFlightData(flightsWithCustomIds);
     }
   }, [flights, isLoading, isError]);
 
   const navigate = useNavigate();
-  
+
   return (
     <Card title={t("Travel Details")} className="card travel-details-card">
       <DataTable
@@ -153,24 +173,24 @@ const TravelDetailsCard = () => {
           body={actionTemplate}
           header={t("Action")}
           style={{ width: "1%" }}
-      ></Column>
+        ></Column>
       </DataTable>
     </Card>
   );
 };
 
 const UserDetailsCard = () => {
-  const { t } = useTranslation('translations');
+  const { t } = useTranslation("translations");
   const { auth } = useAuth();
 
-  if (!auth?.user_id) {
+  if (!auth?.userId) {
     throw new Error("User id is required");
   }
-  const { data: userData, isLoading, isError } = useUserQuery(auth?.user_id);
+  const { data: userData, isLoading, isError } = useUserQuery(auth?.userId);
   const [user, setUser] = useState<User>({
-    user_id: 0,
-    firstname: "",
-    lastname: "",
+    userId: 0,
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     role: "",
@@ -178,8 +198,8 @@ const UserDetailsCard = () => {
     phone: "",
     address: "",
     image: "",
-    messages: [],
-    flightids: [],
+    userMessage: [],
+    userFlightId: [],
   });
 
   useEffect(() => {
@@ -188,9 +208,8 @@ const UserDetailsCard = () => {
     }
   }, [userData]);
 
-
   const userDetails = [
-    { label: t("Full Name"), value: user.firstname + " " + user.lastname },
+    { label: t("Full Name"), value: user.firstName + " " + user.lastName },
     { label: t("Email"), value: user.email },
     { label: t("Phone"), value: user.phone },
     { label: t("Address"), value: user.address },
@@ -212,7 +231,6 @@ const UserDetailsCard = () => {
 };
 
 const Profile = () => {
-  
   return (
     <div style={{ display: "flex", gap: "30px" }}>
       <div style={{ flexBasis: "30%" }}>

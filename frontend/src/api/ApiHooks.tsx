@@ -37,29 +37,29 @@ const sendRequest = async (
   return response.data;
 };
 
-const useUserQuery = (user_id: number): UseQueryResult<User, Error> => {
+const useUserQuery = (userId: number): UseQueryResult<User, Error> => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
 
   return useQuery<User, Error>({
-    queryKey: ["user", user_id],
+    queryKey: ["user", userId],
     queryFn: () =>
-      sendRequest(axiosPrivate, `/user/${user_id}`, "GET", showToast),
+      sendRequest(axiosPrivate, `/user/${userId}`, "GET", showToast),
   });
 };
 
 const useUserFlightsHistory = (
-  user_id: number
+  userId: number
 ): UseQueryResult<Flight[], Error> => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
 
   return useQuery<Flight[], Error>({
-    queryKey: ["userFlightsHistory", user_id],
+    queryKey: ["userFlightsHistory", userId],
     queryFn: () =>
       sendRequest(
         axiosPrivate,
-        `/user/flights_history/${user_id}`,
+        `/user/flights_history/${userId}`,
         "GET",
         showToast
       ),
@@ -117,7 +117,7 @@ const useFindFlightsQuery = (
 const useMakeReservationMutation = (): UseMutationResult<
   any,
   Error,
-  { user_id: number; flightId: number }
+  { userId: number; flightId: number }
 > => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
@@ -125,10 +125,9 @@ const useMakeReservationMutation = (): UseMutationResult<
   const { auth } = useAuth();
 
   const makeReservation = async (reservationData: {
-    user_id: number;
+    userId: number;
     flightId: number;
   }) => {
-    
     return sendRequest(
       axiosPrivate,
       `/user/made_reservation`,
@@ -146,7 +145,7 @@ const useMakeReservationMutation = (): UseMutationResult<
     },
     onSuccess: () => {
       showToast("success", "Success", "Reservation made successfully");
-      queryClient.invalidateQueries(["user", auth?.user_id]);
+      queryClient.invalidateQueries(["user", auth?.userId]);
     },
   });
 };
@@ -154,7 +153,7 @@ const useMakeReservationMutation = (): UseMutationResult<
 const useCancelReservationMutation = (): UseMutationResult<
   any,
   Error,
-  { user_id: number; flightId: number }
+  { userId: number; flightId: number }
 > => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
@@ -162,7 +161,7 @@ const useCancelReservationMutation = (): UseMutationResult<
   const { auth } = useAuth();
 
   const cancelReservation = async (reservationData: {
-    user_id: number;
+    userId: number;
     flightId: number;
   }) => {
     return sendRequest(
@@ -182,7 +181,7 @@ const useCancelReservationMutation = (): UseMutationResult<
     },
     onSuccess: () => {
       showToast("success", "Success", "Reservation canceled successfully");
-      queryClient.invalidateQueries(["userFlightsHistory", auth?.user_id]);
+      queryClient.invalidateQueries(["userFlightsHistory", auth?.userId]);
     },
   });
 };
@@ -190,15 +189,15 @@ const useCancelReservationMutation = (): UseMutationResult<
 const useAddMessageMutation = (): UseMutationResult<
   any,
   Error,
-  { user_id: number; message: string }
+  { userId: number; message: string }
 > => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
   const queryClient = useQueryClient();
   const { auth } = useAuth();
-  
+
   const addMessage = async (messageData: {
-    user_id: number;
+    userId: number;
     message: string;
   }) => {
     return sendRequest(
@@ -217,7 +216,7 @@ const useAddMessageMutation = (): UseMutationResult<
       showToast("error", "Error", "Failed to add message");
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["user", auth?.user_id]);
+      queryClient.invalidateQueries(["user", auth?.userId]);
     },
   });
 };
@@ -225,14 +224,14 @@ const useAddMessageMutation = (): UseMutationResult<
 const useRegisterMutation = (): UseMutationResult<
   any,
   Error,
-  { firstname: string; lastname: string; email: string; password: string }
+  { firstName: string; lastName: string; email: string; password: string }
 > => {
   const axiosPrivate = useAxiosPrivate();
   const { showToast } = useToast();
 
   const registerUser = async (userData: {
-    firstname: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
   }) => {
@@ -286,7 +285,14 @@ const useUpdateUserMutation = (): UseMutationResult<
   const { showToast } = useToast();
 
   const updateUser = async (userData: Partial<User>) => {
-    return sendRequest(axiosPrivate, `/user`, "PUT", userData, showToast);
+    console.log(`/user/${userData.userId}`);
+    return sendRequest(
+      axiosPrivate,
+      `/user/${userData.userId}`,
+      "PUT",
+      userData,
+      showToast
+    );
   };
 
   return useMutation({
