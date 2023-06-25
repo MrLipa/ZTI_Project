@@ -9,8 +9,8 @@ export interface Flight {
     price: number;
     date: string;
     duration: string;
-    airline: string;
-    class: string;
+    airlines: string;
+    flightClass: string;
     freeSeats: number;
 }
 

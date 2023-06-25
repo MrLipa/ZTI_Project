@@ -26,6 +26,8 @@ public class AdditionalAuthenticationAspect {
 
     @Before("@annotation(authentication)")
     public void before(AdditionalAuthentication authentication) {
+        log.info("AdditionalAuthenticationAspect - JWT token is valid");
+
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String token = request.getHeader("Authorization");
 
@@ -36,9 +38,7 @@ public class AdditionalAuthenticationAspect {
         token = token.substring(7);
 
         if (!jwtUtils.verifyJWTToken(token)) {
-            throw new JwtAuthenticationException("Invalid JWT token1");
+            throw new JwtAuthenticationException("Invalid JWT token");
         }
-
-        log.info("AdditionalAuthenticationAspect - JWT token is valid");
     }
 }

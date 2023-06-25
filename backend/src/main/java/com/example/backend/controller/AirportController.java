@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.aop.AdditionalAuthentication;
 import com.example.backend.entity.Airport;
 import com.example.backend.service.AirportService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ public class AirportController {
         this.airportService = airportService;
     }
 
+    @AdditionalAuthentication
     @GetMapping
     public Collection<Airport> getAll() {
         return airportService.getAll();

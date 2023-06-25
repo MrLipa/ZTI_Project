@@ -89,7 +89,7 @@ export default function BasicDemo() {
   };
 
   const classTemplate = (flight: Flight) => {
-    return <Tag value={flight.class} severity={getClass(flight.class)} />;
+    return <Tag value={flight.flightClass} severity={getClass(flight.flightClass)} />;
   };
 
   const classFilterTemplate = (options: {
@@ -194,7 +194,7 @@ export default function BasicDemo() {
           style={{ width: "25%" }}
         ></Column>
         <Column
-          field="class"
+          field="flightClass"
           header={t("Class")}
           body={classTemplate}
           sortable

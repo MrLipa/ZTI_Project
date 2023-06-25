@@ -57,4 +57,4 @@ WITH[
     MERGE (b:Airport {city: row[1]})
     MERGE (a)-[r_in:Flight {distance: row[2], date: row[3], price: row[4], duration: row[5], airlines: row[6], class: row[7], freeSeats: row[8]}]->(b)
 
-MATCH (n) RETURN n LIMIT 25;
+//MATCH (n) RETURN n LIMIT 25;

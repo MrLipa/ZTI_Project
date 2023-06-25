@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.aop.AdditionalAuthentication;
 import com.example.backend.entity.Flight;
 import com.example.backend.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class FlightController {
         return flightService.getAllFlights();
     }
 
+    @AdditionalAuthentication
     @PostMapping(path = "/flights_by_ids")
     public Collection<Flight> getFlightsByIds(@RequestBody Map<String, Object> requestBody) {
         List<Integer> flightIds = (List<Integer>) requestBody.get("flightIds");

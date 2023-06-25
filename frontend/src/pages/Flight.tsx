@@ -41,7 +41,7 @@ const FlightComponent = () => {
     date: "",
     duration: "",
     airline: "",
-    class: "",
+    flightClass: "",
     freeSeats: 0,
   });
 
@@ -114,11 +114,11 @@ const FlightComponent = () => {
           <div style={{ flexBasis: "50%", marginBottom: "40px" }}>
             <h6>
               <i className={`${PrimeIcons.GLOBE} p-mr-2`} />
-              {t("Airline")}: {flight.airline}
+              {t("Airline")}: {flight.airlines}
             </h6>
             <h6>
               <i className={`${PrimeIcons.STAR} p-mr-2`} />
-              {t("Class")}: {flight.class}
+              {t("Class")}: {flight.flightClass}
             </h6>
             <h6>
               <i className={`${PrimeIcons.USER_PLUS} p-mr-2`} />

@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.aop.AdditionalAuthentication;
 import com.example.backend.dto.UserDto;
 import com.example.backend.entity.Flight;
 import com.example.backend.entity.User;
@@ -31,33 +32,39 @@ public class UserController {
         this.flightService = flightService;
     }
 
+    @AdditionalAuthentication
     @GetMapping()
     public Set<UserDto> getUsers() {
         Set<User> users = userService.getUsers();
         return mapUserToUserDtoSet(users);
     }
 
+    @AdditionalAuthentication
     @GetMapping(path = "{userId}")
     public UserDto getUser(@PathVariable("userId") Long userId) {
         User user = userService.getUser(userId);
         return mapUserToUserDto(user);
     }
 
+    @AdditionalAuthentication
     @PostMapping()
     public void createUser(@RequestBody User user) {
         userService.createUser(user);
     }
 
+    @AdditionalAuthentication
     @DeleteMapping(path = "{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
     }
 
+    @AdditionalAuthentication
     @PutMapping(path = "{userId}")
     public void updateUser(@PathVariable("userId") Long userId, @RequestBody User user) {
         userService.updateUser(userId, user);
     }
 
+    @AdditionalAuthentication
     @GetMapping(path = "/flights_history/{userId}")
     public Collection<Flight> getUserHistory(@PathVariable("userId") Long userId) {
         User user = userService.getUser(userId);
@@ -65,6 +72,7 @@ public class UserController {
         return flightService.getFlightsByIds(userFlightIds);
     }
 
+    @AdditionalAuthentication
     @PostMapping(path = "/add_message")
     public void addMessage(@RequestBody Map<String, Object> requestBody) {
         Long userId = Long.parseLong(requestBody.get("userId").toString());
@@ -72,6 +80,7 @@ public class UserController {
         userService.addMessage(userId, message);
     }
 
+    @AdditionalAuthentication
     @PostMapping(path = "/made_reservation")
     public void madeReservation(@RequestBody Map<String, Object> requestBody) {
         Long userId = Long.parseLong(requestBody.get("userId").toString());
@@ -80,6 +89,7 @@ public class UserController {
         flightService.takeSeat(flightId);
     }
 
+    @AdditionalAuthentication
     @PostMapping(path = "/cancel_reservation")
     public void cancelReservation(@RequestBody Map<String, Object> requestBody) {
         Long userId = Long.parseLong(requestBody.get("userId").toString());
