@@ -45,8 +45,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public void createUser(@RequestBody UserDto userDto){
-        User user = mapUserDtoToUser(userDto);
+    public void createUser(@RequestBody User user){
         userService.createUser(user);
     }
 
@@ -56,8 +55,7 @@ public class UserController {
     }
 
     @PutMapping(path = "{userId}")
-    public void updateUser(@PathVariable("userId") Long userId, @RequestBody UserDto userDto){
-        User user = mapUserDtoToUser(userDto);
+    public void updateUser(@PathVariable("userId") Long userId, @RequestBody User user){
         userService.updateUser(userId, user);
     }
 
@@ -65,28 +63,27 @@ public class UserController {
     public Collection<Flight> getUserHistory(@PathVariable("userId") Long userId) {
         User user = userService.getUser(userId);
         List<Integer> userFlightIds = userService.getFlightIds(user.getUserId());
-        Collection<Flight> flights = flightService.getFlightsByIds(userFlightIds);
-        return flights;
+        return flightService.getFlightsByIds(userFlightIds);
     }
 
-    @PostMapping()
+    @PostMapping(path = "/add_message")
     public void addMessage(@RequestBody Map<String, Object> requestBody) {
-        Long userId = Long.parseLong(requestBody.get("userId").toString());
+        Long userId = Long.parseLong(requestBody.get("user_id").toString());
         String message = requestBody.get("message").toString();
         userService.addMessage(userId, message);
     }
 
-    @PostMapping()
+    @PostMapping(path = "/made_reservation")
     public void madeReservation(@RequestBody Map<String, Object> requestBody){
-        Long userId = Long.parseLong(requestBody.get("userId").toString());
+        Long userId = Long.parseLong(requestBody.get("user_id").toString());
         Integer flightId = Integer.parseInt(requestBody.get("flightId").toString());
         userService.addFlightId(userId, flightId);
         flightService.takeSeat(flightId);
     }
 
-    @PostMapping()
+    @PostMapping(path = "/cancel_reservation")
     public void cancelReservation(@RequestBody Map<String, Object> requestBody) {
-        Long userId = Long.parseLong(requestBody.get("userId").toString());
+        Long userId = Long.parseLong(requestBody.get("user_id").toString());
         Integer flightId = Integer.parseInt(requestBody.get("flightId").toString());
         userService.removeFlightId(userId, flightId);
         flightService.freeSeat(flightId);

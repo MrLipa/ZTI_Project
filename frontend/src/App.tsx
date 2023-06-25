@@ -3,6 +3,7 @@ import Help from "./pages/Help";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import TestEndpoint from "./../tests/TestEndpoint";
 import Profile from "./pages/Profile";
 import PersistLogin from "./components/PersistLogin";
 import SearchFlights from "./pages/SearchFlights";
@@ -35,6 +36,7 @@ function App() {
                   <Route path="help" element={<Help />} />
                   <Route path="login" element={<Login />} />
                   <Route path="register" element={<Register />} />
+                  <Route path="testEndpoint" element={<TestEndpoint />} />
                   <Route element={<PersistLogin />}>
                     <Route path="/" element={<LayoutLogin />}>
                       <Route

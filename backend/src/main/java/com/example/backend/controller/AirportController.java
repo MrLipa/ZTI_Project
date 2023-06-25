@@ -14,16 +14,16 @@ import java.util.Collection;
 @RequestMapping(path="/airport")
 @Slf4j
 public class AirportController {
-    private final AirportService AirportService;
+    private final AirportService airportService;
 
     @Autowired
-    public AirportController(AirportService AirportService){
-        this.AirportService = AirportService;
+    public AirportController(AirportService airportService){
+        this.airportService = airportService;
     }
 
     @GetMapping
     public Collection<Airport> getAll() {
-        return AirportService.getAll();
+        return airportService.getAll();
     }
 
 }

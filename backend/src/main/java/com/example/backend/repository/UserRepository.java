@@ -38,4 +38,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT flightId FROM zti_project.userFlightId WHERE userId = :userId", nativeQuery = true)
     List<Integer> getFlightIds(@Param("userId") Long userId);
+
+    @Modifying
+    @Query(value = "insert into zti_project.user (firstname, lastname, email, password, phone, address, image, description) values (:#{#user.firstName}, :#{#user.lastName}, :#{#user.email}, :#{#user.password}, :#{#user.phone}, :#{#user.address}, :#{#user.image}, :#{#user.description})", nativeQuery = true)
+    void createUser(@Param("user") User user);
 }

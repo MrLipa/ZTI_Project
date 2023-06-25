@@ -21,9 +21,9 @@ public class User {
     private String image;
     @Column(name = "description", length = 500)
     private String description;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserMessage> userMessage;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserFlightId> userFlightId;
 
     public Long getUserId() {

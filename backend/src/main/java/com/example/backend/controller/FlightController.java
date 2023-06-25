@@ -27,11 +27,6 @@ public class FlightController {
         return flightService.getAllFlights();
     }
 
-    @PutMapping(path = "{flightId}")
-    public void updateFlight(@PathVariable("flightId") Long flightId, @RequestBody Flight flight){
-        flightService.updateFlight(flightId, flight);
-    }
-
     @PostMapping(path = "/flights_by_ids")
     public Collection<Flight> getFlightsByIds(@RequestBody Map<String, Object> requestBody) {
         List<Integer> flightIds = (List<Integer>) requestBody.get("flightIds");
