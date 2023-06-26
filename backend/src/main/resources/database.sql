@@ -68,5 +68,5 @@ INSERT INTO zti_project.userFlightId (userId, flightId)
 VALUES (1, 1),
        (1, 2),
        (1, 3),
-       (1, 12),
+       (1, 21),
        (1, 13);

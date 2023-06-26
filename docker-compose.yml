@@ -10,7 +10,6 @@ services:
       - '3000:3000'
     networks: 
       - app-network
-    command: ["./mvnw", "spring-boot:run"]
 
   frontend:
     build:

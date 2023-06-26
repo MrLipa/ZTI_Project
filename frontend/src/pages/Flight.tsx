@@ -40,7 +40,7 @@ const FlightComponent = () => {
     price: 0,
     date: "",
     duration: "",
-    airline: "",
+    airlines: "",
     flightClass: "",
     freeSeats: 0,
   });

@@ -29,29 +29,30 @@ WITH [
 
 
 WITH[
-    ['Atlanta', 'Dallas', 800, '2023-06-21', 150, '5h 40m', 'Delta Airlines', 'Economy', 120],
+    ['Atlanta', 'Dallas', 800, '2023-03-21', 150, '5h 40m', 'Delta Airlines', 'Economy', 120],
     ['Chicago', 'Dallas', 1000, '2023-06-22', 160, '3h 20m', 'American Airlines', 'Business', 80],
-    ['Dallas', 'Mexico City', 1300, '2023-06-23', 220, '6h 15m', 'Southwest Airlines', 'Economy', 200],
-    ['Mexico City', 'Bogota', 1500, '2023-06-24', 230, '4h 50m', 'Avianca', 'Business', 100],
+    ['Dallas', 'Mexico City', 1300, '2023-07-23', 220, '6h 15m', 'Southwest Airlines', 'Economy', 200],
+    ['Mexico City', 'Bogota', 1500, '2023-03-24', 230, '4h 50m', 'Avianca', 'Business', 100],
     ['Bogota', 'Rio de Janeiro', 1800, '2023-06-25', 240, '7h 30m', 'LATAM Airlines', 'Economy', 150],
-    ['Rio de Janeiro', 'Chicago', 2000, '2023-06-26', 500, '8h 15m', 'United Airlines', 'Business', 250],
-    ['Madrid', 'Paris', 1100, '2023-06-27', 110, '2h 40m', 'Iberia', 'Economy', 90],
-    ['London', 'Paris', 900, '2023-06-28', 120, '3h 55m', 'British Airways', 'Business', 70],
+    ['Rio de Janeiro', 'Chicago', 2000, '2023-07-26', 500, '8h 15m', 'United Airlines', 'Business', 250],
+    ['Madrid', 'Paris', 1100, '2023-08-27', 110, '2h 40m', 'Iberia', 'Economy', 90],
+    ['London', 'Paris', 900, '2023-03-28', 120, '3h 55m', 'British Airways', 'Business', 70],
     ['Rotterdam', 'London', 400, '2023-06-29', 130, '1h 10m', 'KLM Royal Dutch Airlines', 'Economy', 110],
-    ['Rome', 'Rotterdam', 1100, '2023-06-30', 210, '6h 45m', 'Alitalia', 'Business', 120],
-    ['London', 'Berlin', 900, '2023-05-14', 220, '2h 20m', 'Lufthansa', 'Economy', 80],
-    ['Warsaw', 'Berlin', 1000, '2023-05-15', 230, '4h 30m', 'LOT Polish Airlines', 'Business', 150],
-    ['Warsaw', 'Athens', 1500, '2023-05-16', 240, '5h 55m', 'Aegean Airlines', 'Economy', 100],
-    ['Beijing', 'Hong Kong', 2000, '2023-05-17', 250, '9h 20m', 'Air China', 'Business', 180],
-    ['Beijing', 'Shanghai', 1200, '2023-05-18', 260, '3h 45m', 'China Eastern Airlines', 'Economy', 200],
-    ['Shanghai', 'Seoul', 800, '2023-05-19', 270, '2h 55m', 'Korean Air', 'Business', 120],
-    ['Seoul', 'Tokyo', 900, '2023-05-20', 280, '4h 10m', 'Asiana Airlines', 'Economy', 150],
-    ['Tokyo', 'Singapore', 1500, '2023-05-21', 290, '7h 25m', 'Singapore Airlines', 'Business', 200],
-    ['Beijing', 'Singapore', 3000, '2023-05-22', 300, '10h 35m', 'Cathay Pacific', 'Economy', 250],
-    ['Chicago', 'Shanghai', 9000, '2023-05-23', 1000, '13h 45m', 'United Airlines', 'Business', 300],
-    ['Atlanta', 'Warsaw', 7500, '2023-05-24', 600, '12h 55m', 'LOT Polish Airlines', 'Economy', 180],
-    ['Tokyo', 'Paris', 11000, '2023-05-25', 1200, '14h 20m', 'Air France', 'Business', 350]
-    ] AS nested
+    ['Rome', 'Rotterdam', 1100, '2023-07-30', 210, '6h 45m', 'Alitalia', 'Business', 120],
+    ['London', 'Berlin', 900, '2023-08-14', 220, '2h 20m', 'Lufthansa', 'Economy', 80],
+    ['Warsaw', 'Berlin', 1000, '2023-03-15', 230, '4h 30m', 'LOT Polish Airlines', 'Business', 150],
+    ['Warsaw', 'Athens', 1500, '2023-06-16', 240, '5h 55m', 'Aegean Airlines', 'Economy', 100],
+    ['Beijing', 'Hong Kong', 2000, '2023-07-17', 250, '9h 20m', 'Air China', 'Business', 180],
+    ['Beijing', 'Shanghai', 1200, '2023-08-18', 260, '3h 45m', 'China Eastern Airlines', 'Economy', 200],
+    ['Shanghai', 'Seoul', 800, '2023-03-19', 270, '2h 55m', 'Korean Air', 'Business', 120],
+    ['Seoul', 'Tokyo', 900, '2023-06-20', 280, '4h 10m', 'Asiana Airlines', 'Economy', 150],
+    ['Tokyo', 'Singapore', 1500, '2023-07-21', 290, '7h 25m', 'Singapore Airlines', 'Business', 200],
+    ['Beijing', 'Singapore', 3000, '2023-08-22', 300, '10h 35m', 'Cathay Pacific', 'Economy', 250],
+    ['Chicago', 'Shanghai', 9000, '2023-03-23', 1000, '13h 45m', 'United Airlines', 'Business', 300],
+    ['Atlanta', 'Warsaw', 7500, '2023-06-24', 600, '12h 55m', 'LOT Polish Airlines', 'Economy', 180],
+    ['Tokyo', 'Paris', 11000, '2023-07-25', 1200, '14h 20m', 'Air France', 'Business', 350]
+]
+ AS nested
     UNWIND nested AS row
     MERGE (a:Airport {city: row[0]})
     MERGE (b:Airport {city: row[1]})
