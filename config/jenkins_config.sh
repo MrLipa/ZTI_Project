@@ -9,6 +9,10 @@ apt-get install wget -y
 curl -sL https://deb.nodesource.com/setup_current.x | bash -
 apt-get install -y nodejs
 
+apt-get install openjdk-17-jdk -y
+echo "export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> ~/.bashrc
+echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.bashrc
+. ~/.bashrc
 
 # Setup VNC server
 mkdir -p ~/.vnc && echo -n "hackme123" | vncpasswd -f > ~/.vnc/passwd
