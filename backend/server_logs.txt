@@ -1,0 +1,6 @@
+2023-06-29 21:23:52,502 DEBUG [SpringApplicationShutdownHook] o.s.b.a.ApplicationAvailabilityBean [ApplicationAvailabilityBean.java:77] Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2023-06-29 21:23:52,502 DEBUG [SpringApplicationShutdownHook] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext [AbstractApplicationContext.java:1055] Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@79996d45, started on Thu Jun 29 21:23:36 CEST 2023
+2023-06-29 21:23:52,520 INFO [SpringApplicationShutdownHook] o.n.d.i.InternalDriver [Neo4jSpringJclLogging.java:63] Closing driver instance 1290433213
+2023-06-29 21:23:52,748 INFO [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean [AbstractEntityManagerFactoryBean.java:650] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-06-29 21:23:52,748 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:350] HikariPool-2 - Shutdown initiated...
+2023-06-29 21:23:52,901 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:352] HikariPool-2 - Shutdown completed.

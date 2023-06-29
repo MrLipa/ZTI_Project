@@ -1,28 +1,110 @@
 {
 	"info": {
-		"_postman_id": "2bbd74b8-5a94-4e6d-9f58-f7195f0b68d5",
+		"_postman_id": "30c85914-5cce-46ae-94e2-7379181b6f08",
 		"name": "Air-Book",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "http://localhost:3000/",
+			"name": "/register",
 			"request": {
-				"method": "GET",
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admhertjktretryifoin@example.com\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:3000",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/register",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000"
+					"path": [
+						"register"
+					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user",
+			"name": "/login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"xavier@gmail.com\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/login",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/refresh",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/refresh",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/logout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/logout",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -37,12 +119,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/user",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/user",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"user"
 					]
@@ -51,7 +131,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/1",
+			"name": "/user/1",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -66,12 +146,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/user/1",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/user/1",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"1"
@@ -81,7 +159,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user",
+			"name": "/user",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -97,7 +175,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"firstName\": \"John\",\r\n  \"lastName\": \"Doe\",\r\n  \"email\": \"johndoe@example.com\",\r\n  \"password\": \"secretpassword\",\r\n  \"phone\": \"123456789\",\r\n  \"address\": \"123 Main St, City\",\r\n  \"image\": \"https://example.com/avatar.jpg\",\r\n  \"description\": \"Lorem ipsum dolor sit amet\",\r\n  \"messages\": [\"Hello\", \"How are you?\"],\r\n  \"flightIds\": [1, 2, 3]\r\n}",
+					"raw": "{\r\n    \"firstName\": \"aaaa\",\r\n    \"lastName\": \"aaaa\",\r\n    \"email\": \"aas1posdfgghoghyuifhfgaa@gmail.com\",\r\n    \"password\": \"aaaa\",\r\n    \"phone\": \"aaaa\",\r\n    \"address\": \"aaaa\",\r\n    \"image\": \"aaaa\",\r\n    \"description\": \"aaaa\",\r\n    \"userMessage\": [],\r\n    \"userFlightId\": []\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -105,12 +183,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/user",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/user",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"user"
 					]
@@ -119,7 +195,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user",
+			"name": "/user/2",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -135,7 +211,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_id\": 2,\r\n    \"firstName\": \"Thomas\"\r\n}",
+					"raw": "{\r\n    \"firstName\": \"222\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -143,21 +219,20 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/user",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/user/1",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
-						"user"
+						"user",
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/2",
+			"name": "/user/2",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -173,7 +248,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"email\": \"ugser@example.com\",\r\n    \"password\": \"user\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -181,12 +256,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/user/2",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/user/2",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"2"
@@ -196,7 +269,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/flights_history/1",
+			"name": "/user/flights_history/1",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -211,12 +284,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/user/flights_history/1",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/user/flights_history/1",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"flights_history",
@@ -227,7 +298,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/add_message",
+			"name": "/user/add_message",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -243,7 +314,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_id\": 1,\r\n    \"message\": \"test\"\r\n}",
+					"raw": "{\r\n    \"user_id\": 3,\r\n    \"message\": \"11111\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -251,12 +322,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/user/add_message",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/user/add_message",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"add_message"
@@ -266,7 +335,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/made_reservation",
+			"name": "/user/made_reservation",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -290,12 +359,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/user/made_reservation",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/user/made_reservation",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"made_reservation"
@@ -305,7 +372,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/user/cancel_reservation",
+			"name": "/user/cancel_reservation",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -329,12 +396,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/user/cancel_reservation",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/user/cancel_reservation",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"user",
 						"cancel_reservation"
@@ -344,10 +409,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/flight",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "/airport",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -361,9 +423,63 @@
 				},
 				"method": "GET",
 				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/airport",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"airport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/flight",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/flight",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"flight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/flight/flights_by_ids",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"flightId\": 47,\r\n    \"freeSeats\": 100\r\n}",
+					"raw": "{\r\n    \"flightIds\": [1,2,3,5]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -371,14 +487,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/flight",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/flight/flights_by_ids",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
-						"flight"
+						"flight",
+						"flights_by_ids"
 					]
 				}
 			},
@@ -392,7 +507,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -400,12 +515,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/flight/find?city_from=Warsaw&city_to=",
-					"protocol": "http",
+					"raw": "{{BaseURL}}/flight/find?city_from=Warsaw&city_to=Athens",
 					"host": [
-						"localhost"
+						"{{BaseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"flight",
 						"find"
@@ -417,243 +530,8 @@
 						},
 						{
 							"key": "city_to",
-							"value": ""
+							"value": "Athens"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:3000/flight/flights_by_ids",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"flightIds\": [1,2,3]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/flight/flights_by_ids",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"flight",
-						"flights_by_ids"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:3000/flight",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"flightId\": 4,\r\n    \"freeSeats\": 100\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/flight",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"flight"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:3000/register",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"ugser@example.com\",\r\n  \"password\": \"user\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/register",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:3000/login",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"xavier@gmail.com\",\r\n    \"password\": \"admin\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:3000/refresh",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/refresh",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"refresh"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:3000/logout",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/logout",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"logout"
 					]
 				}
 			},
