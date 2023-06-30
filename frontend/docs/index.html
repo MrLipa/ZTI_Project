@@ -29,26 +29,26 @@
 <ol>
 <li>👥 All users have access to this endpoint</li>
 <li>🔓 Only authenticated users have access to this endpoint</li>
-<li>🛡️ Only users with moderator privileges have access to this endpoint</li>
 </ol>
-<p>The following endpoints are available in the application:</p>
+<p>The following endpoints are available:</p>
 <ul>
-<li>GET 🔓 <code>/user</code></li>
-<li>GET 🔓 <code>/user/johndoe@example.com</code></li>
-<li>GET 🔓 <code>/user</code></li>
-<li>GET 🔓 <code>/user</code></li>
-<li>GET 🔓 <code>/user/111@example.com</code></li>
-<li>GET 🔓 <code>/user/flights_history/johndoe@example.com</code></li>
-<li>GET 🔓 <code>/user/made_reservation</code></li>
-<li>GET 🔓 <code>/user/cancel_reservation</code></li>
-<li>GET 🔓 <code>/flight</code></li>
-<li>GET 🔓 <code>/flight/flights_to</code></li>
-<li>GET 🔓 <code>/flight/flights_by_ids</code></li>
-<li>GET 🔓 <code>/flight</code></li>
-<li>GET 🔓 <code>/register</code></li>
-<li>GET 🔓 <code>/login</code></li>
-<li>GET 🔓 <code>/refresh</code></li>
-<li>GET 🔓 <code>/logout</code></li>
+<li>POST 👥 <code>/register</code> - User registration</li>
+<li>POST 👥 <code>/login</code> - User login</li>
+<li>GET 🔓 <code>/refresh</code> - User session refresh</li>
+<li>GET 🔓 <code>/logout</code> - User logout</li>
+<li>GET 🔓 <code>/user</code> - Retrieve information of the logged in user</li>
+<li>GET 🔓 <code>/user/{userId}</code> - Retrieve information of a user by ID</li>
+<li>POST 👥 <code>/user</code> - Add a new user</li>
+<li>PUT 🔓 <code>/user/1</code> - Update information of a user with ID 1</li>
+<li>DELETE 🔓 <code>/user/2</code> - Delete a user with ID 2</li>
+<li>GET 🔓 <code>/user/flights_history/userId=</code> - Retrieve flight history of a user</li>
+<li>POST 🔓 <code>/user/add_message</code> - Add a message to the user profile</li>
+<li>POST 🔓 <code>/user/made_reservation</code> - Make a reservation by a user</li>
+<li>POST 🔓 <code>/user/cancel_reservation</code> - Cancel a reservation by a user</li>
+<li>GET 👥 <code>/airport</code> - Retrieve information on airports</li>
+<li>GET 👥 <code>/flight</code> - Retrieve information on flights</li>
+<li>POST 🔓 <code>/flight/flights_by_ids</code> - Retrieve flights by IDs</li>
+<li>GET 👥 <code>/flight/find?city_from=&amp;city_to=</code> - Find flights between two cities</li>
 </ul>
 <p>File <code>Air-Book.postman_collection.json</code> contains a collection of basic endpoints that are ready to use 
 with Postman, a popular API development tool. The file can be imported into Postman to quickly test the 

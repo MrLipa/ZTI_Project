@@ -21,26 +21,26 @@ Legend:
 
 1. 👥 All users have access to this endpoint
 2. 🔓 Only authenticated users have access to this endpoint
-3. 🛡️ Only users with moderator privileges have access to this endpoint
 
-The following endpoints are available in the application:
+The following endpoints are available:
 
-- GET 🔓 `/user`
-- GET 🔓 `/user/johndoe@example.com`
-- GET 🔓 `/user`
-- GET 🔓 `/user`
-- GET 🔓 `/user/111@example.com`
-- GET 🔓 `/user/flights_history/johndoe@example.com`
-- GET 🔓 `/user/made_reservation`
-- GET 🔓 `/user/cancel_reservation`
-- GET 🔓 `/flight`
-- GET 🔓 `/flight/flights_to`
-- GET 🔓 `/flight/flights_by_ids`
-- GET 🔓 `/flight`
-- GET 🔓 `/register`
-- GET 🔓 `/login`
-- GET 🔓 `/refresh`
-- GET 🔓 `/logout`
+- POST 👥 `/register` - User registration
+- POST 👥 `/login` - User login
+- GET 🔓 `/refresh` - User session refresh
+- GET 🔓 `/logout` - User logout
+- GET 🔓 `/user` - Retrieve information of the logged in user
+- GET 🔓 `/user/{userId}` - Retrieve information of a user by ID
+- POST 👥 `/user` - Add a new user
+- PUT 🔓 `/user/1` - Update information of a user with ID 1
+- DELETE 🔓 `/user/2` - Delete a user with ID 2
+- GET 🔓 `/user/flights_history/userId=` - Retrieve flight history of a user
+- POST 🔓 `/user/add_message` - Add a message to the user profile
+- POST 🔓 `/user/made_reservation` - Make a reservation by a user
+- POST 🔓 `/user/cancel_reservation` - Cancel a reservation by a user
+- GET 👥 `/airport` - Retrieve information on airports
+- GET 👥 `/flight` - Retrieve information on flights
+- POST 🔓 `/flight/flights_by_ids` - Retrieve flights by IDs
+- GET 👥 `/flight/find?city_from=&city_to=` - Find flights between two cities
 
 
 File `Air-Book.postman_collection.json` contains a collection of basic endpoints that are ready to use 
