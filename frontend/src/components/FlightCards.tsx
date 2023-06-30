@@ -4,6 +4,13 @@ import { useFindFlightsQuery, useFlightQuery } from "../api/ApiHooks"; // Import
 import { Flight, FlightCardsProps } from "../typescript/interfaces";
 import { useTranslation } from "react-i18next";
 
+/**
+ * @typedef {Object} FlightCards
+ * @property {string} from - The origin city for the flights.
+ * @property {string} to - The destination city for the flights.
+ * @description This React component displays a carousel of flight cards based on the origin and destination cities.
+ * It uses the useFindFlightsQuery hook from the API to fetch the flight data.
+ */
 const FlightCards: React.FC<FlightCardsProps> = ({ from, to }) => {
   const { t } = useTranslation();
   const { data: flights, isLoading, isError } = useFindFlightsQuery(from, to);
@@ -71,4 +78,4 @@ const FlightCards: React.FC<FlightCardsProps> = ({ from, to }) => {
   );
 }
 
-export default FlightCards;
+export {FlightCards};

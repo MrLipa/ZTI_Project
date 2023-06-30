@@ -4,6 +4,14 @@ import useRefreshToken from '../hooks/useRefreshToken';
 import useAuth from '../hooks/useAuth';
 import { AuthContextProps } from "../typescript/interfaces";
 
+/**
+ * @typedef {Object} PersistLogin
+ * @description This React component provides persistent login functionality.
+ * It checks if the user has a valid access token and refreshes the token if needed.
+ * If persistent login is enabled and the access token is not available, it verifies the refresh token.
+ * If the verification is successful, it renders the nested routes (Outlet).
+ * If the verification fails or persistent login is disabled, it either shows a loading indicator or renders the nested routes (Outlet).
+ */
 const PersistLogin: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
@@ -22,17 +30,11 @@ const PersistLogin: React.FC = () => {
                 isMounted && setIsLoading(false);
             }
         }
-        console.log(auth)
-        console.log(persist)
+
         !auth?.accessToken && persist ? verifyRefreshToken() : setIsLoading(false);
 
         return () => { isMounted = false; };
     }, [])
-
-    useEffect(() => {
-        console.log(`isLoading: ${isLoading}`)
-        console.log(`aT: ${JSON.stringify(auth?.accessToken)}`)
-    }, [isLoading])
 
     return (
         <>
@@ -46,4 +48,4 @@ const PersistLogin: React.FC = () => {
     )
 }
 
-export default PersistLogin
+export { PersistLogin };

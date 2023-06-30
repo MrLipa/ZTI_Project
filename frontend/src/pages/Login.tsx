@@ -1,9 +1,14 @@
-import LoginForm from "../components/LoginForm";
+import { LoginForm } from "../components/LoginForm";
 import { Card } from "primereact/card";
 import backgroundImage from "../images/background.jpg";
-import Navbar from "./../components/Navbar";
-import Footer from "./../components/Footer";
+import { Navbar } from "./../components/Navbar";
+import { Footer } from "./../components/Footer";
 
+/**
+ * @typedef {Object} Login
+ * @description This React component represents the Login page.
+ * @returns {JSX.Element} Login
+ */
 const Login = () => {
   return (
     <>
@@ -26,4 +31,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export { Login };

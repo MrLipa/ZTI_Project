@@ -1,11 +1,17 @@
-import { useRef, useState, useEffect, RefObject } from "react";
+import { useRef, useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContextProps } from "../typescript/interfaces";
-
 import axios from "../api/Axios";
+
 const LOGIN_URL = "/login";
 
+/**
+ * @typedef {Object} LoginForm
+ * @description This React component represents a login form.
+ * It allows users to sign in by providing their email and password.
+ * It uses the useAuth hook to manage authentication state.
+ */
 const LoginForm: React.FC = () => {
   const { setAuth, persist, setPersist } = useAuth() as AuthContextProps;
 
@@ -44,7 +50,9 @@ const LoginForm: React.FC = () => {
       setEmail("");
       setPwd("");
       navigate(`/profile`, { replace: true });
-    } catch (err: any) {}
+    } catch (err: any) {
+      // Handle error
+    }
   };
 
   const togglePersist = () => {
@@ -100,4 +108,4 @@ const LoginForm: React.FC = () => {
   );
 };
 
-export default LoginForm;
+export { LoginForm };

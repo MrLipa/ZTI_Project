@@ -1,0 +1,249 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Frontend</title><meta name="description" content="Documentation for Frontend"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/search.js" id="tsd-search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">Frontend</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<h2>Frontend</h2></div>
+<div class="tsd-panel tsd-typography"><a id="md:getting-started-with-air-book" class="tsd-anchor"></a><h1><a href="#md:getting-started-with-air-book">Getting Started with Air-Book</a></h1><a id="md:prerequisites-📋" class="tsd-anchor"></a><h2><a href="#md:prerequisites-📋">Prerequisites 📋</a></h2><ul>
+<li>Visual Studio Code</li>
+<li>Node</li>
+<li>Docker</li>
+</ul>
+<a id="md:project-structure-📁" class="tsd-anchor"></a><h2><a href="#md:project-structure-📁">Project structure 📁</a></h2><p>The project consists of the following containers:</p>
+<ul>
+<li><code>pdadmin</code>: PgAdmin container for the database graphical interface</li>
+<li><code>backend</code>: TomEE container for deploying the backend application</li>
+<li><code>frontend</code>: Python container for pre-database configuration scripts</li>
+<li><code>jenkins</code>: Jenkins container for continuous integration and deployment</li>
+</ul>
+<p>Each container has its environment settings, ports, and volumes configured in the <code>docker-compose.yml</code> file.</p>
+<a id="md:endpoints-📡" class="tsd-anchor"></a><h2><a href="#md:endpoints-📡">Endpoints 📡</a></h2><p>Legend:</p>
+<ol>
+<li>👥 All users have access to this endpoint</li>
+<li>🔓 Only authenticated users have access to this endpoint</li>
+<li>🛡️ Only users with moderator privileges have access to this endpoint</li>
+</ol>
+<p>The following endpoints are available in the application:</p>
+<ul>
+<li>GET 🔓 <code>/user</code></li>
+<li>GET 🔓 <code>/user/johndoe@example.com</code></li>
+<li>GET 🔓 <code>/user</code></li>
+<li>GET 🔓 <code>/user</code></li>
+<li>GET 🔓 <code>/user/111@example.com</code></li>
+<li>GET 🔓 <code>/user/flights_history/johndoe@example.com</code></li>
+<li>GET 🔓 <code>/user/made_reservation</code></li>
+<li>GET 🔓 <code>/user/cancel_reservation</code></li>
+<li>GET 🔓 <code>/flight</code></li>
+<li>GET 🔓 <code>/flight/flights_to</code></li>
+<li>GET 🔓 <code>/flight/flights_by_ids</code></li>
+<li>GET 🔓 <code>/flight</code></li>
+<li>GET 🔓 <code>/register</code></li>
+<li>GET 🔓 <code>/login</code></li>
+<li>GET 🔓 <code>/refresh</code></li>
+<li>GET 🔓 <code>/logout</code></li>
+</ul>
+<p>File <code>Air-Book.postman_collection.json</code> contains a collection of basic endpoints that are ready to use 
+with Postman, a popular API development tool. The file can be imported into Postman to quickly test the 
+functionality of the endpoints and interact with the backend application.</p>
+<p>The JWT is a token that can be used for token-based authentication in subsequent API requests. It is set to expire 
+after 15 seconds for security reasons, and the user will need to re-authenticate by logging in again after expiration.</p>
+<p>The refresh token is used for obtaining new JWTs after the original JWT expires. It is set to expire after 24 hours, 
+which means that users can use the refresh token to obtain new JWTs within this time period without having to re-authenticate with their credentials.</p>
+<a id="md:deployment-🚀" class="tsd-anchor"></a><h2><a href="#md:deployment-🚀">Deployment 🚀</a></h2><p>These instructions will guide you on how to deploy this application for production use.</p>
+<a id="md:using-docker-🐳" class="tsd-anchor"></a><h3><a href="#md:using-docker-🐳">Using Docker 🐳</a></h3><p>The application can be run as a collection of Docker containers, which makes it platform-independent. Follow these steps to deploy it using Docker:</p>
+<p>Install Docker and Docker Compose
+Ensure Docker and Docker Compose are installed on the system where the application will be deployed.</p>
+<p>Clone the repository
+Clone the project from the Git repository and navigate to the root directory of the project.</p>
+<p>Build the Docker images
+Run the following command in the project root directory to build the Docker images:</p>
+<p>Copy code
+docker-compose build
+Launch the Docker containers
+Run the following command in the project root directory to launch the Docker containers:</p>
+<p>Copy code
+docker-compose up
+The application should now be running and accessible on the defined ports. The frontend is accessible via a web browser, while the backend and database can be accessed using the defined APIs and database clients, respectively.</p>
+<a id="md:continuous-integration-and-continuous-deployment-cicd-🔄👷♂️" class="tsd-anchor"></a><h3><a href="#md:continuous-integration-and-continuous-deployment-cicd-🔄👷♂️">Continuous Integration and Continuous Deployment (CI/CD) 🔄👷‍♂️</a></h3><p>The application also includes a Jenkins container, which can be used for Continuous Integration and Continuous Deployment (CI/CD). With Jenkins, you can automate the testing and deployment of your application every time changes are made to the code.</p>
+<p>For the setup and configuration of Jenkins, refer to the Jenkins documentation and tutorials.</p>
+<p>Remember to always check the logs and monitor your application after deployment to ensure everything runs as expected. Happy deploying!</p>
+<p><img src="./config/88.png" alt="OpenAI Logo" title="OpenAI Logo"></p>
+<a id="md:other-useful-commands-🛠️" class="tsd-anchor"></a><h2><a href="#md:other-useful-commands-🛠️">Other Useful Commands 🛠️</a></h2><ul>
+<li><code>docker info</code>: Displays information about Docker configuration and the host system.</li>
+<li><code>docker version</code>: Displays information about the installed Docker version.</li>
+<li><code>docker login</code>: Logs in to a Docker registry.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker pull [imageName]</code>: Pulls an image with the name <code>[imageName]</code> from a Docker registry.</li>
+<li><code>docker run [imageName]</code>: Runs a new container based on the <code>[imageName]</code> image.</li>
+<li><code>docker run -d [imageName]</code>: Runs a new container in the background based on the <code>[imageName]</code> image.</li>
+<li><code>docker start [containerName]</code>: Starts a stopped container with the name <code>[containerName]</code>.</li>
+<li><code>docker ps</code>: Lists the running containers.</li>
+<li><code>docker ps -a</code>: Lists all containers (running and stopped).</li>
+<li><code>docker stop [containerName]</code>: Stops a container with the name <code>[containerName]</code>.</li>
+<li><code>docker kill [containerName]</code>: Forcefully stops a container with the name <code>[containerName]</code>.</li>
+<li><code>docker image inspect [imageName]</code>: Displays detailed information about the <code>[imageName]</code> image.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker run --memory=&quot;256m&quot; nginx</code>: Runs a container with a memory limit set to 256 MB.</li>
+<li><code>docker run --cpus=&quot;.5&quot; nginx</code>: Runs a container with the CPU limit set to 0.5 (half a CPU).</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker run --publish 80:80 --name [imageName] nginx</code>: Runs a container named <code>[imageName]</code> with port mapping from host port 80 to container port 80 for the nginx image.</li>
+<li><code>docker run -d -p 8080:80 --name [imageName] nginx</code>: Runs a container named <code>[imageName]</code> in detached mode with port mapping from host port 8080 to container port 80 for the nginx image.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker run -it nginx -- /bin/bash</code>: Runs an interactive container with the nginx image and opens a Bash shell.</li>
+<li><code>docker run -it -- microsoft/powershell:nanoserver pwsh.exe</code>: Runs an interactive container with the Microsoft PowerShell image based on the Nano Server and opens a PowerShell shell.</li>
+<li><code>docker container exec -it [containerName] bash</code>: Executes a command inside a running container with the name <code>[containerName]</code> and opens a Bash shell.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker rm [containerName]</code>: Removes a stopped container with the name <code>[containerName]</code>.</li>
+<li><code>docker rm $(docker ps -a -q)</code>: Removes all stopped containers.</li>
+<li><code>docker images</code>: Lists the available images.</li>
+<li><code>docker rmi [imageName]</code>: Removes an image with the name <code>[imageName]</code>.</li>
+<li><code>docker system prune -a</code>: Removes all unused containers, networks, and images.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker build -t [name:tag]</code>: Builds an image with the specified name and tag.</li>
+<li><code>docker build -t [name:tag] -f [fileName]</code>: Builds an image with the specified name, tag, and Dockerfile path.</li>
+<li><code>docker tag [imageName] [name:tag]</code>: Creates a new image tag for an existing image.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker create volume [volumeName]</code>: Creates a named volume with the given <code>[volumeName]</code>.</li>
+<li><code>docker volume ls</code>: Lists all volumes.</li>
+<li><code>docker volume inspect [volumeName]</code>: Displays detailed information about a specific volume.</li>
+<li><code>docker volume rm [volumeName]</code>: Removes a specific volume.</li>
+<li><code>docker volume prune</code>: Removes all unused volumes.</li>
+<li><code>docker run -d --name devtest -v [volumeName]:/app nginx:latest</code>: Runs a container in the background with the name &quot;devtest&quot; and mounts a volume named <code>[volumeName]</code> to the &quot;/app&quot; directory inside the container using the nginx:latest image.</li>
+<li><code>docker run -d --name devtest -v d:/test:/app nginx:latest</code>: Runs a container in the background with the name &quot;devtest&quot; and mounts the host directory &quot;d:/test&quot; to the &quot;/app&quot; directory inside the container using the nginx:latest image.</li>
+<li><code>docker exec -it [containerName] bash</code>: Executes an interactive Bash shell inside a running container with the name <code>[containerName]</code>.</li>
+<li><code>docker volume rm [volumeName]</code>: Removes a specific volume.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker-compose build</code>: Builds or rebuilds services defined in a Compose file.</li>
+<li><code>docker-compose start</code>: Starts existing containers for a Compose file.</li>
+<li><code>docker-compose stop</code>: Stops running containers for a Compose file.</li>
+<li><code>docker-compose up -d</code>: Creates and starts containers in the background for a Compose file.</li>
+<li><code>docker-compose -p test2 up -d</code>: Creates and starts containers in the background for a Compose file with a specific project name.</li>
+<li><code>docker-compose ps</code>: Lists the containers for a Compose file.</li>
+<li><code>docker-compose rm</code>: Removes stopped containers for a Compose file.</li>
+<li><code>docker-compose down</code>: Stops and removes containers, networks, and volumes for a Compose file.</li>
+<li><code>docker-compose logs</code>: Displays the logs of services for a Compose file.</li>
+<li><code>docker-compose exec [container] bash</code>: Executes a command inside a running container defined in a Compose file.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker-compose --project-name test1 up -d</code>: Creates and starts containers in the background for a Compose file with a specific project name.</li>
+<li><code>docker-compose -p test2 up -d</code>: Creates and starts containers in the background for a Compose file with a specific project name.</li>
+<li><code>docker-compose ls</code>: Lists the services defined in a Compose file.</li>
+<li><code>docker-compose cp [containerID]:[SRC_PATH] [DEST_PATH]</code>: Copies files/folders between a container and the host for a Compose file.</li>
+<li><code>docker-compose cp [SRC_PATH]:[containerID] [DEST_PATH]</code>: Copies files/folders between the host and a container for a Compose file.</li>
+<li><code>docker-compose logs -f web-fe</code>: Displays the live logs of a specific service (web-fe) for a Compose file.</li>
+<li><code>docker-compose -p test2 down</code>: Stops and removes containers, networks, and volumes for a Compose file with a specific project name.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker login -u [username] -p [password]</code>: Logs in to a Docker registry with the specified username and password.</li>
+<li><code>docker tag [imageName] k8sacademy/[imageName]:latest</code>: Creates a new image tag for an existing image with a new repository name.</li>
+<li><code>docker push k8sacademy/[imageName]:latest</code>: Pushes an image to a Docker registry with a specific repository name and tag.</li>
+<li><code>docker pull k8sacademy/[imageName]:latest</code>: Pulls an image from a Docker registry with a specific repository name and tag.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker build -t [YourRegistryName]/express:v1</code>: Builds an image with the specified name and tag using the Dockerfile in the current directory.</li>
+<li><code>docker push [YourRegistryName]/express:v1</code>: Pushes an image with the specified name and tag to a Docker registry.</li>
+<li><code>docker rmi [YourRegistryName]/express:v1</code>: Removes an image with the specified name and tag from the local Docker environment.</li>
+<li><code>docker build -t [YourRegistryName]/express:v2 .</code>: Builds an image with the specified name and tag using the Dockerfile in the current directory.</li>
+<li><code>docker push [YourRegistryName]/express:v2</code>: Pushes an image with the specified name and tag to a Docker registry.</li>
+<li><code>docker rmi [YourRegistryName]/express:v2</code>: Removes an image with the specified name and tag from the local Docker environment.</li>
+<li><code>docker pull [YourRegistryName]/express:v2</code>: Pulls an image with the specified name and tag from a Docker registry.</li>
+</ul>
+<hr>
+<ul>
+<li><code>docker rmi [YourRegistryName]/express:v1</code>: Removes an image with the specified name and tag from the local Docker environment.</li>
+<li><code>docker rmi [YourRegistryName]/express:v2</code>: Removes an image with the specified name and tag from the local Docker environment.</li>
+</ul>
+<a id="md:contributing-👥" class="tsd-anchor"></a><h2><a href="#md:contributing-👥">Contributing 👥</a></h2><p>Contributions are welcome! Please fork the repository and create a pull request.</p>
+</div></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)" id="icon-chevronDown"></path></svg>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li>
+<ul>
+<li><a href="#md:getting-started-with-air-book"><span>Getting <wbr/>Started with <wbr/>Air-<wbr/>Book</span></a></li>
+<li>
+<ul>
+<li><a href="#md:prerequisites-📋"><span>Prerequisites 📋</span></a></li>
+<li><a href="#md:project-structure-📁"><span>Project structure 📁</span></a></li>
+<li><a href="#md:endpoints-📡"><span>Endpoints 📡</span></a></li>
+<li><a href="#md:deployment-🚀"><span>Deployment 🚀</span></a></li>
+<li>
+<ul>
+<li><a href="#md:using-docker-🐳"><span>Using <wbr/>Docker 🐳</span></a></li>
+<li><a href="#md:continuous-integration-and-continuous-deployment-cicd-🔄👷♂️"><span>Continuous <wbr/>Integration and <wbr/>Continuous <wbr/>Deployment (CI/CD) 🔄👷‍♂️</span></a></li></ul></li>
+<li><a href="#md:other-useful-commands-🛠️"><span>Other <wbr/>Useful <wbr/>Commands 🛠️</span></a></li>
+<li><a href="#md:contributing-👥"><span>Contributing 👥</span></a></li></ul></li></ul></li></ul></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>Frontend</span></a>
+<ul class="tsd-small-nested-navigation">
+<li><a href="interfaces/AuthContextProps.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-256"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)"></path></g></svg><span>Auth<wbr/>Context<wbr/>Props</span></a></li>
+<li><a href="interfaces/Flight.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Flight</span></a></li>
+<li><a href="interfaces/FlightCardsProps.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Flight<wbr/>Cards<wbr/>Props</span></a></li>
+<li><a href="interfaces/User.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>User</span></a></li>
+<li><a href="interfaces/UserFlightId.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>User<wbr/>Flight<wbr/>Id</span></a></li>
+<li><a href="interfaces/UserMessage.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>User<wbr/>Message</span></a></li>
+<li><a href="functions/FlagIcon.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-64"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)"></path></g></svg><span>Flag<wbr/>Icon</span></a></li>
+<li><a href="functions/FlightCards.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Flight<wbr/>Cards</span></a></li>
+<li><a href="functions/FlightComponent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Flight<wbr/>Component</span></a></li>
+<li><a href="functions/Footer.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Footer</span></a></li>
+<li><a href="functions/Help.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Help</span></a></li>
+<li><a href="functions/Home.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Home</span></a></li>
+<li><a href="functions/LayoutLogin.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Layout<wbr/>Login</span></a></li>
+<li><a href="functions/LoadingMarkup.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Loading<wbr/>Markup</span></a></li>
+<li><a href="functions/Login.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Login</span></a></li>
+<li><a href="functions/LoginForm.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Login<wbr/>Form</span></a></li>
+<li><a href="functions/Navbar.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Navbar</span></a></li>
+<li><a href="functions/NotificationIcon.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Notification<wbr/>Icon</span></a></li>
+<li><a href="functions/PersistLogin.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Persist<wbr/>Login</span></a></li>
+<li><a href="functions/Profile.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Profile</span></a></li>
+<li><a href="functions/Register.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Register</span></a></li>
+<li><a href="functions/RegisterForm.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Register<wbr/>Form</span></a></li>
+<li><a href="functions/RequireAuth.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Require<wbr/>Auth</span></a></li>
+<li><a href="functions/SearchBar.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Search<wbr/>Bar</span></a></li>
+<li><a href="functions/SearchFlights.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Search<wbr/>Flights</span></a></li>
+<li><a href="functions/Settings.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Settings</span></a></li>
+<li><a href="functions/SettingsIcon.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Settings<wbr/>Icon</span></a></li></ul></nav></div></div></div>
+<div class="tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div></body></html>

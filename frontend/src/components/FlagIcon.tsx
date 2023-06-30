@@ -5,6 +5,11 @@ import { LanguageContext } from "../context/LanguageContext";
 import Flags from "country-flag-icons/react/3x2";
 import { useTranslation } from 'react-i18next';
 
+/**
+ * @typedef {Object} FlagIcon
+ * @description This React component displays a flag icon representing the current language.
+ * It allows the user to select a different language by opening a menu with language options.
+ */
 const FlagIcon = () => {
   const op = useRef<OverlayPanel | null>(null);
   const { language, flag, toggleLanguage } = useContext(LanguageContext);
@@ -55,4 +60,4 @@ const FlagIcon = () => {
   );
 };
 
-export default FlagIcon;
+export {FlagIcon};

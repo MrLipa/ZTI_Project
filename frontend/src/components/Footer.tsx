@@ -1,6 +1,11 @@
 import { FaFacebookF, FaTwitter, FaYoutube, FaGooglePlus } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 
+/**
+ * @typedef {Object} Footer
+ * @description This React component represents the footer section of the application.
+ * It displays information about the application, contact details, and a newsletter subscription form.
+ */
 const Footer = () => {
   const { t } = useTranslation();
 
@@ -43,4 +48,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export {Footer};

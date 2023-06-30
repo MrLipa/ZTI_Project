@@ -1,10 +1,15 @@
-import RegisterForm from "../components/RegisterForm";
+import { RegisterForm } from "../components/RegisterForm";
 import { Card } from "primereact/card";
 import "./Register.css";
 import backgroundImage from "../images/background.jpg";
-import Navbar from "./../components/Navbar";
-import Footer from "./../components/Footer";
+import { Navbar } from "./../components/Navbar";
+import { Footer } from "./../components/Footer";
 
+/**
+ * @typedef {Object} Register
+ * @description This React component represents the Register page.
+ * @returns {JSX.Element} Register
+ */
 const Register = () => {
   return (
     <>
@@ -27,4 +32,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export { Register };

@@ -1,5 +1,20 @@
 package com.example.backend.dto;
 
+/**
+ * The UserMessageDto class is a Data Transfer Object (DTO) used to encapsulate
+ * the user message details. It contains the unique identifier for the message (id)
+ * and the message content.
+ *
+ * This class is used to transport data about user messages within the system without
+ * directly interacting with the User entity class.
+ *
+ * The nested UserMessageDtoBuilder class, which follows the Builder design pattern,
+ * is used for constructing instances of the UserMessageDto class.
+ *
+ * @author YourName
+ * @version 1.0
+ * @since 2023-06-30
+ */
 public class UserMessageDto {
     private Long id;
     private String message;

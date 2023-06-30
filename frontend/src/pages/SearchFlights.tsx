@@ -12,7 +12,7 @@ import { Flight } from "../typescript/interfaces";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-export default function BasicDemo() {
+const SearchFlights = () => {
   const { t } = useTranslation('translations');
   const [flightData, setFlightData] = useState<Flight[]>([]);
   const { data: flights, isLoading, isError } = useFlightQuery();
@@ -207,3 +207,5 @@ export default function BasicDemo() {
     </div>
   );
 }
+
+export {SearchFlights};

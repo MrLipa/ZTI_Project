@@ -2,6 +2,19 @@ package com.example.backend.dto;
 
 import java.util.Set;
 
+/**
+ * The UserDto class is a Data Transfer Object (DTO) used to encapsulate all the necessary
+ * information about a User. The purpose of this class is to transfer data between different
+ * parts of the application without needing to use the User entity class. Instances of this class
+ * are used to transport data regarding user details like userId, firstName, lastName, email, etc.
+ *
+ * The nested UserDtoBuilder class follows the Builder design pattern and it's used to build instances
+ * of the UserDto class.
+ *
+ * @author YourName
+ * @version 1.0
+ * @since 2023-06-30
+ */
 public class UserDto {
     private Long userId;
     private String firstName;

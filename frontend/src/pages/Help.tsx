@@ -1,7 +1,12 @@
 import backgroundImage from "../images/background.jpg";
-import Navbar from "./../components/Navbar";
-import Footer from "./../components/Footer";
+import { Navbar } from "./../components/Navbar";
+import { Footer } from "./../components/Footer";
 
+/**
+ * @typedef {Object} Help
+ * @description This React component represents the Help page.
+ * @returns {JSX.Element} Help
+ */
 const Help = () => {
   return (
     <>
@@ -38,4 +43,4 @@ const Help = () => {
   );
 };
 
-export default Help;
+export { Help };

@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
+/**
+ * The service class for managing Flight entities.
+ */
 @Service
 public class FlightService {
 
@@ -21,22 +22,50 @@ public class FlightService {
         this.flightRepository = flightRepository;
     }
 
+    /**
+     * Retrieves all flights.
+     *
+     * @return A collection of all flights.
+     */
     public Collection<Flight> getAllFlights() {
         return flightRepository.getAllFlights();
     }
 
+    /**
+     * Retrieves flights with the specified flight IDs.
+     *
+     * @param userFlightIds The flight IDs to retrieve.
+     * @return A collection of flights with the specified IDs.
+     */
     public Collection<Flight> getFlightsByIds(List<Integer> userFlightIds) {
         return flightRepository.getFlightsByIds(userFlightIds);
     }
 
+    /**
+     * Takes a seat on the specified flight.
+     *
+     * @param flightId The ID of the flight.
+     */
     public void takeSeat(Integer flightId) {
         flightRepository.takeSeat(flightId);
     }
 
+    /**
+     * Frees up a seat on the specified flight.
+     *
+     * @param flightId The ID of the flight.
+     */
     public void freeSeat(Integer flightId) {
         flightRepository.freeSeat(flightId);
     }
 
+    /**
+     * Finds flights based on the specified cities.
+     *
+     * @param cityFrom The origin city.
+     * @param cityTo   The destination city.
+     * @return A collection of flights matching the specified cities.
+     */
     public Collection<Flight> findFlightsByCity(String cityFrom, String cityTo) {
         if (cityFrom.isEmpty() && cityTo.isEmpty()) {
             return getAllFlights();

@@ -2,6 +2,21 @@ package com.example.backend.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * The UserFlightId class represents a relationship between a user and a flight in the system.
+ *
+ * This class is a JPA Entity, indicating that it's a JPA-managed entity. It maps to the
+ * "userflightid" table in the "zti_project" schema in the relational database.
+ *
+ * The class fields represent columns in the "userflightid" table. The ManyToOne relationship
+ * suggests that a single user can be associated with multiple flights.
+ *
+ * The UserFlightIdBuilder nested class provides a builder pattern for creating a UserFlightId instance.
+ *
+ * @author YourName
+ * @version 1.0
+ * @since 2023-06-30
+ */
 @Entity
 @Table(name = "userflightid", schema = "zti_project")
 public class UserFlightId {

@@ -3,6 +3,22 @@ package com.example.backend.entity;
 import jakarta.persistence.*;
 import java.util.Set;
 
+/**
+ * The User class represents the user entity in the system. It contains information about
+ * a user such as name, email, password, phone, address, image, and a description of the user.
+ *
+ * This class is annotated as a JPA Entity, indicating that it is a JPA managed entity and
+ * is mapped to the "user" table in the "zti_project" schema of the relational database.
+ *
+ * The class fields represent the columns in the "user" table, with the OneToMany relationships
+ * indicating that a single user can be associated with multiple user messages and flights.
+ *
+ * The UserBuilder nested class provides a builder pattern for creating a User instance.
+ *
+ * @author YourName
+ * @version 1.0
+ * @since 2023-06-30
+ */
 @Entity(name="User")
 @Table(name="user", schema="zti_project")
 public class User {

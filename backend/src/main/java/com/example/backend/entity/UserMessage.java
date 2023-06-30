@@ -2,6 +2,21 @@ package com.example.backend.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * The UserMessage class represents a message associated with a user in the system.
+ *
+ * This class is a JPA Entity, which indicates that it's a JPA-managed entity. It maps to the
+ * "usermessage" table in the "zti_project" schema in the relational database.
+ *
+ * The class fields represent columns in the "usermessage" table. The ManyToOne relationship
+ * suggests that a single user can be associated with multiple messages.
+ *
+ * The UserMessageBuilder nested class provides a builder pattern for creating a UserMessage instance.
+ *
+ * @author YourName
+ * @version 1.0
+ * @since 2023-06-30
+ */
 @Entity
 @Table(name = "usermessage", schema = "zti_project")
 public class UserMessage {

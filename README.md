@@ -8,7 +8,6 @@
 ## Project structure 📁
 The project consists of the following containers:
 
-- `database`: Postgres database container
 - `pdadmin`: PgAdmin container for the database graphical interface
 - `backend`: TomEE container for deploying the backend application
 - `frontend`: Python container for pre-database configuration scripts
@@ -54,6 +53,38 @@ after 15 seconds for security reasons, and the user will need to re-authenticate
 The refresh token is used for obtaining new JWTs after the original JWT expires. It is set to expire after 24 hours, 
 which means that users can use the refresh token to obtain new JWTs within this time period without having to re-authenticate with their credentials.
 
+## Deployment 🚀
+These instructions will guide you on how to deploy this application for production use.
+
+### Using Docker 🐳
+The application can be run as a collection of Docker containers, which makes it platform-independent. Follow these steps to deploy it using Docker:
+
+Install Docker and Docker Compose
+Ensure Docker and Docker Compose are installed on the system where the application will be deployed.
+
+Clone the repository
+Clone the project from the Git repository and navigate to the root directory of the project.
+
+Build the Docker images
+Run the following command in the project root directory to build the Docker images:
+
+Copy code
+docker-compose build
+Launch the Docker containers
+Run the following command in the project root directory to launch the Docker containers:
+
+Copy code
+docker-compose up
+The application should now be running and accessible on the defined ports. The frontend is accessible via a web browser, while the backend and database can be accessed using the defined APIs and database clients, respectively.
+
+### Continuous Integration and Continuous Deployment (CI/CD) 🔄👷‍♂️
+The application also includes a Jenkins container, which can be used for Continuous Integration and Continuous Deployment (CI/CD). With Jenkins, you can automate the testing and deployment of your application every time changes are made to the code.
+
+For the setup and configuration of Jenkins, refer to the Jenkins documentation and tutorials.
+
+Remember to always check the logs and monitor your application after deployment to ensure everything runs as expected. Happy deploying!
+
+![OpenAI Logo](./config/88.png "OpenAI Logo")
 
 ## Other Useful Commands 🛠️
 - `docker info`: Displays information about Docker configuration and the host system.

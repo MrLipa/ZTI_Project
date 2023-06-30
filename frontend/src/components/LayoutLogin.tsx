@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Sidebar } from "primereact/sidebar";
 import { Avatar } from "primereact/avatar";
-import SearchBar from "./SearchBar";
-import BellIcon from "./NotificationIcon";
+import { SearchBar } from "./SearchBar";
+import { NotificationIcon } from "./NotificationIcon";
 import { Divider } from "primereact/divider";
 import avatarImage from "./../images/1.jpg"; // Importuj obraz
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
+import { Footer } from "./Footer";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { ThemeContext } from "../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
-import SettingsIcon from "./SettingsIcon";
-import FlagIcon from "./FlagIcon";
+import { SettingsIcon } from "./SettingsIcon";
+import { FlagIcon } from "./FlagIcon";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 import { useToast } from "../context/ToastProvider";
@@ -22,7 +22,12 @@ import { useUserQuery } from "./../api/ApiHooks";
 import { User } from "../typescript/interfaces";
 import useAuth from "../hooks/useAuth";
 
-const Navbar = () => {
+/**
+ * @typedef {Object} LayoutLogin
+ * @description This React component represents the layout for the logged-in state of the application.
+ * It includes a navbar, sidebar, and content area.
+ */
+const LayoutLogin = () => {
   const { theme, currentTheme, toggleTheme } = useContext(ThemeContext);
   const { t } = useTranslation("translations");
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -58,12 +63,21 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logout = useLogout();
 
+  /**
+   * @typedef {Object} signOut
+   * @description This async function signs the user out by invoking the logout hook,
+   * then navigates to the homepage and shows a successful logout toast notification.
+   */
   const signOut = async () => {
     await logout();
     navigate("/");
     showToast("success", "Success", "Logout successfully");
   };
 
+  /**
+   * @typedef {Object} toggleSidebar
+   * @description This function toggles the visibility of the sidebar.
+   */
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
@@ -82,7 +96,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-icons-right">
           <SearchBar />
-          <BellIcon />
+          <NotificationIcon />
           <SettingsIcon />
           <FlagIcon />
           <Link to="/profile">
@@ -161,4 +175,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export { LayoutLogin };

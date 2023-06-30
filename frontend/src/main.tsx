@@ -4,7 +4,7 @@ import App from './App';
 import './index.css';
 import { BrowserRouter } from "react-router-dom";
 import './i18n/i18n';
-import LoadingMarkup from './components/LoadingMarkup';
+import {LoadingMarkup} from './components/LoadingMarkup';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Suspense fallback={<LoadingMarkup />}>

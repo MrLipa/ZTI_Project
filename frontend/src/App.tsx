@@ -1,21 +1,21 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Help from "./pages/Help";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import {Help} from "./pages/Help";
+import {Home} from "./pages/Home";
+import {Login} from "./pages/Login";
+import {Register} from "./pages/Register";
 import TestEndpoint from "./../tests/TestEndpoint";
-import Profile from "./pages/Profile";
-import PersistLogin from "./components/PersistLogin";
-import SearchFlights from "./pages/SearchFlights";
-import Settings from "./pages/Settings";
-import Flight from "./pages/Flight";
-import LayoutLogin from "./components/LayoutLogin";
+import {Profile} from "./pages/Profile";
+import {PersistLogin} from "./components/PersistLogin";
+import {SearchFlights} from "./pages/SearchFlights";
+import {Settings} from "./pages/Settings";
+import {FlightComponent} from "./pages/Flight";
+import {LayoutLogin} from "./components/LayoutLogin";
 import ThemeProvider from "./context/ThemeContext";
 import { ToastProvider } from "./context/ToastProvider";
 import LanguageProvider from "./context/LanguageContext";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { AuthProvider } from "./context/AuthProvider";
-import RequireAuth from "./components/RequireAuth";
+import {RequireAuth} from "./components/RequireAuth";
 
 const ROLES = {
   User: 2137,
@@ -47,7 +47,7 @@ function App() {
                           path="search-flights"
                           element={<SearchFlights />}
                         />
-                        <Route path="flight/:id" element={<Flight />} />
+                        <Route path="flight/:id" element={<FlightComponent />} />
                         <Route path="settings" element={<Settings />} />
                       </Route>
                     </Route>

@@ -12,7 +12,14 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/register";
 
-const Register: React.FC = () => {
+/**
+ * @typedef {Object} RegisterForm
+ * @description This React component represents a registration form.
+ * It allows users to register by providing their email and password.
+ * It performs client-side validation for email and password fields.
+ * Upon successful registration, it displays a success message.
+ */
+const RegisterForm: React.FC = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
@@ -48,6 +55,14 @@ const Register: React.FC = () => {
     setErrMsg("");
   }, [email, pwd, matchPwd]);
 
+  /**
+   * @typedef {Function} handleSubmit
+   * @description Handles the form submission event.
+   * Performs client-side validation and sends a registration request to the server.
+   * Displays appropriate error messages based on the server response.
+   * If registration is successful, displays a success message.
+   * @param {React.FormEvent} e - The form submission event.
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -233,4 +248,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export { RegisterForm };

@@ -2,6 +2,21 @@ package com.example.backend.entity;
 
 import org.springframework.data.neo4j.core.schema.*;
 
+/**
+ * The Flight class represents the flight relationship entity in the system. It is used to store
+ * information about a flight such as its unique identifier (flightId), origin and destination
+ * details, airlines, flight class, date, distance, duration, price, and the number of free seats.
+ *
+ * It also contains a reference to the airport entity that is the target of this relationship.
+ *
+ * This class is annotated with @RelationshipProperties, indicating that it is a relationship
+ * entity in the graph database (Neo4j). The relationship to the target node (airport) is represented
+ * by the @TargetNode annotation.
+ *
+ * @author YourName
+ * @version 1.0
+ * @since 2023-06-30
+ */
 @RelationshipProperties
 public class Flight {
 

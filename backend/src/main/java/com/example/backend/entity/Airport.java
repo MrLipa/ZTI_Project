@@ -8,6 +8,25 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.List;
 
+/**
+ * The Airport class represents the airport entity in the system. It is used to store information
+ * about the airport such as its unique identifier (id), city, country, and image.
+ *
+ * It also contains two lists of Flight objects, one representing flights outgoing from the
+ * airport and the other representing flights incoming to the airport.
+ *
+ * This class is annotated with @Node, indicating that it is a node entity in the graph database
+ * (Neo4j). The relationships to other nodes (flights) are represented by @Relationship
+ * annotations.
+ *
+ * The nested AirportBuilder class, which follows the Builder design pattern,
+ * is used for constructing instances of the Airport class.
+ *
+ * @author YourName
+ * @version 1.0
+ * @since 2023-06-30
+ */
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Node
 public class Airport {

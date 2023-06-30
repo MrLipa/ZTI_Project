@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * @typedef {Object} Navbar
+ * @description This React component represents the navigation bar.
+ * It displays a logo and a set of navigation links.
+ */
 const Navbar = () => {
   return (
     <nav style={{ display: 'flex', justifyContent: 'flex-end', height: '100px' }}>
@@ -17,4 +22,4 @@ const Navbar = () => {
   );
 }
 
-export default Navbar;
+export { Navbar };

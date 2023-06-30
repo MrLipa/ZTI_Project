@@ -8,7 +8,13 @@ import { useUserQuery } from "../api/ApiHooks";
 import useAuth from "../hooks/useAuth";
 import { User } from "../typescript/interfaces";
 
-
+/**
+ * @typedef {Object} NotificationIcon
+ * @description This React component represents a notification icon.
+ * When clicked, it reveals a menu with a list of user notifications/messages.
+ * It retrieves the user's data using the useUserQuery hook.
+ * The component also handles pagination of the notifications/messages.
+ */
 const NotificationIcon = () => {
   const { auth } = useAuth();
 
@@ -41,6 +47,11 @@ const NotificationIcon = () => {
 
   const op = useRef<OverlayPanel | null>(null);
 
+  /**
+   * @typedef {Object} Notification
+   * @description This React component represents the notification menu.
+   * It displays a paginated list of user notifications/messages using the DataTable and Paginator components from PrimeReact.
+   */
   const Notification = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const rowsPerPage = 3;
@@ -101,4 +112,4 @@ const NotificationIcon = () => {
   );
 };
 
-export default NotificationIcon;
+export { NotificationIcon };

@@ -12,6 +12,16 @@ import { Button } from "primereact/button";
 import { useTranslation } from "react-i18next";
 import useAuth from "../hooks/useAuth";
 
+/**
+ * @typedef {Object} FlightComponentProps
+ * @property {string} id - The flight ID obtained from the URL parameter.
+ */
+
+/**
+ * @typedef {Object} FlightComponent
+ * @description This React component displays the details of a flight and allows the user to make a reservation.
+ * @returns {JSX.Element} FlightComponent
+ */
 const FlightComponent = () => {
   const { id = "0" } = useParams<{ id: string }>();
   const { t } = useTranslation("translations");
@@ -62,8 +72,8 @@ const FlightComponent = () => {
     });
   };
 
-  if (isLoading) return <div>Ładowanie...</div>;
-  if (isError) return <div>Błąd...</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error...</div>;
 
   return (
     <>
@@ -132,4 +142,4 @@ const FlightComponent = () => {
   );
 };
 
-export default FlightComponent;
+export { FlightComponent };

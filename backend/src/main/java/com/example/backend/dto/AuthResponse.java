@@ -2,6 +2,15 @@ package com.example.backend.dto;
 
 import java.util.List;
 
+/**
+ * This is a Data Transfer Object (DTO) class used for transferring authentication data.
+ * An instance of this class represents a response from an authentication request,
+ * containing the user's ID, access token, and roles after successful authentication.
+ *
+ * @author YourName
+ * @version 1.0
+ * @since 2023-06-30
+ */
 public class AuthResponse {
     private Long userId;
     private String accessToken;

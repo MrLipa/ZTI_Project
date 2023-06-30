@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 
+/**
+ * The AuthController class serves as the controller for handling all HTTP requests related to user authentication and authorization.
+ * This class utilizes the UserService, TokenService and JWTUtils for performing authentication operations.
+ * It handles CORS requests from specified local addresses.
+ */
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
 @RestController
 @RequestMapping("/")
@@ -26,6 +31,14 @@ public class AuthController {
     private final TokenService tokenService;
     private final JWTUtils jwtUtils;
 
+    /**
+     * The AuthController constructor which is autowired by Spring (via the @Autowired annotation)
+     * to provide an instance of UserService, TokenService and JWTUtils.
+     *
+     * @param userService The service that handles operations related to User objects.
+     * @param tokenService The service that handles operations related to Token objects.
+     * @param jwtUtils The utility class for generating and verifying JWT tokens.
+     */
     @Autowired
     public AuthController(UserService userService, TokenService tokenService, JWTUtils jwtUtils) {
         this.userService = userService;
@@ -33,6 +46,13 @@ public class AuthController {
         this.jwtUtils = jwtUtils;
     }
 
+    /**
+     * The register method handles the user registration process. It accepts a User object as a request body,
+     * hashes the user password using BCrypt and saves the user to the database.
+     *
+     * @param user The user to be registered.
+     * @return A response entity with a message indicating the user registration status.
+     */
     @PostMapping(path="/register")
     public ResponseEntity<String> register(@RequestBody User user){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -42,6 +62,14 @@ public class AuthController {
         return new ResponseEntity<>("User register", HttpStatus.OK);
     }
 
+    /**
+     * The handleLogin method is responsible for user authentication.
+     * It accepts a LoginRequest object as a request body and authenticates the user credentials.
+     *
+     * @param loginRequest The request body containing user login credentials.
+     * @param response The HttpServletResponse object.
+     * @return A response entity with an AuthResponse object that includes an access token and user roles.
+     */
     @PostMapping(path="/login")
     public ResponseEntity<AuthResponse> handleLogin(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         String email = loginRequest.getEmail();
@@ -84,6 +112,12 @@ public class AuthController {
         }
     }
 
+    /**
+     * The handleRefreshToken method handles the process of generating a new access token using a refresh token.
+     *
+     * @param request The HttpServletRequest object.
+     * @return A response entity with an AuthResponse object that includes a new access token and user roles.
+     */
     @GetMapping("/refresh")
     public ResponseEntity<AuthResponse> handleRefreshToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
@@ -123,6 +157,14 @@ public class AuthController {
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
 
+    /**
+     * The handleLogout method handles the process of user logout.
+     * It clears the refresh token from the user cookies and deletes the refresh token from the database.
+     *
+     * @param request The HttpServletRequest object.
+     * @param response The HttpServletResponse object.
+     * @return A response entity with a message indicating the user logout status.
+     */
     @GetMapping("/logout")
     public ResponseEntity<String> handleLogout(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();

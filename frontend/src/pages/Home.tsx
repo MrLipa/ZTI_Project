@@ -3,10 +3,15 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import backgroundImage from "../images/background.jpg";
-import FlightCards from "./../components/FlightCards";
-import Navbar from "./../components/Navbar";
-import Footer from "./../components/Footer";
+import { FlightCards } from "./../components/FlightCards";
+import { Navbar } from "./../components/Navbar";
+import { Footer } from "./../components/Footer";
 
+/**
+ * @typedef {Object} Home
+ * @description This React component represents the Home page.
+ * @returns {JSX.Element} Home
+ */
 const Home = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -33,11 +38,11 @@ const Home = () => {
           }}
         >
           <h1 className="display-4 mb-4" style={{ color: "#ffffff" }}>
-          Travel with maximum comfort
+            Travel with maximum comfort
           </h1>
           <br />
           <p className="lead mb-4" style={{ color: "#ffffff" }}>
-          Find the best travel deals and book your dream trip.
+            Find the best travel deals and book your dream trip.
           </p>
           <br />
           <div className="p-inputgroup">
@@ -47,7 +52,7 @@ const Home = () => {
               </i>
             </span>
             <InputText
-              placeholder={"From" as string}
+              placeholder="From"
               style={{ marginRight: ".5em" }}
               value={from}
               onChange={(e) => setFrom(e.target.value)}
@@ -58,13 +63,13 @@ const Home = () => {
               </i>
             </span>
             <InputText
-              placeholder={"To" as string}
+              placeholder="To"
               style={{ marginRight: ".5em" }}
               value={to}
               onChange={(e) => setTo(e.target.value)}
             />
             <Button
-              label={"Search"}
+              label="Search"
               icon="pi pi-search"
               className="p-button-rounded"
             />
@@ -77,4 +82,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export { Home };

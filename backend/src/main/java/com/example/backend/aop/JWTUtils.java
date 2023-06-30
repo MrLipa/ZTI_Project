@@ -16,6 +16,15 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * JWTUtils is a utility class responsible for generating, verifying, and managing JSON Web Tokens (JWTs).
+ * This class utilizes the auth0 JWT library for token generation and verification.
+ *
+ * This class is annotated with @Component to indicate that it is an auto-detectable
+ * Spring Bean and will be automatically instantiated and managed by the Spring container.
+ *
+ * @author Your Name
+ */
 @Component
 public class JWTUtils {
     private final TokenService tokenService;
@@ -24,12 +33,25 @@ public class JWTUtils {
         this.tokenService = tokenService;
     }
 
+    /**
+     * Secrets to be used for generating access and refresh tokens.
+     */
     private static final String ACCESS_TOKEN_SECRET = "3f8c8a5f3bd380a3c0490827978976db0977d50b05322e92c615a403eab7d24ebbfa5024c863577f5ac79d7dab850358b77c324e9b23398868a7a97671590ef3";
     private static final String REFRESH_TOKEN_SECRET = "e6fd2bf6b37b143c5b12e8b55a41c8f6d529e17c6289dfc14b2228db35a39658b0e77e0f59060107ea8e0e600f0820b1ba5a090294f9b356eac1211a0ab9cae5";
+
+    /**
+     * Expiration times for access and refresh tokens.
+     */
     private static final long ACCESS_TOKEN_EXPIRATION_TIME = 15 * 1000;
     private static final long REFRESH_TOKEN_EXPIRATION_TIME = 24 * 60 * 60 * 1000;
+
     private static final Logger logger = Logger.getLogger(JWTUtils.class.getName());
 
+    /**
+     * @param userId The unique identifier of the user
+     * @param email The email of the user
+     * @return a JWT access token
+     */
     public String generateJWTToken(Long userId, String email) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(ACCESS_TOKEN_SECRET);
@@ -53,6 +75,11 @@ public class JWTUtils {
         }
     }
 
+    /**
+     * @param userId The unique identifier of the user
+     * @param email The email of the user
+     * @return a JWT refresh token
+     */
     public String generateJWTRefreshToken(Long userId, String email) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(REFRESH_TOKEN_SECRET);
@@ -80,6 +107,10 @@ public class JWTUtils {
         }
     }
 
+    /**
+     * @param token The JWT token
+     * @return true if the JWT token is verified, false otherwise
+     */
     public boolean verifyJWTToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(ACCESS_TOKEN_SECRET);
@@ -106,6 +137,10 @@ public class JWTUtils {
         }
     }
 
+    /**
+     * @param refreshToken The JWT refresh token
+     * @return true if the JWT refresh token is verified, false otherwise
+     */
     public boolean verifyJWTRefreshToken(String refreshToken) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(REFRESH_TOKEN_SECRET);
@@ -132,6 +167,9 @@ public class JWTUtils {
         }
     }
 
+    /**
+     * @param refreshToken The JWT refresh token that will be deleted
+     */
     public void deleteRefreshToken(String refreshToken) {
         tokenService.deleteRefreshToken(refreshToken);
     }
